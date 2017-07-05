@@ -1,2 +1,3 @@
 # ipynb-demo
-Demo research website using ipython notebooks.
+
+View the project website here.
