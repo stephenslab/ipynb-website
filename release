@@ -1,0 +1,115 @@
+#!/usr/bin/env sos-runner
+#fileformat=SOS1.0
+
+parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
+parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y != "{}/index.ipynb".format(x)] for x in binders], [])
+parameter: pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x))] for x in binders], [])
+parameter: home_url = "http://${CONFIG['repo']!db}.github.io/${CONFIG['repo']!b}"
+
+[download_template]
+download:
+  https://github.com/gaow/jnbinder/archive/master.zip
+run:
+  unzip master.zip
+  mv jnbinder-master/docs ./
+  mv jnbinder-master/config.yml ./
+  rm -rf jnbinder-master master.zip
+
+[check-link]
+depends: executable('linkchecker')
+run:
+  linkchecker ${home_url}
+
+[update-tpl]
+# set up templates in existing directories
+# and update gitignore file
+depends: 'docs/jnbinder.py'
+output: ["docs/{}.tpl".format(x) for x in binders] + ['docs/index.tpl', '.gitignore']
+python: 
+import os, sys
+sys.path.append('docs')
+from jnbinder import make_template
+conf = {'name': ${CONFIG['name']!r}, 'repo': ${CONFIG['repo']!r}, 'footer': ${CONFIG['footer']!r}, 'disqus': ${CONFIG['disqus']!r}}
+make_template(conf, [${binders!r,}], 'docs')
+flag = True
+if os.path.isfile('.gitignore'):
+  lines = [x.strip() for x in open('.gitignore').readlines()]
+  if '**/.sos' in lines:
+    flag = False
+if flag:
+  with open('.gitignore', 'a') as f:
+    f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
+
+[update-index]
+# update index
+input: for_each = ['binders']
+output: ["{}/_index.ipynb".format(x) for x in binders]
+python:
+import os, sys
+sys.path.append('docs')
+from jnbinder import make_index_nb, make_empty_nb
+data = make_index_nb(${_binders!r})
+with open('${_binders}/_index.ipynb', 'w') as f:
+    f.write(data.strip())
+if not os.path.isfile("homepage.ipynb"):
+   with open('homepage.ipynb', 'w') as f:
+        f.write(make_empty_nb(${CONFIG['name']!r}))
+
+[update-hp]
+# update homepages HTML
+input: ['{}/index.ipynb'.format(x) if os.path.isfile('{}/index.ipynb'.format(x)) else '{}/_index.ipynb'.format(x) for x in binders] + ["homepage.ipynb"], group_by = 1
+output: 'docs/' + _input[0].replace('/_index', '').replace('/index', '').replace('homepage.ipynb', 'index.ipynb').replace('.ipynb', '.html')
+task:
+run:
+  sos convert ${_input!a} ${_output!a} --template docs/index.tpl --log-level 0
+  perl -0777 -pi -e 'BEGIN{undef $/;}  s/<style type=\"text\/css\">(.+?)<\/style>//smg' ${_output!a}
+  perl -0777 -pi -e 'BEGIN{undef $/;}  s/<link rel="stylesheet" href="custom.css">//smg' ${_output!a}
+  awk -i inplace '/\S/' ${_output!a}
+
+[update-nb]
+# update notebook HTML
+input: notebook_files, group_by = 1
+output: 'docs/' + _input[0].replace('.ipynb', '.html')
+task:
+run:
+  sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
+  perl -0777 -pi -e 'BEGIN{undef $/;}  s/<style type=\"text\/css\">(.+?)<\/style>//smg' ${_output!a}
+  perl -0777 -pi -e 'BEGIN{undef $/;}  s/<link rel="stylesheet" href="custom.css">//smg' ${_output!a}
+  awk -i inplace '/\S/' ${_output!a}
+
+[update-sos]
+# update pipeline HTML
+input: pipeline_files, group_by = 1
+output: 'docs/' + _input[0].replace('.sos', '.pipeline.html')
+task:
+run:
+  sos convert ${_input} ${_output} --log-level 0
+
+[update-toc]
+# update js file for toc
+import sys
+sys.path.append('docs')
+from jnbinder import get_toc
+out = [get_toc(x) for x in binders]
+with open('docs/js/docs.js', 'w') as f:
+  f.write('\n'.join(['\n'.join(x) for x in out]))
+
+[default_1]
+# compile everything
+if len(binders):
+   sos_run('update-tpl')
+   sos_run('update-index')
+   sos_run('update-hp')
+if len(notebook_files):
+   sos_run('update-nb')
+if len(pipeline_files):
+   sos_run('update-sos')
+sos_run('update-toc')
+
+[default_2]
+# release website
+run:
+  git add --all docs/*
+  git commit docs/* --no-verify -m "${CONFIG['commit_message']}"
+  git push --no-verify
+  ${CONFIG['post_push_actions']}
