@@ -1,5 +1,3 @@
-analysis/.ipynb_checkpoints
-
-**/.sos
-**/.ipynb_checkpoints
+.sos
+.ipynb_checkpoints
 docs/__pycache__
