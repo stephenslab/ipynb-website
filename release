@@ -64,7 +64,7 @@ run:
   sos convert ${_input!a} ${_output!a} --template docs/index.tpl --log-level 0
   perl -0777 -pi -e 'BEGIN{undef $/;}  s/<style type=\"text\/css\">(.+?)<\/style>//smg' ${_output!a}
   perl -0777 -pi -e 'BEGIN{undef $/;}  s/<link rel="stylesheet" href="custom.css">//smg' ${_output!a}
-  awk -i inplace '/\S/' ${_output!a}
+# awk -i inplace '/\S/' ${_output!a}
 
 [update-nb]
 # update notebook HTML
@@ -75,7 +75,7 @@ run:
   sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
   perl -0777 -pi -e 'BEGIN{undef $/;}  s/<style type=\"text\/css\">(.+?)<\/style>//smg' ${_output!a}
   perl -0777 -pi -e 'BEGIN{undef $/;}  s/<link rel="stylesheet" href="custom.css">//smg' ${_output!a}
-  awk -i inplace '/\S/' ${_output!a}
+# awk -i inplace '/\S/' ${_output!a}
 
 [update-sos]
 # update pipeline HTML

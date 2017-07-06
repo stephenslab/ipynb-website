@@ -1,0 +1,2 @@
+var analysisArray = ["compute-pcs", "plot-pcs"]
+var analysisDict = {"Analysis_1":" index","Computing_PCs_using_rsvd_1":"compute-pcs","Computing_and_visualizing_PCs_using_rsvd_and_ggplot2:_an_illustration_1":"index","Plotting_Iris_PCA_results_using_ggplot2_1":"plot-pcs"}

@@ -6,7 +6,7 @@ import json
 def get_nav(dirs):
     out = '''
 <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">Overview</a>
 </li>
     '''
     for item in dirs:
@@ -55,7 +55,7 @@ def get_index_tpl(conf, dirs):
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -212,7 +212,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">m&m ash</a>
+      <a class="navbar-brand" href="index.html">rsvd + ggplot2 demo</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -221,7 +221,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="%s">
-    <span class="fa fa-github"></span>
+    source
   </a>
 </li>
       </ul>

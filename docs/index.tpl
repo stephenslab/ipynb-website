@@ -1,4 +1,7 @@
+{%- extends 'basic.tpl' -%}
 
+{%- block header -%}
+{{ super() }}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,12 +20,16 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
-
+<style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
       href="site_libs/highlight/textmate.css"
       type="text/css" />
 <script src="site_libs/highlight/highlight.js"></script>
-
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
    window.setTimeout(function() {
@@ -188,15 +195,9 @@ $(document).ready(function () {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Welcome-to-ipython-notebook-research-website!">Welcome to ipython notebook research website!<a class="anchor-link" href="#Welcome-to-ipython-notebook-research-website!">&#182;</a></h1>
-</div>
-</div>
-</div>
+
+{%- endblock header -%}
+{% block footer %}
 <hr>
 &copy 2017 Peter Carbonetto
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
@@ -221,3 +222,4 @@ $(document).ready(function () {
 </script>
 </body>
 </html>
+{% endblock %}
