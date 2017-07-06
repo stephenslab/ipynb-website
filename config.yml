@@ -1,7 +1,7 @@
-name: "m&m ash"
-repo: "http://github.com/gaow/mvarbvs"
-footer: "&copy 2016-2017 Stephenslab, University of Chicago"
-exclude_dir: ["src", "reference", "data"]
+name: "ipython notebook research website"
+repo: "http://github.com/pcarbo/ipynb-demo"
+footer: "&copy 2017 Peter Carbonetto"
+exclude_dir: ["data"]
 disqus: NULL
-commit_message: "Update website via jnbinder"
+commit_message: "Update website via jnbinder."
 post_push_actions: "echo 'for additional commands after push'"
