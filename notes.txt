@@ -10,15 +10,14 @@ Instructions:
    ./release default:1 -s force
 
 To do:
-• Fix m&m
-• Fix awk
-• Fix cell labels.
-• Make github repo link in navbar configurable.
-• Make left-hand-side TOC configurable.
-• Add config option for generating TOC.
-• Change exclude_dir to include_dir in config.yml.
-• change default_2 to another name.
-• change release to build_website
-• add new options to config.yml
-• Remove this line from HTML:
+* Fix m&m
+* Fix awk
+* Make github repo link in navbar configurable.
+* Make left-hand-side TOC configurable.
+* Add config option for generating TOC.
+* Change exclude_dir to include_dir in config.yml.
+* change default_2 to another name.
+* change release to build_website
+* add new options to config.yml
+* Remove this line from HTML:
     font-family: "Droid Sans";
