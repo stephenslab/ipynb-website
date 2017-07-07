@@ -2543,7 +2543,7 @@ input[type="search"] {
 input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 0 0;
-  margin-top: 1px \9;
+  margin-top: 1px;
   line-height: normal;
 }
 input[type="file"] {
@@ -2625,7 +2625,8 @@ textarea.form-control {
 input[type="search"] {
   -webkit-appearance: none;
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
+/* @media screen and (-webkit-min-device-pixel-ratio: 0) { */
+@media screen {
   input[type="date"].form-control,
   input[type="time"].form-control,
   input[type="datetime-local"].form-control,
@@ -2677,7 +2678,7 @@ input[type="search"] {
 .checkbox-inline input[type="checkbox"] {
   position: absolute;
   margin-left: -20px;
-  margin-top: 4px \9;
+  margin-top: 4px;
 }
 .radio + .radio,
 .checkbox + .checkbox {
@@ -3528,7 +3529,7 @@ tbody.collapse.in {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-top: 4px solid \9;
+  border-top: 4px solid;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -3644,7 +3645,7 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
+  border-bottom: 4px solid;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -6418,7 +6419,7 @@ button.close {
   border: 1px solid #fff;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: #000;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
@@ -6546,7 +6547,7 @@ button.close {
   visibility: hidden;
 }
 .text-hide {
-  font: 0/0 a;
+  /* font: 0/0 a; */
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -12933,14 +12934,14 @@ div.rendered_html h5 {
  font-size: 150%;
  color: #126dce;
  font-weight: lighter;
- text-decoration: italic;
+ /* text-decoration: italic; */
  font-style: normal;
 }
 .rendered_html h4,
 .text_cell_render h4 {
  font-size: 120%;
  color: #126dce;
- font-weight: underline;
+ /* font-weight: underline; */
  font-style: normal;
 }
 .rendered_html h5,
@@ -13646,7 +13647,6 @@ span.save_widget span.filename:hover {
  padding-top: 4px;
  background-color: #ffffff;
 }
-13583,13644d13
 /**********************************
  MathJax Settings and Style Script
 **********************************/
@@ -13679,14 +13679,14 @@ div#notebook {
   div.cell {
     display: block;
     page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
   }
-  div.output { 
+  div.output_wrapper {
     display: block;
-    page-break-inside: avoid; 
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
   }
 }
 
