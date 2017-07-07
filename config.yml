@@ -6,3 +6,4 @@ homepage: "analysis/Overview.ipynb"
 source_label: "source"
 theme: "readable"
 font: NULL
+#release_message: "Build website via jnbinder"
