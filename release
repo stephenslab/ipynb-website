@@ -110,7 +110,7 @@ with open('docs/js/docs.js', 'w') as f:
 [release-website]
 # release website
 run:
-  cd docs && git add . && git commit --no-verify -m "${CONFIG['commit_message']}" && git push --no-verify
+  cd docs && git add . && git commit --no-verify -m "${CONFIG['release_message']}" && git push --no-verify
 if CONFIG['post_release_actions']:
    run('''${CONFIG['post_release_actions']}''')
 
