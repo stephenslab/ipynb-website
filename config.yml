@@ -12,6 +12,10 @@ footer: "&copy 2017 Peter Carbonetto"
 # into webpages.
 include_dir: ["analysis", "license"]
 
+# Do not add links to the navigation bar for .ipynb notebooks in these
+# directories.
+hide_navbar: ["analysis"]
+
 # Any .ipynb notebooks listed here will not be rendered into webpages
 # (e.g., "analysis/temp.Rmd").
 exclude_file: []
