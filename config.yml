@@ -1,5 +1,5 @@
-# The name of the link shown at the top-right corner of the navigation
-# bar.
+# The name of the project shown in the navigation bar (it links to the
+# home page).
 name: "PCA demo"
 
 # Link to the source repository (e.g., on Github).
@@ -19,7 +19,20 @@ exclude_file: []
 # Notebook used to generate home page.
 homepage: "analysis/index.ipynb"
 
+# The name of the homepage link shown in the navigation bar.
+homepage_label: "Overview"
+
+# The name of the link to the source repository. It is shown in the
+# top-right corner of the navigation bar.
 source_label: "source"
+
+# Bootstrap theme; see the files in docs/site_libs/bootstrap-3.3.5/css
+# for the available themes.
 theme: "readable"
+
+# Font used to show all code and text in the .ipynb notebooks (e.g.,
+# "Droid Sans"). Set to NULL to inherit the font used by the Bootsrap
+# theme.
 font: NULL
+
 #release_message: "Build website via jnbinder"
