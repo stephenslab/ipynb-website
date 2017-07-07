@@ -3,19 +3,68 @@ import glob
 import re
 import json
 
-def get_nav(dirs):
+def get_nav(dirs, home_label, prefix = './'):
     out = '''
 <li>
-  <a href="index.html">Overview</a>
+  <a href="{}index.html">{}</a>
 </li>
-    '''
+    '''.format(prefix, home_label)
     for item in dirs:
         out += '''
 <li>
-  <a href="{0}.html">{1}</a>
+  <a href="{}{}.html">{}</a>
 </li>
-        '''.format(item, item.capitalize())
+        '''.format(prefix, item, item.capitalize())
     return out
+
+def get_font(font):
+    if font is None:
+        return ''
+    else:
+        return 'font-family: "{}";'.format(font)
+
+def get_sidebar(path):
+    return '''
+<script>
+$( document ).ready(function(){
+            var cfg={'threshold':{{ nb.get('metadata', {}).get('toc', {}).get('threshold', '3') }},     // depth of toc (number of levels)
+             'number_sections': false,
+             'toc_cell': false,          // useless here
+             'toc_window_display': true, // display the toc window
+             "toc_section_display": "block", // display toc contents in the window
+             'sideBar':true,       // sidebar or floating window
+             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
+            }
+            var st={};                  // some variables used in the script
+            st.rendering_toc_cell = false;
+            st.config_loaded = false;
+            st.extension_initialized=false;
+            st.nbcontainer_marginleft = $('#notebook-container').css('margin-left')
+            st.nbcontainer_marginright = $('#notebook-container').css('margin-right')
+            st.nbcontainer_width = $('#notebook-container').css('width')
+            st.oldTocHeight = undefined
+            st.cell_toc = undefined;
+            st.toc_index=0;
+            // fire the main function with these parameters
+            table_of_contents(cfg, st);
+            var file=%sDict[$("h1:first").attr("id")];
+            $("#toc-level0 a").css("color","#126dce");
+            $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
+            var docs=%sArray;
+            var pos=%sArray.indexOf(file);
+            for (var a=pos;a>=0;a--){
+                  var name=docs[a]
+                  $('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>').insertBefore("#toc-level0 li:eq(0)");
+            }
+            $('a[href="'+file+'.html'+'"]').css("color","#126dce");
+            for (var a=pos+1;a<docs.length;a++){
+                  var name=docs[a]
+                  $(".toc #toc-level0").append('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>');
+            }
+            $("#toc-header").hide();
+    });
+</script>
+''' % (path, path, path)
 
 def get_disqus(name):
     if name is None:
@@ -55,7 +104,7 @@ def get_index_tpl(conf, dirs):
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/%s.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -83,8 +132,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         extensions: ["tex2jax.js"],
         jax: ["input/TeX", "output/HTML-CSS"],
         tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        inlineMath: [ ['$','$'], ["\\\\(","\\\\)"] ],
+        displayMath: [ ['$$','$$'] ["\\\\[","\\\\]"] ],
         processEscapes: true
         },
         "HTML-CSS": {
@@ -123,8 +172,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 
 body {
-  font-family: "Droid Sans";
-  font-size: 175%%;
+  %s
+  font-size: 160%%;
   padding-top: 51px;
   padding-bottom: 40px;
 }
@@ -212,7 +261,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">rsvd + ggplot2 demo</a>
+      <a class="navbar-brand" href="index.html">%s</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -220,11 +269,11 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="%s">
-    source
-  </a>
-</li>
-      </ul>
+    <a href="%s">
+    %s
+    </a>
+    </li>
+    </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -249,53 +298,69 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['name'], get_nav(dirs),
-           conf['repo'], conf['footer'],
+	''' % (conf['name'], conf['theme'], get_font(conf['font']),
+           conf['name'], get_nav(dirs, conf['homepage_label']),
+           conf['repo'], conf['source_label'], conf['footer'],
            get_disqus(conf['disqus']))
     return content
 
-def get_notebook_tpl(conf, path):
+def get_notebook_tpl(conf, dirs, path):
     '''Generate notebook template at given path'''
     content = '''
-{%%- extends 'full.tpl' -%%}
+{%%- extends 'basic.tpl' -%%}
 
 {%%- block header -%%}
 {{ super() }}
-
- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-<style>  /* defined here in case the main.css below cannot be loaded */
-.lev1 {margin-left: 80px}
-.lev2 {margin-left: 100px}
-.lev3 {margin-left: 120px}
-.lev4 {margin-left: 140px}
-.lev5 {margin-left: 160px}
-.lev6 {margin-left: 180px}
-</style>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
 
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/%s.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlight/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlight/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
         jax: ["input/TeX", "output/HTML-CSS"],
         tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        inlineMath: [ ['$','$'], ["\\\\(","\\\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\\\[","\\\\]"] ],
         processEscapes: true
         },
         "HTML-CSS": {
@@ -310,57 +375,83 @@ def get_notebook_tpl(conf, path):
         }
     });
 </script>
-
+%s
 <script>
-$( document ).ready(function(){
-            var cfg={'threshold':{{ nb.get('metadata', {}).get('toc', {}).get('threshold', '3') }},     // depth of toc (number of levels)
-             'number_sections': false,
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'sideBar':true,       // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
-
-            var st={};                  // some variables used in the script
-            st.rendering_toc_cell = false;
-            st.config_loaded = false;
-            st.extension_initialized=false;
-            st.nbcontainer_marginleft = $('#notebook-container').css('margin-left')
-            st.nbcontainer_marginright = $('#notebook-container').css('margin-right')
-            st.nbcontainer_width = $('#notebook-container').css('width')
-            st.oldTocHeight = undefined
-            st.cell_toc = undefined;
-            st.toc_index=0;
-
-            // fire the main function with these parameters
-
-            table_of_contents(cfg, st);
-
-            var file=%sDict[$("h1:first").attr("id")];
-            $("#toc-level0 a").css("color","#126dce");
-            $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
-            var docs=%sArray;
-            var pos=%sArray.indexOf(file);
-
-            for (var a=pos;a>=0;a--){
-                  var name=docs[a]
-                  $('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>').insertBefore("#toc-level0 li:eq(0)");
-            }
-            $('a[href="'+file+'.html'+'"]').css("color","#126dce");
-
-
-            $('<li id="indexHome"><a href="../%s.html"><b>%s Home<b></a></li>').insertBefore("#toc-level0 li:eq(0)");
-            for (var a=pos+1;a<docs.length;a++){
-                  var name=docs[a]
-                  $(".toc #toc-level0").append('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>');
-            }
-            $("#toc-header").hide();
-    });
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
 </script>
 
+<title>%s</title>
+
+<style type = "text/css">
+body {
+  %s
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">%s</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        %s
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+    <a href="%s">
+    %s
+    </a>
+    </li>
+    </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 {%%- endblock header -%%}
-	''' % (path, path, path, path, path.replace('_', ' ').capitalize())
+{%% block footer %%}
+</div>
+</div>
+</body>
+</html>
+{%% endblock %%}
+	''' % (conf['theme'], get_sidebar(path) if conf['nb_toc'] else '',
+           conf['name'], get_font(conf['font']),
+           conf['name'], get_nav(dirs, conf['homepage_label'], '../'),
+           conf['repo'], conf['source_label'])
     return content
 
 def make_template(conf, dirs, outdir):
@@ -368,15 +459,17 @@ def make_template(conf, dirs, outdir):
         f.write(get_index_tpl(conf, dirs).strip())
     for item in dirs:
         with open('{}/{}.tpl'.format(outdir, item), 'w') as f:
-            f.write(get_notebook_tpl(conf, item).strip())
+            f.write(get_notebook_tpl(conf, dirs, item).strip())
 
-def get_notebook_toc(path):
+def get_notebook_toc(path, exclude):
     out = "var %sDict = {" % os.path.basename(path)
     for fn in sorted(glob.glob(os.path.join(path, "*.ipynb"))):
-        name = os.path.basename(fn[:-6]).replace('_', ' ')
+        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] + exclude:
+            continue
+        name = os.path.basename(fn[:-6]).replace('_', ' ').strip()
         with open(fn) as f:
             data = json.load(f)
-        title = data["cells"][0]["source"][0].replace(" ", "_")[2:].strip() + "_1"
+        title = data["cells"][0]["source"][0].replace(" ", "-")[2:].strip() + "-1"
         out +='"' + title + '":"' + name + '",'
     if not out.endswith('{'):
         out = out[:-1]
@@ -399,10 +492,10 @@ def get_index_toc(path):
                 out += '"' + doc.group(2) + '", '
     return out.rstrip().rstrip(',') + ']'
 
-def get_toc(path):
-    return [get_index_toc(path) + '\n' + get_notebook_toc(path)]
+def get_toc(path, exclude):
+    return [get_index_toc(path) + '\n' + get_notebook_toc(path, exclude)]
 
-def make_index_nb(path):
+def make_index_nb(path, exclude):
     out = '''
 {
  "cells": [
@@ -421,7 +514,7 @@ def make_index_nb(path):
    ]
   },''' % os.path.basename(path.capitalize())
     for fn in sorted(glob.glob(os.path.join(path, "*.ipynb"))):
-        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb']:
+        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] + exclude:
             continue
         name = os.path.splitext(os.path.basename(fn))[0].replace('_', ' ')
         with open(fn) as f:
@@ -436,7 +529,8 @@ def make_index_nb(path):
     "&nbsp; &nbsp; %s"
    ]
   },''' % (name, path, os.path.splitext(os.path.basename(fn))[0] + '.html', title)
-    if len(glob.glob(os.path.join(path, "*.sos"))):
+    sos_files = [x for x in glob.glob(os.path.join(path, "*.sos")) if not x in exclude]
+    if len(sos_files):
         out += '''
       {
        "cell_type": "markdown",
@@ -446,7 +540,7 @@ def make_index_nb(path):
        ]
       },
         '''
-    for fn in sorted(glob.glob(os.path.join(path, "*.sos"))):
+    for fn in sos_files:
         name = os.path.splitext(os.path.basename(fn))[0].replace('_', ' ')
         out += '''
   {

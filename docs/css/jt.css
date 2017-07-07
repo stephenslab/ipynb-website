@@ -10,7 +10,7 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -64,10 +64,10 @@ strong {
 dfn {
   font-style: italic;
 }
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
+/* h1 { */
+/*   font-size: 2em; */
+/*   margin: 0.67em 0; */
+/* } */
 mark {
   background: #ff0;
   color: #000;
@@ -109,7 +109,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, monospace;
-  font-size: 1em;
+  font-size: 80%;
 }
 button,
 input,
@@ -134,6 +134,21 @@ input[type="submit"] {
   -webkit-appearance: button;
   cursor: pointer;
 }
+
+.scatterplot_by_rowname div.xAxis div.tickLabel {
+    transform: translateY(15px) translateX(15px) rotate(45deg);
+    -ms-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -moz-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -webkit-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -o-transform: translateY(15px) translateX(15px) rotate(45deg);
+    /*rotation-point:50% 50%;*/
+    /*rotation:270deg;*/
+}
+
+.sos_dataframe td, .sos_dataframe th {
+    white-space: nowrap;
+}
+
 button[disabled],
 html input[disabled] {
   cursor: default;
@@ -162,6 +177,19 @@ input[type="search"] {
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
+}
+
+.sos_hint {
+  color: rgba(0,0,0,.4);
+  font-family: monospace;
+}
+.session_info td th {
+   text-align: left;
+}
+.session_section {
+   text-align: left;
+   font-weight: bold;
+   font-size: 120%;
 }
 fieldset {
   border: 1px solid #c0c0c0;
@@ -1079,9 +1107,9 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 1.42857143;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  /* font-size: 13px; */
+  /* line-height: 1.42857143; */
   color: #000;
   background-color: #fff;
 }
@@ -1300,7 +1328,7 @@ p {
 }
 small,
 .small {
-  font-size: 92%;
+  font-size: 80%;
 }
 mark,
 .mark {
@@ -5973,7 +6001,8 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  font-family: inherit;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -6091,7 +6120,8 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  font-family: inherit;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -6359,7 +6389,8 @@ button.close {
   width: 20px;
   height: 20px;
   line-height: 1;
-  font-family: serif;
+  /* font-family: serif; */
+  font-family: inherit;
 }
 .carousel-control .icon-prev:before {
   content: '\2039';
@@ -10029,7 +10060,7 @@ div.output_area pre {
    the prompt div. */
 div.output_subarea {
   overflow-x: auto;
-  padding: 0.4em;
+  /* padding: 0.4em; */
   /* Old browsers */
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -10111,6 +10142,8 @@ div.output_unrecognized a:hover {
   font-style: italic;
 }
 .rendered_html strong {
+  /* font-family: sans-serif; */
+  font-family: inherit;
   font-weight: bold;
 }
 .rendered_html u {
@@ -10347,7 +10380,8 @@ h6:hover .anchor-link {
 .cm-header-5,
 .cm-header-6 {
   font-weight: bold;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  font-family: inherit;
 }
 .cm-header-1 {
   font-size: 185.7%;
@@ -11578,7 +11612,7 @@ ul.typeahead-list > li > a {
   .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
+/*.highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
 .highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
@@ -11704,7 +11738,8 @@ div#notebook {
 }
 body,
 div.body {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  color: #303030;
  background-color: #ffffff;
@@ -11718,7 +11753,8 @@ body.notebook_app {
  overflow-y: hidden;
 }
 a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  color: #303030;
 }
 a:hover,
@@ -11809,11 +11845,13 @@ div.running_list_info.toolbar_info {
  vertical-align: text-top;
 }
 div#notebook_toolbar div.dynamic-instructions {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
 }
 .toolbar_info {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  color: #303030;
  text-shadow: none;
@@ -11901,7 +11939,8 @@ div.list_item:hover {
  text-shadow: none !important;
 }
 ul#tabs a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  font-weight: normal;
  font-style: normal;
@@ -11909,7 +11948,8 @@ ul#tabs a {
  text-shadow: none !important;
 }
 .nav-tabs {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  font-weight: normal;
  font-style: normal;
@@ -11946,7 +11986,8 @@ ul#tabs a {
  color: #aaaaaa;
 }
 div#notebook {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  padding-top: 4px;
 }
@@ -11980,7 +12021,8 @@ div#ipython-main-app.container {
  border-bottom: 2px solid rgba(180,180,180,.14);
 }
 #header {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  box-shadow: none;
  background-color: #ffffff;
@@ -12005,28 +12047,30 @@ body > #header .header-bar {
  border: none;
 }
 .navbar-default {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  background-color: #ffffff;
  border-color: rgba(180,180,180,.14);
- line-height: 1.5em;
+ /* line-height: 1.5em; */
  padding-bottom: 0px;
 }
 .navbar-default .navbar-nav > li > a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  color: #303030;
  display: block;
- line-height: 1.5em;
- padding-top: 8px;
- padding-bottom: 6px;
+ /* line-height: 1.5em; */
+ /* padding-top: 8px; */
+ /* padding-bottom: 6px; */
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
  color: #2f2f2f;
  background-color: rgba(180,180,180,.14);
  border-color: rgba(180,180,180,.14);
- line-height: 1.5em;
+ /* line-height: 1.5em; */
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
@@ -12034,7 +12078,7 @@ body > #header .header-bar {
  color: #1c1c1c;
  background-color: rgba(180,180,180,.14);
  border-color: rgba(180,180,180,.14);
- line-height: 1.5em;
+ /* line-height: 1.5em; */
 }
 .edit_mode .modal_indicator:before {
  font-size: 12pt;
@@ -12122,7 +12166,8 @@ i.fa.fa-icon {
  -moz-osx-font-smoothing: grayscale;
 }
 .dropdown-menu {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  box-shadow: none;
  padding: 0px;
@@ -12134,7 +12179,8 @@ i.fa.fa-icon {
  margin: 0px;
 }
 .dropdown-menu:hover {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  border: 2px solid rgba(180,180,180,.30);
  background-color: #ffffff;
@@ -12142,7 +12188,8 @@ i.fa.fa-icon {
  line-height: 1.3;
 }
 .dropdown-header {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  display: block;
  color: #ff7823;
@@ -12152,7 +12199,8 @@ i.fa.fa-icon {
  line-height: 1.3;
 }
 .dropdown-menu > li > a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  line-height: 1.3;
  display: block;
@@ -12183,7 +12231,8 @@ i.fa.fa-icon {
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  font-weight: normal;
  color: #aaaaaa;
@@ -12211,7 +12260,8 @@ div.kse-dropdown > .dropdown-menu,
 }
 .btn,
 .btn-default {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  color: #303030;
  background: #ebebeb;
  background-color: #ebebeb;
@@ -12306,7 +12356,8 @@ div.kse-dropdown > .dropdown-menu,
 }
 button.close {
  border: 0px none;
- font-family: sans-serif;
+ /* font-family: sans-serif; */
+ font-family: inherit;
  font-size: 25pt;
 }
 .dynamic-buttons {
@@ -12417,7 +12468,8 @@ div.modal-footer > button:hover {
  border-color: #e9e9e9;
 }
 .modal-content {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  position: relative;
  background: #eeeeee;
@@ -12428,7 +12480,8 @@ div.modal-footer > button:hover {
  outline: none;
 }
 .modal-header {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  color: #303030;
  background: #eeeeee;
@@ -12438,7 +12491,8 @@ div.modal-footer > button:hover {
  min-height: 16.4286px;
 }
 .modal-content h4 {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 16pt;
  color: #303030;
  padding: 5px;
@@ -12472,7 +12526,8 @@ div.panel,
 div.panel-default,
 .panel,
 .panel-default {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  background-color: #f8f8f8;
  color: #303030;
@@ -12500,7 +12555,8 @@ div.container-fluid {
 }
 div.form-control,
 .form-control {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: inherit;
  color: #303030;
  background-color: #ffffff;
@@ -12549,18 +12605,19 @@ div.output.output_scroll {
  border-radius: 2px;
 }
 div.input_area {
- background-color: #efefef;
+ background-color: whitesmoke;
  padding-right: 1.2em;
  border: 0px;
  border-top-left-radius: 0px;
  border-top-right-radius: 2px;
  border-bottom-left-radius: 0px;
  border-bottom-right-radius: 0px;
+ opacity: 0.95;
 }
 div.cell {
  padding: 0px;
- background: #efefef;
- background-color: #efefef;
+ /* background: #efefef; */
+ /* background-color: #efefef;  */
  border: medium solid #ffffff;
  border-top-right-radius: 2px;
  border-top-left-radius: 2px;
@@ -12604,7 +12661,7 @@ div.prompt,
  width: 12ex;
 }
 div.prompt.input_prompt {
- background-color: #efefef;
+ /* background-color: #efefef; */
  border-right: 2px solid rgba(240,147,43,.50);
  border-top-left-radius: 2px;
  border-top-right-radius: 0px;
@@ -12614,7 +12671,7 @@ div.prompt.input_prompt {
  width: 12ex !important;
 }
 div.output_wrapper {
- background-color: #ffffff;
+ /* background-color: #ffffff; */
  border: 0px;
  margin-bottom: 0em;
  margin-top: 0em;
@@ -12657,12 +12714,13 @@ div.output_html {
 }
 div.output_subarea {
  overflow-x: auto;
- padding: .8em;
+ /* padding: .8em; */
  -webkit-box-flex: 1;
  -moz-box-flex: 1;
  box-flex: 1;
  flex: 1;
  max-width: 90%;
+ background: #ffffff;
 }
 div.prompt.output_prompt {
  font-family: "Fira Code", monospace;
@@ -12701,7 +12759,8 @@ div.out_prompt_overlay.prompt:hover {
 div.text_cell,
 div.text_cell_render pre,
 div.text_cell_render {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  line-height: 170% !important;
  color: #353535;
@@ -12710,7 +12769,8 @@ div.text_cell_render {
  border-radius: 2px;
 }
 div.cell.text_cell.rendered.selected {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  border: medium solid #126dce;
  line-height: 170% !important;
  background: #ffffff;
@@ -12718,7 +12778,8 @@ div.cell.text_cell.rendered.selected {
  border-radius: 2px;
 }
 div.cell.text_cell.unrendered.selected {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12726,7 +12787,8 @@ div.cell.text_cell.unrendered.selected {
  border-radius: 2px;
 }
 div.cell.text_cell.selected {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  line-height: 170% !important;
  border: medium solid #126dce;
  background: #ffffff;
@@ -12734,7 +12796,8 @@ div.cell.text_cell.selected {
  border-radius: 2px;
 }
 .edit_mode div.cell.text_cell.selected {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12744,7 +12807,8 @@ div.cell.text_cell.selected {
 div.text_cell.unrendered,
 div.text_cell.unrendered.selected,
 div.edit_mode div.text_cell.unrendered {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12773,7 +12837,7 @@ div.cell.text_cell.unrendered .input_prompt {
 }
 div.rendered_html code {
  font-family: "PT Mono", monospace;
- font-size: 11pt;
+ /* font-size: 11pt; */
  padding-top: 3px;
  color: #303030;
  background: #efefef;
@@ -12787,7 +12851,7 @@ samp {
 }
 code {
  font-family: "PT Mono", monospace;
- font-size: 11pt !important;
+ /* font-size: 11pt !important; */
  line-height: 170% !important;
  color: #353535;
  background: #efefef;
@@ -12821,12 +12885,12 @@ div.text_cell_render pre {
  font-size: 11pt !important;
  line-height: 170% !important;
  color: #353535;
- background: #efefef;
+  background: #efefef;
  background-color: #efefef;
- border: 2px #e7e7e7  solid;
+ /* border: 2px #e7e7e7  solid; */
  max-width: 86%;
  border-radius: 2px;
- padding: 5px;
+ /* padding: 5px; */
 }
 div.text_cell_render h1,
 div.rendered_html h1,
@@ -12838,7 +12902,8 @@ div.text_cell_render h4,
 div.rendered_html h4,
 div.text_cell_render h5,
 div.rendered_html h5 {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
 }
 .rendered_html h1:first-child,
 .rendered_html h2:first-child,
@@ -12905,7 +12970,8 @@ table.dataframe,
 }
 .dataframe th,
 .rendered_html th {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11pt !important;
  font-weight: bold;
  border: 1px solid #c4c4c4;
@@ -12936,7 +13002,8 @@ div.widget-area {
  color: #303030;
 }
 div.widget-area a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  font-weight: normal;
  font-style: normal;
@@ -12945,7 +13012,8 @@ div.widget-area a {
 }
 div.widget-area a:hover,
 div.widget-area a:focus {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 11.0pt;
  font-weight: normal;
  font-style: normal;
@@ -12990,7 +13058,8 @@ div.widget-hbox .widget-label,
  box-shadow: none;
 }
 .rendered_html :link {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 100%;
  color: #2c85f7;
  text-decoration: underline;
@@ -13002,7 +13071,8 @@ div.widget-hbox .widget-label,
 }
 .rendered_html :visited:hover,
 .rendered_html :link:hover {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 100%;
  color: #eb6a18;
 }
@@ -13023,11 +13093,13 @@ div#nbextensions-configurator-container.container {
  margin-left: 0;
 }
 div.nbext-selector > nav > .nav > li > a {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
 }
 div.nbext-readme > .nbext-readme-contents > .rendered_html {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  line-height: 145%;
  padding: 1em 1em;
@@ -13197,7 +13269,8 @@ video {
  z-index: 1;
 }
 .typeahead-field input {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  color: #303030;
  border: none;
  font-size: 28pt;
@@ -13215,7 +13288,8 @@ body > div.modal.cmd-palette.typeahead-field {
  background-color: #f8f8f8;
 }
 .typeahead-container button {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 28pt;
  background-color: #d0d0d0;
  border: none;
@@ -13250,7 +13324,8 @@ body > div.modal.cmd-palette.typeahead-field {
 }
 .typeahead-dropdown,
 .typeahead-list {
- font-family: "Droid Sans", sans-serif;
+ /* font-family: "Droid Sans", sans-serif; */
+ font-family: inherit;
  font-size: 12pt;
  color: #303030;
  background-color: #ffffff;
@@ -13614,3 +13689,5 @@ div#notebook {
     page-break-inside: avoid; 
   }
 }
+
+/*.highlight .err { border: 1px solid white } /* Error */
