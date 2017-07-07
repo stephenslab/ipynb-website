@@ -36,7 +36,8 @@ theme: "readable"
 # theme.
 font: NULL
 
-# TO DO: Explain what this does.
+# Set to True to add a table-of-contents to the left-hand side of each
+# of the .ipynb notebook webpages.
 nb_toc: False
 
 # Set this variable to enable auto-commit.
