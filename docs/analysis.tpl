@@ -61,46 +61,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 <script>
-$( document ).ready(function(){
-            var cfg={'threshold':{{ nb.get('metadata', {}).get('toc', {}).get('threshold', '3') }},     // depth of toc (number of levels)
-             'number_sections': false,
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'sideBar':true,       // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
-            var st={};                  // some variables used in the script
-            st.rendering_toc_cell = false;
-            st.config_loaded = false;
-            st.extension_initialized=false;
-            st.nbcontainer_marginleft = $('#notebook-container').css('margin-left')
-            st.nbcontainer_marginright = $('#notebook-container').css('margin-right')
-            st.nbcontainer_width = $('#notebook-container').css('width')
-            st.oldTocHeight = undefined
-            st.cell_toc = undefined;
-            st.toc_index=0;
-            // fire the main function with these parameters
-            table_of_contents(cfg, st);
-            var file=analysisDict[$("h1:first").attr("id")];
-            $("#toc-level0 a").css("color","#126dce");
-            $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
-            var docs=analysisArray;
-            var pos=analysisArray.indexOf(file);
-            for (var a=pos;a>=0;a--){
-                  var name=docs[a]
-                  $('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>').insertBefore("#toc-level0 li:eq(0)");
-            }
-            $('a[href="'+file+'.html'+'"]').css("color","#126dce");
-            for (var a=pos+1;a<docs.length;a++){
-                  var name=docs[a]
-                  $(".toc #toc-level0").append('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>');
-            }
-            $("#toc-header").hide();
-    });
-</script>
-
-<script>
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
