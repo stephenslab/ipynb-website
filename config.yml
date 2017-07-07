@@ -13,8 +13,11 @@ footer: "&copy 2017 Peter Carbonetto"
 include_dir: ["analysis", "license"]
 
 # Any .ipynb notebooks listed here will not be rendered into webpages
-# (e.g., "analysis/temp.Rmd").
+# (e.g., "analysis/temp.ipynb").
 exclude_file: []
+
+# Hide directories from navigation bar
+hide_navbar: ["analysis"]
 
 # Notebook used to generate home page.
 homepage: "analysis/index.ipynb"
@@ -38,7 +41,7 @@ font: NULL
 
 # Set to True to add a table-of-contents to the left-hand side of each
 # of the .ipynb notebook webpages.
-nb_toc: False
+notebook_toc: False
 
 # Set this variable to enable auto-commit.
 # release_message: "Build website with jnbinder."

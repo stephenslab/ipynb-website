@@ -174,7 +174,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 body {
   %s
   font-size: 160%%;
-  padding-top: 51px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 
@@ -305,8 +305,8 @@ $(document).ready(function () {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['name'], conf['theme'], get_font(conf['font']),
-           conf['name'], get_nav(dirs, conf['homepage_label']),
+	''' % (conf['name'], conf['theme'], get_font(conf['font']), conf['name'],
+           get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label']),
            conf['repo'], conf['source_label'], conf['footer'],
            get_disqus(conf['disqus']))
     return content
@@ -405,7 +405,7 @@ $(document).ready(function () {
 <style type = "text/css">
 body {
   %s
-  padding-top: 51px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 </style>
@@ -448,9 +448,9 @@ body {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['theme'], get_sidebar(path) if conf['nb_toc'] else '',
-           conf['name'], get_font(conf['font']),
-           conf['name'], get_nav(dirs, conf['homepage_label'], '../'),
+	''' % (conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
+           conf['name'], get_font(conf['font']), conf['name'],
+           get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label'], '../'),
            conf['repo'], conf['source_label'])
     return content
 

@@ -89,7 +89,7 @@ $(document).ready(function () {
 <style type = "text/css">
 body {
   
-  padding-top: 51px;
+  padding-top: 66px;
   padding-bottom: 40px;
 }
 </style>
@@ -118,10 +118,6 @@ body {
   <a href="../index.html">Overview</a>
 </li>
     
-<li>
-  <a href="../analysis.html">Analysis</a>
-</li>
-        
 <li>
   <a href="../license.html">License</a>
 </li>
