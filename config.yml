@@ -1,8 +1,24 @@
-name: "ipython notebook research website"
+# The name of the link shown at the top-right corner of the navigation
+# bar.
+name: "PCA demo"
+
+# Link to the source repository (e.g., on Github).
 repo: "http://github.com/pcarbo/ipynb-demo"
+
+# The footer is included...
 footer: "&copy 2017 Peter Carbonetto"
-include_dir: ["analysis"]
-homepage: "analysis/Overview.ipynb"
+
+# These directories contain .ipynb notebooks that will be rendered
+# into webpages.
+include_dir: ["license", "analysis"]
+
+# Any .ipynb notebooks listed here will not be rendered into webpages
+# (e.g., "analysis/temp.Rmd").
+exclude_file: []
+
+# Notebook used to generate home page.
+homepage: "analysis/index.ipynb"
+
 source_label: "source"
 theme: "readable"
 font: NULL

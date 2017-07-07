@@ -1,8 +1,3 @@
-# name: 'Human Genome Project'
-# repo: 'http://github.com/gaow/test-jnbinder'
-# footer: "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago"
-# include_dir: []
-# exclude_file: []
 # homepage: "Overview.ipynb"
 # disqus: NULL
 # release_message: NULL # type a release message to enable auto-commit, eg: "Build website via jnbinder"
