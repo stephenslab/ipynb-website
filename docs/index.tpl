@@ -42,8 +42,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         extensions: ["tex2jax.js"],
         jax: ["input/TeX", "output/HTML-CSS"],
         tex2jax: {
-        inlineMath: [ ['$','$'], ["\(","\)"] ],
-        displayMath: [ ['$$','$$'], ["\[","\]"] ],
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'] ["\\[","\\]"] ],
         processEscapes: true
         },
         "HTML-CSS": {
@@ -82,8 +82,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 
 body {
-  font-family: "Droid Sans";
-  font-size: 175%;
+  
+  font-size: 160%;
   padding-top: 51px;
   padding-bottom: 40px;
 }
@@ -171,27 +171,27 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">rsvd + ggplot2 demo</a>
+      <a class="navbar-brand" href="index.html">ipython notebook research website</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         
 <li>
-  <a href="index.html">Overview</a>
+  <a href="./index.html">Overview</a>
 </li>
     
 <li>
-  <a href="analysis.html">Analysis</a>
+  <a href="./analysis.html">Analysis</a>
 </li>
         
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="http://github.com/pcarbo/ipynb-demo">
+    <a href="http://github.com/pcarbo/ipynb-demo">
     source
-  </a>
-</li>
-      </ul>
+    </a>
+    </li>
+    </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -216,7 +216,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

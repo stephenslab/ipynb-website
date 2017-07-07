@@ -1,69 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8" />
-<title>plot-pcs</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-
-
-
-
-
-
-<!-- Custom stylesheet, it must be in the same directory as the html file -->
-
-
-<!-- Loading mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration --></head>
-
- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-<style>  /* defined here in case the main.css below cannot be loaded */
-.lev1 {margin-left: 80px}
-.lev2 {margin-left: 100px}
-.lev3 {margin-left: 120px}
-.lev4 {margin-left: 140px}
-.lev5 {margin-left: 160px}
-.lev6 {margin-left: 180px}
-</style>
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
-
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link rel="stylesheet"
+      href="../site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="../site_libs/highlight/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
         jax: ["input/TeX", "output/HTML-CSS"],
         tex2jax: {
-        inlineMath: [ ['$','$'], ["\(","\)"] ],
-        displayMath: [ ['$$','$$'], ["\[","\]"] ],
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
         processEscapes: true
         },
         "HTML-CSS": {
@@ -78,7 +49,6 @@
         }
     });
 </script>
-
 <script>
 $( document ).ready(function(){
             var cfg={'threshold':3,     // depth of toc (number of levels)
@@ -89,7 +59,6 @@ $( document ).ready(function(){
              'sideBar':true,       // sidebar or floating window
              'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
             }
-
             var st={};                  // some variables used in the script
             st.rendering_toc_cell = false;
             st.config_loaded = false;
@@ -100,43 +69,95 @@ $( document ).ready(function(){
             st.oldTocHeight = undefined
             st.cell_toc = undefined;
             st.toc_index=0;
-
             // fire the main function with these parameters
-
             table_of_contents(cfg, st);
-
             var file=analysisDict[$("h1:first").attr("id")];
             $("#toc-level0 a").css("color","#126dce");
             $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
             var docs=analysisArray;
             var pos=analysisArray.indexOf(file);
-
             for (var a=pos;a>=0;a--){
                   var name=docs[a]
-                  $('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>').insertBefore("#toc-level0 li:eq(0)");
+                  $('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>').insertBefore("#toc-level0 li:eq(0)");
             }
             $('a[href="'+file+'.html'+'"]').css("color","#126dce");
-
-
-            $('<li id="indexHome"><a href="../analysis.html"><b>Analysis Home<b></a></li>').insertBefore("#toc-level0 li:eq(0)");
             for (var a=pos+1;a<docs.length;a++){
                   var name=docs[a]
-                  $(".toc #toc-level0").append('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>');
+                  $(".toc #toc-level0").append('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>');
             }
             $("#toc-header").hide();
     });
 </script>
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+<title>ipython notebook research website</title>
+<style type = "text/css">
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
-
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+<!-- code folding -->
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">ipython notebook research website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="../index.html">Overview</a>
+</li>
+<li>
+  <a href="../analysis.html">Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+    <a href="http://github.com/pcarbo/ipynb-demo">
+    source
+    </a>
+    </li>
+    </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Plotting-Iris-PCA-results-using-ggplot2">Plotting Iris PCA results using ggplot2<a class="anchor-link" href="#Plotting-Iris-PCA-results-using-ggplot2">&#182;</a></h1><p>Begin by loading these packages into your R environment.</p>
-
 </div>
 </div>
 </div>
@@ -149,11 +170,9 @@ $( document ).ready(function(){
 <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>rsvd<span class="p">)</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -161,7 +180,6 @@ $( document ).ready(function(){
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Load-the-data-and-compute-the-PCs">Load the data and compute the PCs<a class="anchor-link" href="#Load-the-data-and-compute-the-PCs">&#182;</a></h2><p>Load the Iris data.</p>
-
 </div>
 </div>
 </div>
@@ -172,11 +190,9 @@ $( document ).ready(function(){
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>data<span class="p">(</span>iris<span class="p">)</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -184,7 +200,6 @@ $( document ).ready(function(){
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Replicating <a href="compute-pcs.html">our previous steps</a>, use function <code>rpca</code> from the <code>rsvd</code> package to compute the principal components.</p>
-
 </div>
 </div>
 </div>
@@ -196,11 +211,9 @@ $( document ).ready(function(){
 <div class=" highlight hl-r"><pre><span></span>out.pca <span class="o">&lt;-</span> rpca<span class="p">(</span>iris<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">],</span>k <span class="o">=</span> <span class="m">4</span><span class="p">,</span>center <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>scale <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>retx <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 iris    <span class="o">&lt;-</span> <span class="kp">cbind</span><span class="p">(</span>iris<span class="p">,</span>out.pca<span class="o">$</span>x<span class="p">)</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -208,7 +221,6 @@ iris    <span class="o">&lt;-</span> <span class="kp">cbind</span><span class="p
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Create-visualizations-of-the-Iris-PCA-results">Create visualizations of the Iris PCA results<a class="anchor-link" href="#Create-visualizations-of-the-Iris-PCA-results">&#182;</a></h2><p>This first plot shows the data samples projected onto the first two PCs, colored by Species.</p>
-
 </div>
 </div>
 </div>
@@ -226,28 +238,16 @@ ggplot<span class="p">(</span>iris<span class="p">,</span>aes<span class="p">(</
   theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area">
 <div class="prompt"></div>
-
-
-
-
 </div>
-
 <div class="output_area">
 <div class="prompt"></div>
-
-
-
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4AAAFoCAYAAAC2UJl7AAAEDWlDQ1BJQ0MgUHJvZmlsZQAA
 OI2NVV1oHFUUPrtzZyMkzlNsNIV0qD8NJQ2TVjShtLp/3d02bpZJNtoi6GT27s6Yyc44M7v9
@@ -1065,12 +1065,9 @@ HzABJsAEmAATsH0CrPht/x1zD5kAE2ACTIAJqAiw4leh4AMmwASYABNgArZP4P8B7eJLF/om
 LzwAAAAASUVORK5CYII="
 >
 </div>
-
-</div>
-
 </div>
 </div>
-
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -1078,7 +1075,6 @@ LzwAAAAASUVORK5CYII="
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we plot the first PC against Petal Width, with the points colored by Species as before. The linear relationship between the first PC and Petal Width is summarized by the dashed line.</p>
-
 </div>
 </div>
 </div>
@@ -1098,28 +1094,16 @@ ggplot<span class="p">(</span>iris<span class="p">,</span>aes<span class="p">(</
   theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area">
 <div class="prompt"></div>
-
-
-
-
 </div>
-
 <div class="output_area">
 <div class="prompt"></div>
-
-
-
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAf4AAAFoCAYAAAC2UJl7AAAEDWlDQ1BJQ0MgUHJvZmlsZQAA
 OI2NVV1oHFUUPrtzZyMkzlNsNIV0qD8NJQ2TVjShtLp/3d02bpZJNtoi6GT27s6Yyc44M7v9
@@ -1887,12 +1871,9 @@ q2PHSYAESIAESMB1AlT8rjNjDRIgARIgARLwWwJU/H776thxEiABEiABEnCdABW/68xYgwRI
 gARIgAT8lsD/Axkahsqf2EWiAAAAAElFTkSuQmCC"
 >
 </div>
-
-</div>
-
 </div>
 </div>
-
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -1901,7 +1882,6 @@ gARIgAT8lsD/Axkahsqf2EWiAAAAAElFTkSuQmCC"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of R and the packages that were used to generate
 these results.</p>
-
 </div>
 </div>
 </div>
@@ -1912,34 +1892,23 @@ these results.</p>
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area">
 <div class="prompt"></div>
-
-
-
 <div class="output_text output_subarea ">
 <pre>R version 3.3.2 (2016-10-31)
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
 Running under: macOS Sierra 10.12.5
-
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
-
 other attached packages:
 [1] rsvd_0.6      ggplot2_2.2.1 repr_0.12.0  
-
 loaded via a namespace (and not attached):
  [1] Rcpp_0.12.11     assertthat_0.2.0 digest_0.6.12    crayon_1.3.2    
  [5] IRdisplay_0.4.4  plyr_1.8.4       grid_3.3.2       R6_2.2.0        
@@ -1948,18 +1917,11 @@ loaded via a namespace (and not attached):
 [17] IRkernel_0.7     labeling_0.3     tools_3.3.2      stringr_1.2.0   
 [21] munsell_0.4.3    colorspace_1.3-2 pbdZMQ_0.2-5     tibble_1.2      </pre>
 </div>
-
-</div>
-
 </div>
 </div>
-
 </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
 </body>
-
- 
-
-
 </html>

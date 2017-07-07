@@ -8,14 +8,13 @@ DEFAULT_CONF = {
            'include_dir': [],
            'exclude_file': [],
            'disqus': None,
-           'commit_message': 'Update website via jnbinder',
-           'post_push_actions': None,
-           'release': None,
+           'release_message': None,
+           'post_release_actions': None,
            'homepage_label': 'Overview',
            'source_label': '<span class="fa fa-github"></span>',
            'theme': 'cosmo',
-           'homepage': 'homepage.ipynb',
-           'font': None,
+           'homepage': 'Overview.ipynb',
+           'font': "Droid Sans",
            'nb_toc': True
            }
 CONFIG.update({k:v for k,v in DEFAULT_CONF.items() if k not in CONFIG})
@@ -112,8 +111,8 @@ with open('docs/js/docs.js', 'w') as f:
 # release website
 run:
   cd docs && git add . && git commit --no-verify -m "${CONFIG['commit_message']}" && git push --no-verify
-if CONFIG['post_push_actions']:
-   run('''${CONFIG['post_push_actions']}''')
+if CONFIG['post_release_actions']:
+   run('''${CONFIG['post_release_actions']}''')
 
 [default_1]
 # compile everything
@@ -126,5 +125,5 @@ if len(notebook_files):
 if len(pipeline_files):
    sos_run('update-sos')
 sos_run('update-toc')
-if CONFIG['release']:
+if CONFIG['release_message']:
    sos_run('release-website')

@@ -1,7 +1,8 @@
 name: "ipython notebook research website"
 repo: "http://github.com/pcarbo/ipynb-demo"
 footer: "&copy 2017 Peter Carbonetto"
-exclude_dir: ["data"]
-disqus: NULL
-commit_message: "Update website via jnbinder."
-post_push_actions: "echo 'for additional commands after push'"
+include_dir: ["analysis"]
+homepage: "analysis/Overview.ipynb"
+source_label: "source"
+theme: "readable"
+font: NULL

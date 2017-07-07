@@ -1,35 +1,50 @@
-{%- extends 'full.tpl' -%}
+{%- extends 'basic.tpl' -%}
 
 {%- block header -%}
 {{ super() }}
-
- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-<style>  /* defined here in case the main.css below cannot be loaded */
-.lev1 {margin-left: 80px}
-.lev2 {margin-left: 100px}
-.lev3 {margin-left: 120px}
-.lev4 {margin-left: 140px}
-.lev5 {margin-left: 160px}
-.lev6 {margin-left: 180px}
-</style>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
 
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlight/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlight/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
         jax: ["input/TeX", "output/HTML-CSS"],
         tex2jax: {
-        inlineMath: [ ['$','$'], ["\(","\)"] ],
-        displayMath: [ ['$$','$$'], ["\[","\]"] ],
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
         processEscapes: true
         },
         "HTML-CSS": {
@@ -55,7 +70,6 @@ $( document ).ready(function(){
              'sideBar':true,       // sidebar or floating window
              'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
             }
-
             var st={};                  // some variables used in the script
             st.rendering_toc_cell = false;
             st.config_loaded = false;
@@ -66,31 +80,103 @@ $( document ).ready(function(){
             st.oldTocHeight = undefined
             st.cell_toc = undefined;
             st.toc_index=0;
-
             // fire the main function with these parameters
-
             table_of_contents(cfg, st);
-
             var file=analysisDict[$("h1:first").attr("id")];
             $("#toc-level0 a").css("color","#126dce");
             $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
             var docs=analysisArray;
             var pos=analysisArray.indexOf(file);
-
             for (var a=pos;a>=0;a--){
                   var name=docs[a]
-                  $('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>').insertBefore("#toc-level0 li:eq(0)");
+                  $('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>').insertBefore("#toc-level0 li:eq(0)");
             }
             $('a[href="'+file+'.html'+'"]').css("color","#126dce");
-
-
-            $('<li id="indexHome"><a href="../analysis.html"><b>Analysis Home<b></a></li>').insertBefore("#toc-level0 li:eq(0)");
             for (var a=pos+1;a<docs.length;a++){
                   var name=docs[a]
-                  $(".toc #toc-level0").append('<li><a href="'+name+'.html">'+name.replace(/_/g," ")+'</a></li>');
+                  $(".toc #toc-level0").append('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>');
             }
             $("#toc-header").hide();
     });
 </script>
 
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<title>ipython notebook research website</title>
+
+<style type = "text/css">
+body {
+  
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">ipython notebook research website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="../index.html">Overview</a>
+</li>
+    
+<li>
+  <a href="../analysis.html">Analysis</a>
+</li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+    <a href="http://github.com/pcarbo/ipynb-demo">
+    source
+    </a>
+    </li>
+    </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 {%- endblock header -%}
+{% block footer %}
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

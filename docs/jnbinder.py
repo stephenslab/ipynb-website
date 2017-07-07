@@ -464,9 +464,9 @@ def make_template(conf, dirs, outdir):
 def get_notebook_toc(path, exclude):
     out = "var %sDict = {" % os.path.basename(path)
     for fn in sorted(glob.glob(os.path.join(path, "*.ipynb"))):
-        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] + exclude:
+        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] or fn in exclude:
             continue
-        name = os.path.basename(fn[:-6]).replace('_', ' ').strip()
+        name = os.path.basename(fn[:-6]).strip()
         with open(fn) as f:
             data = json.load(f)
         title = data["cells"][0]["source"][0].replace(" ", "-")[2:].strip() + "-1"
@@ -514,7 +514,7 @@ def make_index_nb(path, exclude):
    ]
   },''' % os.path.basename(path.capitalize())
     for fn in sorted(glob.glob(os.path.join(path, "*.ipynb"))):
-        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] + exclude:
+        if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] or fn in exclude:
             continue
         name = os.path.splitext(os.path.basename(fn))[0].replace('_', ' ')
         with open(fn) as f:
