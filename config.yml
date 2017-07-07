@@ -36,4 +36,6 @@ theme: "readable"
 # theme.
 font: NULL
 
-#release_message: "Build website via jnbinder"
+# Set this variable to enable auto-commit.
+# release_message: "Build website with jnbinder."
+
