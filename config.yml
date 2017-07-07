@@ -10,7 +10,7 @@ footer: "&copy 2017 Peter Carbonetto"
 
 # These directories contain .ipynb notebooks that will be rendered
 # into webpages.
-include_dir: ["license", "analysis"]
+include_dir: ["analysis", "license"]
 
 # Any .ipynb notebooks listed here will not be rendered into webpages
 # (e.g., "analysis/temp.Rmd").
@@ -23,7 +23,8 @@ homepage: "analysis/index.ipynb"
 homepage_label: "Overview"
 
 # The name of the link to the source repository. It is shown in the
-# top-right corner of the navigation bar.
+# top-right corner of the navigation bar. If this line is removed or
+# commented out, then the default is to show a Github logo ("Octocat").
 source_label: "source"
 
 # Bootstrap theme; see the files in docs/site_libs/bootstrap-3.3.5/css

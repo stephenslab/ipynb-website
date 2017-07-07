@@ -159,11 +159,11 @@ body {
 </li>
     
 <li>
-  <a href="../license.html">License</a>
+  <a href="../analysis.html">Analysis</a>
 </li>
         
 <li>
-  <a href="../analysis.html">Analysis</a>
+  <a href="../license.html">License</a>
 </li>
         
       </ul>
