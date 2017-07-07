@@ -1,17 +1,11 @@
-{%- extends 'basic.tpl' -%}
-
-{%- block header -%}
-{{ super() }}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
-
 <link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -20,11 +14,9 @@
 <script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-
 <link rel="stylesheet"
       href="../site_libs/highlight/textmate.css"
       type="text/css" />
-
 <script src="../site_libs/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
@@ -33,10 +25,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
    }, 0);
 }
 </script>
-
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
@@ -59,10 +49,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         }
     });
 </script>
-
 <script>
 $( document ).ready(function(){
-            var cfg={'threshold':{{ nb.get('metadata', {}).get('toc', {}).get('threshold', '3') }},     // depth of toc (number of levels)
+            var cfg={'threshold':3,     // depth of toc (number of levels)
              'number_sections': false,
              'toc_cell': false,          // useless here
              'toc_window_display': true, // display the toc window
@@ -82,11 +71,11 @@ $( document ).ready(function(){
             st.toc_index=0;
             // fire the main function with these parameters
             table_of_contents(cfg, st);
-            var file=analysisDict[$("h1:first").attr("id")];
+            var file=licenseDict[$("h1:first").attr("id")];
             $("#toc-level0 a").css("color","#126dce");
             $('a[href="#'+$("h1:first").attr("id")+'"]').hide()
-            var docs=analysisArray;
-            var pos=analysisArray.indexOf(file);
+            var docs=licenseArray;
+            var pos=licenseArray.indexOf(file);
             for (var a=pos;a>=0;a--){
                   var name=docs[a]
                   $('<li><a href="'+name+'.html"><font color="#073642"><b>'+name.replace(/_/g," ")+'</b></font></a></li>').insertBefore("#toc-level0 li:eq(0)");
@@ -99,7 +88,6 @@ $( document ).ready(function(){
             $("#toc-header").hide();
     });
 </script>
-
 <script>
 // manage active state of menu based on current page
 $(document).ready(function () {
@@ -123,24 +111,18 @@ $(document).ready(function () {
   window.buildTabsets("TOC");
 });
 </script>
-
 <title>PCA demo</title>
-
 <style type = "text/css">
 body {
-  
   padding-top: 51px;
   padding-bottom: 40px;
 }
 </style>
 </head>
-
 <body>
 <div tabindex="-1" id="notebook" class="border-box-sizing">
 <div class="container" id="notebook-container">
-
 <!-- code folding -->
-
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -153,19 +135,15 @@ body {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        
 <li>
   <a href="../index.html">Overview</a>
 </li>
-    
 <li>
   <a href="../license.html">License</a>
 </li>
-        
 <li>
   <a href="../analysis.html">Analysis</a>
 </li>
-        
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -177,10 +155,17 @@ body {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-{%- endblock header -%}
-{% block footer %}
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All source code and software in this repository are made available under the terms of the
+<a href="https://opensource.org/licenses/mit-license.html">MIT license</a>.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </body>
 </html>
-{% endblock %}
