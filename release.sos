@@ -18,6 +18,7 @@ DEFAULT_CONF = {
            'nb_toc': True
            }
 CONFIG.update({k:v for k,v in DEFAULT_CONF.items() if k not in CONFIG})
+
 parameter: binders = CONFIG['include_dir']
 # parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
 parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
@@ -59,18 +60,16 @@ if flag:
 
 [update-index]
 # update index
-input: for_each = ['binders']
-output: ["{}/_index.ipynb".format(x) for x in binders]
-python:
 import os, sys
 sys.path.append('docs')
 from jnbinder import make_index_nb, make_empty_nb
-data = make_index_nb(${_binders!r}, [${CONFIG['exclude_file']!r,}] + [${CONFIG['homepage']!r}])
-with open('${_binders}/_index.ipynb', 'w') as f:
+for binder in binders:
+  data = make_index_nb(binder, CONFIG['exclude_file'] + [CONFIG['homepage']])
+  with open('{}/_index.ipynb'.format(binder), 'w') as f:
     f.write(data.strip())
-if not os.path.isfile(${CONFIG['homepage']!r}):
-   with open(${CONFIG['homepage']!r}, 'w') as f:
-        f.write(make_empty_nb(${CONFIG['name']!r}))
+if not os.path.isfile(CONFIG['homepage']):
+  with open(CONFIG['homepage'], 'w') as f:
+    f.write(make_empty_nb(CONFIG['name']))
 
 [update-hp]
 # update homepages HTML
@@ -96,7 +95,7 @@ input: pipeline_files, group_by = 1
 output: 'docs/' + _input[0].replace('.sos', '.pipeline.html')
 #task:
 run:
-  sos convert ${_input} ${_output} --log-level 0
+  sos convert ${_input} ${_output}
 
 [update-toc]
 # update js file for toc
@@ -112,7 +111,7 @@ with open('docs/js/docs.js', 'w') as f:
 run:
   cd docs && git add . && git commit --no-verify -m "${CONFIG['release_message']}" && git push --no-verify
 if CONFIG['post_release_actions']:
-   run('''${CONFIG['post_release_actions']}''')
+   run(CONFIG['post_release_actions'])
 
 [default_1]
 # compile everything

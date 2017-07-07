@@ -5,7 +5,7 @@ name: "PCA demo"
 # Link to the source repository (e.g., on Github).
 repo: "http://github.com/pcarbo/ipynb-demo"
 
-# The footer is included...
+# Footer added to the bottom of some webpages.
 footer: "&copy 2017 Peter Carbonetto"
 
 # These directories contain .ipynb notebooks that will be rendered
@@ -35,6 +35,9 @@ theme: "readable"
 # "Droid Sans"). Set to NULL to inherit the font used by the Bootsrap
 # theme.
 font: NULL
+
+# TO DO: Explain what this does.
+nb_toc: False
 
 # Set this variable to enable auto-commit.
 # release_message: "Build website with jnbinder."
