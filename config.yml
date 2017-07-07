@@ -42,4 +42,3 @@ nb_toc: False
 
 # Set this variable to enable auto-commit.
 # release_message: "Build website with jnbinder."
-
