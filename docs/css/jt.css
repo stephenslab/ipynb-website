@@ -10156,6 +10156,9 @@ div.output_unrecognized a:hover {
 .rendered_html :visited {
   text-decoration: underline;
 }
+.rendered_html h1, h2, h3, h4, h5, h6 {
+  font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif
+}
 .rendered_html h1 {
   font-size: 185.7%;
   margin: 1.08em 0 0 0;
@@ -12903,8 +12906,7 @@ div.text_cell_render h4,
 div.rendered_html h4,
 div.text_cell_render h5,
 div.rendered_html h5 {
- /* font-family: "Droid Sans", sans-serif; */
- font-family: inherit;
+  font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 .rendered_html h1:first-child,
 .rendered_html h2:first-child,
@@ -12916,39 +12918,39 @@ div.rendered_html h5 {
 }
 .rendered_html h1,
 .text_cell_render h1 {
- color: #126dce;
+ color: #000;
  font-size: 220%;
- text-align: center;
- font-weight: lighter;
+ text-align: left;
+ font-weight: bold;
 }
 .rendered_html h2,
 .text_cell_render h2 {
  text-align: left;
  font-size: 170%;
- color: #126dce;
+ color: #000;
  font-style: normal;
- font-weight: lighter;
+ font-weight: bold;
 }
 .rendered_html h3,
 .text_cell_render h3 {
  font-size: 150%;
- color: #126dce;
- font-weight: lighter;
+ color: #000;
+ font-weight: bold;
  /* text-decoration: italic; */
  font-style: normal;
 }
 .rendered_html h4,
 .text_cell_render h4 {
  font-size: 120%;
- color: #126dce;
- /* font-weight: underline; */
+ color: #000;
+ font-weight: bold;
  font-style: normal;
 }
 .rendered_html h5,
 .text_cell_render h5 {
  font-size: 100%;
- color: #2f2f2f;
- font-weight: lighter;
+ color: #000;
+ font-weight: bold;
  text-decoration: underline;
 }
 .rendered_html table,
@@ -13647,6 +13649,7 @@ span.save_widget span.filename:hover {
  padding-top: 4px;
  background-color: #ffffff;
 }
+
 /**********************************
  MathJax Settings and Style Script
 **********************************/
