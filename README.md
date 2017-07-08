@@ -1,4 +1,4 @@
-# Simple Jupyter-notebook-based research website
+# Simple research website using IPython/Jupyter notebooks
 
 *Give 1–2 sentence overview of the repository here.*
 
