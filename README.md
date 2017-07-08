@@ -1,4 +1,4 @@
-# Simple research website using IPython/Jupyter notebooks
+# Simple research website using Jupyter/IPython notebooks
 
 *Give 1–2 sentence overview of the repository here.*
 
@@ -15,7 +15,10 @@ these steps.
 
 ## Tips for adapting this repository for your own research
 
-*Add list of tips here.*
++ [Link](https://bootswatch.com) to gallery of Bootstrap themes.
+
++ Note that not all themes will show up consistently due to conflicts
+  between CSS files.
 
 ## Credits
 
