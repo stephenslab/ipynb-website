@@ -443,6 +443,8 @@ body {
 </div><!--/.navbar -->
 {%%- endblock header -%%}
 {%% block footer %%}
+<hr>
+%s
 </div>
 </div>
 </body>
@@ -451,7 +453,7 @@ body {
 	''' % (conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
            conf['name'], get_font(conf['font']), conf['name'],
            get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label'], '../'),
-           conf['repo'], conf['source_label'])
+           conf['repo'], conf['source_label'], conf['footer'])
     return content
 
 def make_template(conf, dirs, outdir):
@@ -469,7 +471,7 @@ def get_notebook_toc(path, exclude):
         name = os.path.basename(fn[:-6]).strip()
         with open(fn) as f:
             data = json.load(f)
-        title = re.compile('([^\s\w])+').sub('', data["cells"][0]["source"][0]).strip().replace(" ", "-") + "-1"
+        title = re.compile('(^\W+|\W+$)').sub('', data["cells"][0]["source"][0]).strip().replace(" ", "-") + "-1"
         out +='"' + title + '":"' + name + '",'
     if not out.endswith('{'):
         out = out[:-1]
