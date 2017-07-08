@@ -20,9 +20,6 @@ hide_navbar: ["analysis"]
 # (e.g., "analysis/temp.ipynb").
 exclude_file: []
 
-# Hide directories from navigation bar
-hide_navbar: ["analysis"]
-
 # Notebook used to generate home page.
 homepage: "analysis/index.ipynb"
 
