@@ -135,6 +135,8 @@ body {
 </div><!--/.navbar -->
 {%- endblock header -%}
 {% block footer %}
+<hr>
+&copy 2017 Peter Carbonetto
 </div>
 </div>
 </body>
