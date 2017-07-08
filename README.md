@@ -1,4 +1,4 @@
-# ipynb-demo: Demo research website using Jupyter/IPython notebooks
+# A simple Jupyter notebook-based research website
 
 *Give 1–2 sentence overview of the repository here.*
 
