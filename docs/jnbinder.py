@@ -325,7 +325,8 @@ def get_notebook_tpl(conf, dirs, path):
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" type="text/css" href="../css/%s.css">
+<link rel="stylesheet" type="text/css" href="../css/jt.css">
+%s
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
 
 <link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
@@ -450,7 +451,8 @@ body {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['jt_theme'], conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
+	''' % ('<link rel="stylesheet" type="text/css" href="../css/%s.css">' % conf['jt_theme'] if conf['jt_theme'] is not None else '',
+           conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
            conf['name'], get_font(conf['font']), conf['name'],
            get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label'], '../'),
            conf['repo'], conf['source_label'], conf['footer'])

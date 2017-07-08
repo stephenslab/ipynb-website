@@ -2,7 +2,7 @@
 /* https://github.com/pcarbo/ipynb-demo/commit/fd8df802ada64aeefca368d3c54a899f5e8a2d7e */
 
 .rendered_html h1, h2, h3, h4, h5, h6 {
-    font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 div.text_cell_render h1,
@@ -15,43 +15,43 @@ div.text_cell_render h4,
 div.rendered_html h4,
 div.text_cell_render h5,
 div.rendered_html h5 {
-  font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .rendered_html h1,
 .text_cell_render h1 {
- color: #000;
+ color: #2c3e50;
  font-size: 220%;
  text-align: left;
- font-weight: bold;
+ font-weight: 400;
 }
 .rendered_html h2,
 .text_cell_render h2 {
  text-align: left;
  font-size: 170%;
- color: #000;
+ color: #2c3e50;
  font-style: normal;
- font-weight: bold;
+ font-weight: 400;
 }
 .rendered_html h3,
 .text_cell_render h3 {
  font-size: 150%;
- color: #000;
- font-weight: bold;
+ color: #2c3e50;
+ font-weight: 400;
  /* text-decoration: italic; */
  font-style: normal;
 }
 .rendered_html h4,
 .text_cell_render h4 {
  font-size: 120%;
- color: #000;
- font-weight: bold;
+ color: #2c3e50;
+ font-weight: 400;
  font-style: normal;
 }
 .rendered_html h5,
 .text_cell_render h5 {
  font-size: 100%;
- color: #000;
- font-weight: bold;
+ color: #2c3e50;
+ font-weight: 400;
  text-decoration: underline;
 }
