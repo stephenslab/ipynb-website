@@ -32,8 +32,7 @@ homepage_label: "Overview"
 source_label: "source"
 
 # Bootstrap theme; see the files in docs/site_libs/bootstrap-3.3.5/css
-# for the available themes. Note that the Jupyter notebook CSS is
-# currently adapted to align better with the readable theme.
+# for the available themes. 
 theme: "readable"
 
 # Font used to show all code and text in the .ipynb notebooks (e.g.,
