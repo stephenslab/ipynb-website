@@ -2,7 +2,7 @@
 
 *Give 1–2 sentence overview of the repository here.*
 
-View the demo project website [here](https://pcarbo.github.io/ipynb-demo).
+View the demo project website [here](https://stephenslab.github.io/ipynb-demo).
 
 Using [jnbinder](https://github.com/gaow/jnbinder).
 
