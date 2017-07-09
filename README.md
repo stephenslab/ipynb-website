@@ -13,6 +13,15 @@ these steps.
 
 *Add steps here.*
 
+## More detailed setup instructions
+
+```
+wget https://github.com/gaow/jnbinder/archive/master.zip
+unzip -p master.zip jnbinder-master/release > release.sos
+chmod +x release.sos
+./release.sos setup-jnbinder
+```
+
 ## Tips for adapting this repository for your own research
 
 + [Link](https://bootswatch.com) to gallery of Bootstrap themes.
