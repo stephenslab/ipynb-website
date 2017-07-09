@@ -31,8 +31,8 @@ homepage_label: "Overview"
 # commented out, then the default is to show a Github logo ("Octocat").
 source_label: "source"
 
-# Bootstrap theme; see the files in docs/site_libs/bootstrap-3.3.5/css
-# for the available themes. 
+# Bootstrap theme; current supported themes are "cerulean", "flatly"
+# and "readable."
 theme: "readable"
 
 # Font used to show all code and text in the .ipynb notebooks (e.g.,
