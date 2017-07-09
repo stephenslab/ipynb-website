@@ -25,14 +25,24 @@ parameter: binders = CONFIG['include_dir']
 parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
 parameter: pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x)) if y not in CONFIG['exclude_file']] for x in binders], [])
 
-[upgrade-jnbinder]
+[download-jnbinder: provides = 'master.zip']
 download:
   https://github.com/gaow/jnbinder/archive/master.zip
+
+[setup-jnbinder]
+depends: 'master.zip'
+run:
+  unzip master.zip
+  yes | cp -rf jnbinder-master/docs ./
+  cp jnbinder-master/config.yml config.default.yml
+  rm -rf jnbinder-master master.zip
+
+[upgrade-jnbinder]
+depends: 'master.zip'
 run:
   unzip master.zip
   cp jnbinder-master/docs/jnbinder.py docs
   cp jnbinder-master/docs/css/* docs/css
-  cp jnbinder-master/config.yml config.default.yml
   if [ -f release.sos ]; then
      cp jnbinder-master/release ./release.sos
   else
