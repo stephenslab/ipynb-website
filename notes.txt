@@ -1,5 +1,9 @@
 github.com/gaow/jnbinder
 
+to do:
+* Check layout of flatly theme.
+* Check laout of cerulean theme.
+
 Setup:
 1. Install python3 and jupyter (e.g., Anaconda3).
 2. pip3 install sos

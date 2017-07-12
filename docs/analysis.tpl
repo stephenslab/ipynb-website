@@ -137,7 +137,7 @@ body {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy 2017 Peter Carbonetto and Gao Wang
+&copy; 2017 Peter Carbonetto &nbsp; Gao Wang
 </div>
 </div>
 </body>
