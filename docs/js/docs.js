@@ -1,4 +1,4 @@
-var analysisArray = ["computepcs", "plotpcs"]
-var analysisDict = {"Computing-PCs-using-rsvd-1":"computepcs","Plotting-Iris-PCA-results-using-ggplot2-1":"plotpcs"}
+var analysisArray = ["/github.com/jdblischak) and [Matthew Stephens](http://stephenslab.uchicago.edu) for their assistance and support. Also, thanks to [Larry Layne](https://rstudio-pubs-static.s3.amazonaws.com/63061_90f5136ffdf74740b6ba4ad8f2fd72fe"]
+var analysisDict = {"Computing-PCs-using-rsvd-1":"computepcs","A-first-glance-at-the-Divvy-data-1":"first-glance","Computing-and-visualizing-PCs-using-rsvd-and-ggplot2:-an-illustration-with-the-Iris-data-1":"index_old","Plotting-Iris-PCA-results-using-ggplot2-1":"plotpcs"}
 var licenseArray = ["/opensource.org/licenses/mit-license"]
 var licenseDict = {}
