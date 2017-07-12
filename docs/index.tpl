@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<title>PCA demo</title>
+<title>Divvy data exploration</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -171,7 +171,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">PCA demo</a>
+      <a class="navbar-brand" href="index.html">Divvy data exploration</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -187,7 +187,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-    <a href="http://github.com/pcarbo/ipynb-demo">
+    <a href="http://github.com/stephenslab/ipynb-website">
     source
     </a>
     </li>
@@ -199,7 +199,7 @@ $(document).ready(function () {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy 2017 Peter Carbonetto
+&copy 2017 Peter Carbonetto and Gao Wang
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
 
 </div>

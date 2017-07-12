@@ -1,12 +1,12 @@
 # The name of the project shown in the navigation bar (it links to the
 # home page).
-name: "PCA demo"
+name: "Divvy data exploration"
 
 # Link to the source repository (e.g., on Github).
-repo: "http://github.com/pcarbo/ipynb-demo"
+repo: "http://github.com/stephenslab/ipynb-website"
 
 # Footer added to the bottom of some webpages.
-footer: "&copy 2017 Peter Carbonetto"
+footer: "&copy 2017 Peter Carbonetto and Gao Wang"
 
 # These directories contain .ipynb notebooks that will be rendered
 # into webpages.

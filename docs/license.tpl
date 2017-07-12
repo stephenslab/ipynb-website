@@ -85,7 +85,7 @@ $(document).ready(function () {
 });
 </script>
 
-<title>PCA demo</title>
+<title>Divvy data exploration</title>
 
 <style type = "text/css">
 body {
@@ -110,7 +110,7 @@ body {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCA demo</a>
+      <a class="navbar-brand" href="../index.html">Divvy data exploration</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -126,7 +126,7 @@ body {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-    <a href="http://github.com/pcarbo/ipynb-demo">
+    <a href="http://github.com/stephenslab/ipynb-website">
     source
     </a>
     </li>
@@ -137,7 +137,7 @@ body {
 {%- endblock header -%}
 {% block footer %}
 <hr>
-&copy 2017 Peter Carbonetto
+&copy 2017 Peter Carbonetto and Gao Wang
 </div>
 </div>
 </body>
