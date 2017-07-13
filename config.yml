@@ -8,9 +8,11 @@ repo: "http://github.com/stephenslab/ipynb-website"
 # Footer added to the bottom of some webpages.
 footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
-# Default to not displaying author
-author: "Peter Carbonetto and Gao Wang"
-# Default to True
+# Default is None, which means that no author information is displayed.
+author: "Peter Carbonetto, Gao Wang"
+
+# When set to True, populate each notebook with the commit id (SHA1)
+# and commit modification date.
 add_commit_info: True
 
 # These directories contain Jupyter notebooks that will be rendered
