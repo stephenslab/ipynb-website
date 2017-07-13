@@ -1,9 +1,14 @@
 #!/usr/bin/env sos-runner
 #fileformat=SOS1.0
 
+import sys
+sys.path.append('docs')
+from jnbinder import get_commit_info
+
 DEFAULT_CONF = {
            'name': 'Human Genome Project',
            'repo': 'http://github.com/gaow/test-jnbinder',
+           'author': None,
            'footer': "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago",
            'include_dir': [],
            'exclude_file': [],
@@ -16,7 +21,8 @@ DEFAULT_CONF = {
            'theme': 'cosmo',
            'homepage': 'Overview.ipynb',
            'font': "Droid Sans",
-           'notebook_toc': True
+           'notebook_toc': True,
+           'add_commit_info': True
            }
 CONFIG.update({k:v for k,v in DEFAULT_CONF.items() if k not in CONFIG})
 CONFIG['jt_theme'] = CONFIG['theme'] if os.path.isfile("docs/css/{}.css".format(CONFIG['theme'])) else None
@@ -24,6 +30,7 @@ parameter: binders = CONFIG['include_dir']
 # parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
 parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
 parameter: pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x)) if y not in CONFIG['exclude_file']] for x in binders], [])
+parameter: nb_header = get_commit_info(CONFIG)
 
 [download-jnbinder: provides = 'master.zip']
 download:
@@ -60,8 +67,7 @@ run:
 # and update gitignore file
 depends: 'docs/jnbinder.py'
 output: ["docs/{}.tpl".format(x) for x in binders] + ['docs/index.tpl', '.gitignore']
-import os, sys
-sys.path.append('docs')
+import os
 from jnbinder import make_template
 make_template(CONFIG, binders, 'docs')
 flag = True
@@ -75,8 +81,7 @@ if flag:
 
 [update-index]
 # update index
-import os, sys
-sys.path.append('docs')
+import os
 from jnbinder import make_index_nb, make_empty_nb
 for binder in binders:
   if not os.path.isfile('{}/index.ipynb'.format(binder)):
@@ -94,6 +99,7 @@ output: ['docs/{}.html'.format(x) for x in binders if x not in CONFIG['hide_navb
 #task:
 run:
   sos convert ${_input!a} ${output[_index]!a} --template docs/index.tpl --log-level 0
+  # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${output[_index]!a}
   perl -i -ne 'print if /\S/' ${output[_index]!a}
 
 [update-nb]
@@ -103,6 +109,8 @@ output: 'docs/' + _input[0].replace('.ipynb', '.html')
 #task:
 run:
   sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
+  num=`grep -n -m 1 "^<h1 id=" ${_output!a} | sed 's/\([0-9]*\).*/\1/'`
+  perl -i -lpe 'print "${nb_header}" if $. == '"$num"'+1' ${_output!a}
   perl -i -ne 'print if /\S/' ${_output!a}
 
 [update-sos]
@@ -115,8 +123,6 @@ run:
 
 [update-toc]
 # update js file for toc
-import sys
-sys.path.append('docs')
 from jnbinder import get_toc
 out = [get_toc(x, CONFIG['exclude_file'] + [CONFIG['homepage']]) for x in binders]
 with open('docs/js/docs.js', 'w') as f:

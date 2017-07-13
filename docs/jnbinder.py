@@ -3,6 +3,36 @@ import glob
 import re
 import json
 
+def get_output(cmd, show_command=False, prompt='$ '):
+    import subprocess
+    try:
+        output = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, shell=True).decode()
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(e)
+    if show_command:
+        return '{}{}\n{}'.format(prompt, cmd, output)
+    else:
+        return output.strip()
+
+def get_commit_info(conf):
+    res = []
+    if conf['author']:
+        res.append("<strong>author(s):</strong> {}".format(conf['author']))
+    if conf['add_commit_info']:
+        try:
+            res.append("<strong>last modified:</strong> {}".format(get_output('git show -s --format="%cd" --date=local HEAD')))
+            res.append('<strong>last committed:</strong> revision {}, <font color=\\"gray\\">{}</font>'.\
+                       format(get_output('git rev-list --count HEAD'), get_output('git rev-parse HEAD')))
+        except:
+            # if git related command fails, indicating it is not a git repo
+            # I'll just pass ...
+            pass
+    if len(res):
+        out = '<p>' + '<br>'.join(res) + '</p>'
+        return out.replace('/', '\/')
+    else:
+        return ''
+
 def get_nav(dirs, home_label, prefix = './'):
     out = '''
 <li>
@@ -116,6 +146,13 @@ def get_index_tpl(conf, dirs):
       type="text/css" />
 <script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
+  div.input_prompt {display: none;}
+  div.output_html {
+     font-family: "PT Mono", monospace;
+     font-size: 10.0pt;
+     color: #353535;
+     padding-bottom: 25px;
+ }
   pre:not([class]) {
     background-color: white;
   }
