@@ -16,7 +16,7 @@ in this repository are made available under the terms of the MIT license.).
 
 ## Quick Start
 
-To quickly start your own Jupyter notebook-based research website, follow
+To quickly start your own Jupyter-notebook-based research website, follow
 these steps.
 
 *Add steps here.*
