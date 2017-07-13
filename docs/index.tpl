@@ -181,6 +181,10 @@ $(document).ready(function () {
 </li>
     
 <li>
+  <a href="./setup.html">Setup</a>
+</li>
+        
+<li>
   <a href="./license.html">License</a>
 </li>
         

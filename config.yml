@@ -10,7 +10,7 @@ footer: "&copy; 2017 Peter Carbonetto &nbsp; Gao Wang"
 
 # These directories contain .ipynb notebooks that will be rendered
 # into webpages.
-include_dir: ["analysis", "license"]
+include_dir: ["analysis", "setup", "license"]
 
 # Do not add links to the navigation bar for .ipynb notebooks in these
 # directories.
