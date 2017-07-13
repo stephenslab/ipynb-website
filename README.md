@@ -125,9 +125,9 @@ favorite Web browser.
 no longer needed (e.g., after renaming a Jupyter notebook); you will
 need to delete them manually.
 
-+ Not all Bootstrap themes are currently supported. So far, we have
-only implemented the Cerulean, Flatly and Readable themes. Go
-[here](https://bootswatch.com) to previous the supported Bootstrap
++ Not all Bootstrap themes are currently fine-tuned. So far, we have
+only tailored the Cerulean, Flatly and Readable themes. Go
+[here](https://bootswatch.com) to view available Bootstrap
 themes. Note that there still may be style conflicts or
 inconsistencies in the CSS files; please report these style conflicts
 by posting an

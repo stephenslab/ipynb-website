@@ -3,7 +3,6 @@
 
 import sys
 sys.path.append('docs')
-from jnbinder import get_commit_info
 
 DEFAULT_CONF = {
            'name': 'Human Genome Project',
@@ -30,7 +29,6 @@ parameter: binders = CONFIG['include_dir']
 # parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
 parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
 parameter: pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x)) if y not in CONFIG['exclude_file']] for x in binders], [])
-parameter: nb_header = get_commit_info(CONFIG)
 
 [download-jnbinder: provides = 'master.zip']
 download:
@@ -104,13 +102,15 @@ run:
 
 [update-nb]
 # update notebook HTML
+from jnbinder import get_commit_info
+parameter: nb_headers = [get_commit_info(x, CONFIG) for x in notebook_files]
 input: notebook_files, group_by = 1
 output: 'docs/' + _input[0].replace('.ipynb', '.html')
 #task:
 run:
   sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
   num=`grep -n -m 1 "^<h1 id=" ${_output!a} | sed 's/\([0-9]*\).*/\1/'`
-  perl -i -lpe 'print "${nb_header}" if $. == '"$num"'+1' ${_output!a}
+  perl -i -lpe 'print "${nb_headers[_index]}" if $. == '"$num"'+1' ${_output!a}
   perl -i -ne 'print if /\S/' ${_output!a}
 
 [update-sos]
@@ -147,4 +147,5 @@ if len(pipeline_files):
    sos_run('update-sos')
 sos_run('update-toc')
 if CONFIG['release_message']:
-   sos_run('release-website')
+   if get_output('git status --untracked-files=no --porcelain').strip():
+      sos_run('release-website')
