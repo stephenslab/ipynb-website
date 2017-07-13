@@ -265,7 +265,7 @@ running the code in this way, make sure your working directory is set to the "an
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;../analysis&quot;</span><span class="p">)</span>
-<span class="kp">as.matrix</span><span class="p">(</span><span class="kp">getwd</span><span class="p">())</span>
+<span class="kt">data.frame</span><span class="p">(</span>working.directory <span class="o">=</span> <span class="kp">getwd</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -276,6 +276,7 @@ running the code in this way, make sure your working directory is set to the "an
 <div class="prompt"></div>
 <div class="output_html rendered_html output_subarea ">
 <table>
+<thead><tr><th scope=col>working.directory</th></tr></thead>
 <tbody>
 	<tr><td>/Users/pcarbo/git/ipynb-website/analysis</td></tr>
 </tbody>
