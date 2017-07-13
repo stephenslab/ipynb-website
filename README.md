@@ -1,10 +1,25 @@
 # Simple data science website using Jupyter notebooks
 
+
+This repository is a adaptable template based on
+[jnbinder](https://github.com/gaow/jnbinder) for publishing websites
+from [Jupyter interactive notebooks](https://jupyter.org) and sharing
+your data analyses with colleagues. *Clone and adapt this repository
+for your own project.*
+
 *Give 1–2 sentence overview of the repository here.*
 
 View the demo project website [here](https://stephenslab.github.io/ipynb-demo).
 
-Using [jnbinder](https://github.com/gaow/jnbinder).
+Using [jnbinder]().
+
+## License
+
+Copyright (C) 2017, Peter Carbonetto & Gao Wang
+
+All source code and software in this repository are made available
+under the terms of the [MIT license](All source code and software
+in this repository are made available under the terms of the MIT license.).
 
 ## Quick Start
 
@@ -34,4 +49,12 @@ some of the simpler modifications that can be made.
 
 ## Credits
 
-*Fill out credits.*
+**ipynb-website** was developed by:
+
+Peter Carbonetto and Gao Wang<br>
+Dept. of Human Genetics<br>
+University of Chicago<br>
+
+[John Blischak](https://github.com/jdblischak),
+[Matthew Stephens](http://stephenslab.uchicago.edu) and others have
+also contributed to the development of this software.
