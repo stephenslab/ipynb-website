@@ -1,9 +1,5 @@
 to do:
 * Check layout of flatly theme.
-* Check laout of cerulean theme.
-* Create release.
+* Check layout of cerulean theme.
+* Create first release.
 
-Instructions:
-1. Edit config.yml.
-2. sos-runner release
-   sos-runner release -s force

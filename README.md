@@ -24,7 +24,9 @@ To start your own Jupyter-notebook-based research website, please
 follow these steps. *Note:* These instructions assume that you are
 managing your project files inside a git repository, but this is not
 strictly necessary; if you prefer not to do this, simply skip the git
-commands in the steps below.
+commands in the steps below. (For a quick introduction to git, see
+[here](https://swcarpentry.github.io/git-novice) or
+[here](https://doi.org/10.1371/journal.pcbi.1004668 ).)
 
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
 is to download and install
@@ -52,11 +54,13 @@ or clone the latest version of this repository from Github.
 5. Install [git](https://git-scm.com/downloads). 
 
 6. Create a new git repository (`git init ...`), copy all the files
-from this repository to the new repository folder, then add these files
-to the new repository (using `git add ...` and `git commit -a`).
+from this repository to the new repository folder, then add these
+files to the new repository (using `git add ...` and `git commit
+-a`). Alternatively, create a new folder (`mkdir ...`) and add copy
+the files to this new folder.
 
-7. Inside your new git repository directory, re-generate all the
-webpages using the SoS release script:
+7. Inside your new project directory, re-generate all the webpages
+using the SoS release script:
 
    ```bash
    sos-runner ./release -s force
@@ -81,17 +85,17 @@ favorite Web browser.
      release -s force` to re-build all the webpages, then commit your
      changes to the git repository.
 
-   + Push your changes (`git push ...`) to your favourite git hosting
-     website ([Github](http://github.com),
+   + Push your changes (`git remote add ...` and `git push ...`) to
+     your favourite git hosting website ([Github](http://github.com),
      [GitLab](http://gitlab.com), [Bitbucket](https://bitbucket.org),
      *etc.*).
 
 ## More setup details
 
-+ The [jnbinder](./release.sos upgrade-jnbinder) tool is used to
++ The [jnbinder](https://github.com/gaow/jnbinder) tool is used to
   generate the webpages from the Jupyter notebooks. To retrieve the
-  most up-to-date version of jnbinder for your git repository, run
-  this command in the main directory of your repository:
+  most up-to-date version of jnbinder for your project, run this
+  command in the main directory of your repository:
 
   ```bash
   sos-runner ./release.sos upgrade-jnbinder
