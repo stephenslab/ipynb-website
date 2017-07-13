@@ -1,26 +1,26 @@
 # The name of the project shown in the navigation bar (it links to the
 # home page).
-name: "Divvy data exploration"
+name: "Divvy data exploration project"
 
-# Link to the source repository (e.g., on Github).
+# Link to the source repository (e.g., on Github, Gitlab).
 repo: "http://github.com/stephenslab/ipynb-website"
 
 # Footer added to the bottom of some webpages.
 footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
-# These directories contain .ipynb notebooks that will be rendered
+# These directories contain Jupyter notebooks that will be rendered
 # into webpages.
 include_dir: ["analysis", "setup", "license"]
 
-# Do not add links to the navigation bar for .ipynb notebooks in these
-# directories.
+# Do not add links in the navigation bar for the Jupyter notebooks in
+# these directories.
 hide_navbar: ["analysis"]
 
-# Any .ipynb notebooks listed here will not be rendered into webpages
+# Any Jupyter notebooks listed here will not be rendered into webpages
 # (e.g., "analysis/temp.ipynb").
 exclude_file: []
 
-# Notebook used to generate home page.
+# This is the notebook used to generate the home page for the website.
 homepage: "analysis/index.ipynb"
 
 # The name of the homepage link shown in the navigation bar.
@@ -28,20 +28,21 @@ homepage_label: "Overview"
 
 # The name of the link to the source repository. It is shown in the
 # top-right corner of the navigation bar. If this line is removed or
-# commented out, then the default is to show a Github logo ("Octocat").
+# commented out, then the default is to show a Github logo (the
+# "Octocat").
 source_label: "source"
 
-# Bootstrap theme; current supported themes are "cerulean", "flatly"
-# and "readable."
+# Bootstrap theme. Current supported themes are "cerulean", "flatly"
+# and "readable"; see the docs/css directory.
 theme: "readable"
 
-# Font used to show all code and text in the .ipynb notebooks (e.g.,
+# Font used to show all code and text in the Jupyter notebooks (e.g.,
 # "Droid Sans"). Set to NULL to inherit the font used by the Bootsrap
 # theme.
 font: NULL
 
-# Set to True to add a table-of-contents to the left-hand side of each
-# of the .ipynb notebook webpages.
+# Set to True to add a table-of-contents (TOC) to the left-hand side
+# of each of the Jupyter notebook webpages; otherwise, set to False.
 notebook_toc: False
 
 # Set this variable to enable auto-commit.

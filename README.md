@@ -24,6 +24,9 @@ chmod +x release.sos
 
 ## Tips for adapting this repository for your own research
 
++ There are many things that can be done; we will only describe here
+some of the simpler modifications that can be made.
+
 + [Link](https://bootswatch.com) to gallery of Bootstrap themes.
 
 + Note that not all themes will show up consistently due to conflicts
