@@ -1,5 +1,3 @@
 to do:
-* Check layout of flatly theme.
-* Check layout of cerulean theme.
 * Create first release.
 

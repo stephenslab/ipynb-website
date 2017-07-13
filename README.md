@@ -11,6 +11,12 @@ View the demo project website
 This website template is based on
 [jnbinder](https://github.com/gaow/jnbinder).
 
+If you find any problems, or would like to suggest new features,
+please open an
+[Issue](https://github.com/stephenslab/ipynb-website/issues). We also
+encourage community contributions, e.g., by forking the repository,
+making your suggested changes, and issuing a pull request.
+
 ## License
 
 Copyright (c) 2017, Peter Carbonetto & Gao Wang.
@@ -66,6 +72,12 @@ using the SoS release script:
    sos-runner ./release -s force
    ```
 
+   All the webpages are created and stored in the "docs"
+   directory. This is particularly convenient for git repositories on
+   Github because 
+   [Github Pages](https://help.github.com/categories/github-pages-basics)
+   can be configured to publish the webpages from the "docs" folder.
+
 8. View the newly generated home page `docs/index.html` in your
 favorite Web browser.
 
@@ -88,9 +100,15 @@ favorite Web browser.
    + Push your changes (`git remote add ...` and `git push ...`) to
      your favourite git hosting website ([Github](http://github.com),
      [GitLab](http://gitlab.com), [Bitbucket](https://bitbucket.org),
-     *etc.*).
+     *etc.*), and configure the repository settings to publish the
+     webpages (e.g., using
+     [Github Pages](https://help.github.com/categories/github-pages-basics)).
 
 ## More setup details
+
++ Whenever you make global changes to the website (e.g., you change
+  the Boostrap theme in `config.yml`), use the `-s force` option to force
+  updates to all the webpages.
 
 + The [jnbinder](https://github.com/gaow/jnbinder) tool is used to
   generate the webpages from the Jupyter notebooks. To retrieve the
@@ -103,13 +121,15 @@ favorite Web browser.
 
 ## Tips for adapting this repository for your project
 
-+ There are many things that can be done; we will only describe here
-some of the simpler modifications that can be made.
++ The `release` script will not automatically remove webpages that are
+no longer needed (e.g., after renaming a Jupyter notebook); you will
+need to delete them manually.
+
++ Not all Bootstrap themes are currently supported. So far, we have
+only implemented the Cerulean, Flatly and Readable themes. will show up consistently due to conflicts between
+  CSS files.
 
 + [Link](https://bootswatch.com) to gallery of Bootstrap themes.
-
-+ Note that not all themes will show up consistently due to conflicts
-  between CSS files.
 
 ## Credits
 
