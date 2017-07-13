@@ -8,31 +8,33 @@ This repository is an adaptable template for publishing websites from
 View the demo project website
 [here](https://stephenslab.github.io/ipynb-website).
 
+This website template uses the
+[jnbinder pipeline](https://github.com/gaow/jnbinder).
+
 ## License
 
-Copyright (c) 2017, Peter Carbonetto & Gao Wang
+Copyright (c) 2017, Peter Carbonetto & Gao Wang.
 
 All source code and software in this repository are made available
 under the terms of the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Quick Start
 
-To start your own Jupyter-notebook-based research website, follow
-these steps.
+To start your own Jupyter-notebook-based research website, please
+follow these steps.
 
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
 is to download and install
 [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
-this version of Python should include [pip](https://pip.pypa.io).
+Python >= 3.5 comes with [pip](https://pip.pypa.io).
 
 2. *Warning:* If you already have Jupyter installed for Python 2.x
-(e.g., Anaconda 2), then you will have to be extra careful to make
-sure that you install SoS for Python 3.x in the next step. Before
-running the commands below, run `python --version` or `pip
---version`.)
+(e.g., Anaconda 2), then you will need to be careful that you install
+SoS for Python 3.x in the next step. To make sure, before running the
+commands below, run `pip --version`.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
-for python 3.x:
+for Python 3.x:
 
    ```bash
    pip install sos
@@ -41,7 +43,10 @@ for python 3.x:
    Note that you may need to include the `--user` flag if you do not
    have administrative privileges on your computer.
 
-4. 
+4. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
+clone or fork the latest version of this repository from Github.
+
+5.
 
 ## More detailed setup instructions
 
