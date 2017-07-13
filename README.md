@@ -21,17 +21,20 @@ under the terms of the [MIT license](https://opensource.org/licenses/MIT).
 ## Quick Start
 
 To start your own Jupyter-notebook-based research website, please
-follow these steps.
+follow these steps. *Note:* These instructions assume that you are
+managing your project files inside a git repository, but this is not
+strictly necessary; if you prefer not to do this, simply skip the git
+commands in the steps below.
 
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
 is to download and install
 [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
 Python >= 3.5 comes with [pip](https://pip.pypa.io).
 
-2. *Warning:* If you already have Jupyter installed for Python 2.x
-(e.g., Anaconda 2), then you will need to be careful that you install
-SoS for Python 3.x in the next step. To make sure, before running the
-commands below, run `pip --version`.)
+2. *Note of caution:* If you already have Jupyter installed for
+Python 2.x (e.g., Anaconda 2), then you will need to be careful that
+you install SoS for Python 3.x in the next step. To make sure, before
+running the commands below, run `pip --version`.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
 for Python 3.x:
@@ -41,29 +44,32 @@ for Python 3.x:
    ```
 
    Note that you may need to include the `--user` flag if you do not
-   have administrative privileges on your computer.
+   have administrative privileges on the computer.
 
 4. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
 or clone the latest version of this repository from Github.
 
-5. Create a new git repository (`git init ...`), copy all the files
+5. Install [git](https://git-scm.com/downloads). 
+
+6. Create a new git repository (`git init ...`), copy all the files
 from this repository to the new repository folder, then add these files
 to the new repository (using `git add ...` and `git commit -a`).
 
-6. Re-generate all the webpages in your new repository using SoS
-"release" script:
+7. Inside your new git repository directory, re-generate all the
+webpages using the SoS release script:
 
    ```bash
-   sos-runner release -s force
+   sos-runner ./release -s force
    ```
 
-7. View the home page `docs/index.html` in your favourite Web browser.
+8. View the newly generated home page `docs/index.html` in your
+favorite Web browser.
 
-8. You are now ready to adapt the Jupyter-notebook-based website for
+9. You are now ready to adapt the Jupyter-notebook-based website for
    your own project:
 
-   + Modify the settings for your website by editing `config.yml`. See
-     the comments in this file for more detailed instructions.
+   + Modify the website settings by editing `config.yml`. See the
+     comments in this file for more detailed instructions.
 
    + Copy, rename or delete the notebooks in the "analysis", "setup"
      and "license" directories.
@@ -82,7 +88,14 @@ to the new repository (using `git add ...` and `git commit -a`).
 
 ## More setup details
 
-+ 
++ The [jnbinder](./release.sos upgrade-jnbinder) tool is used to
+  generate the webpages from the Jupyter notebooks. To retrieve the
+  most up-to-date version of jnbinder for your git repository, run
+  this command in the main directory of your repository:
+
+  ```bash
+  sos-runner ./release.sos upgrade-jnbinder
+  ```
 
 ## Tips for adapting this repository for your project
 
