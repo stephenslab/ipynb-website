@@ -24,10 +24,12 @@ under the terms of the [MIT license](https://opensource.org/licenses/MIT).
 ## Quick Start
 
 To start your own Jupyter-notebook-based research website, please
-follow these steps. *Note:* These instructions assume that you are
-managing your project files inside a git repository, but this is not
-strictly necessary; if you prefer not to do this, simply skip the git
-commands in the steps below. (For a quick introduction to git, see
+follow these steps.
+
+*Note:* These instructions assume that you are managing your project
+files inside a git repository, but this is not strictly necessary; if
+you prefer not to do this, simply skip the git commands in the steps
+below. (For a quick introduction to git, see
 [here](https://swcarpentry.github.io/git-novice) or
 [here](https://doi.org/10.1371/journal.pcbi.1004668 ).)
 
@@ -91,8 +93,8 @@ favorite Web browser.
    + Edit the notebooks interactively in Jupyter.
 
    + After you are satisfied with your changes, re-build the modified
-     webpages by running `sos-runner release`, or use `sos-runner
-     release -s force` to re-build all the webpages, then commit your
+     webpages by running `sos-runner ./release`, or use `sos-runner
+     ./release -s force` to re-build all the webpages, then commit your
      changes to the git repository.
 
    + Push your changes (`git remote add ...` and `git push ...`) to
