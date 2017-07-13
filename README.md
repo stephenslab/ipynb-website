@@ -1,17 +1,10 @@
 # Simple data science website using Jupyter notebooks
 
-
-This repository is a adaptable template based on
-[jnbinder](https://github.com/gaow/jnbinder) for publishing websites
-from [Jupyter interactive notebooks](https://jupyter.org) and sharing
-your data analyses with colleagues. *Clone and adapt this repository
-for your own project.*
-
-*Give 1–2 sentence overview of the repository here.*
+This repository is a adaptable template based on for publishing
+websites from [Jupyter interactive notebooks](https://jupyter.org).
+*Clone and adapt this repository for your own project.*
 
 View the demo project website [here](https://stephenslab.github.io/ipynb-demo).
-
-Using [jnbinder]().
 
 ## License
 
