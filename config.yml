@@ -6,7 +6,7 @@ name: "Divvy data exploration"
 repo: "http://github.com/stephenslab/ipynb-website"
 
 # Footer added to the bottom of some webpages.
-footer: "&copy; 2017 Peter Carbonetto &nbsp; Gao Wang"
+footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
 # These directories contain .ipynb notebooks that will be rendered
 # into webpages.
