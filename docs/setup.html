@@ -177,7 +177,7 @@ $(document).ready(function () {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setup-for-Divvy-data-analysis">Setup for Divvy data analysis<a class="anchor-link" href="#Setup-for-Divvy-data-analysis">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto and Gao Wang<br>
+<h1 id="Setup-for-Divvy-data-analysis">Setup for Divvy data analysis<a class="anchor-link" href="#Setup-for-Divvy-data-analysis">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br>
 <strong>date:</strong> July 13, 2017</p>
 <p>To reproduce the results on your own computer, please follow these setup instructions.</p>
 </div>
@@ -200,7 +200,7 @@ $(document).ready(function () {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Download the Divvy data files and copy the files to the "data" directory. I have provided a script <code>code/retrieve_divvy_data.sh</code> that will automatically retrieve the data files and move them to the expected location. Alternatively, you can view this script and follow the steps by hand. After completing this step, these files should be in the data directory:</li>
+<li>Download the Divvy data files and copy the files to the "data" directory. We have provided a script <code>code/retrieve_divvy_data.sh</code> that will automatically retrieve the data files and move them to the expected location. Alternatively, you can view this script and follow the steps by hand. After completing this step, these files should be in the data directory:</li>
 </ul>
 <pre><code>Divvy_Stations_2016_Q1Q2.csv
 Divvy_Stations_2016_Q3.csv
@@ -231,7 +231,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>Optionally, install <a href="http://jupyter.org">Jupyter</a> with the R kernel. The recommended way to do this is to download and install <a href="https://www.continuum.io/anaconda-overview">Anaconda</a>. This is only needed if you would like to run the code interactively in the Jupyter notebooks.</li>
+<li>Optionally, install <a href="http://jupyter.org">Jupyter</a> with the R kernel. The recommended way to do this is to download and install <a href="https://www.continuum.io/anaconda-overview">Anaconda</a>. This is only needed if you would like to run the code interactively within the Jupyter notebooks.</li>
 </ul>
 </div>
 </div>
@@ -265,7 +265,7 @@ running the code in this way, make sure your working directory is set to the "an
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;../analysis&quot;</span><span class="p">)</span>
-<span class="kp">getwd</span><span class="p">()</span>
+<span class="kt">list</span><span class="p">(</span><span class="kp">getwd</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -275,7 +275,9 @@ running the code in this way, make sure your working directory is set to the "an
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_html rendered_html output_subarea ">
-'/Users/pcarbo/git/ipynb-website/analysis'
+<ol>
+	<li>'/Users/pcarbo/git/ipynb-website/analysis'</li>
+</ol>
 </div>
 </div>
 </div>
