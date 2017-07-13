@@ -59,7 +59,26 @@ to the new repository (using `git add ...` and `git commit -a`).
 
 7. View the home page `docs/index.html` in your favourite Web browser.
 
-8. 
+8. You are now ready to adapt the Jupyter-notebook-based website for
+   your own project:
+
+   + Modify the settings for your website by editing `config.yml`. See
+     the comments in this file for more detailed instructions.
+
+   + Copy, rename or delete the notebooks in the "analysis", "setup"
+     and "license" directories.
+
+   + Edit the notebooks interactively in Jupyter.
+
+   + After you are satisfied with your changes, re-build the modified
+     webpages by running `sos-runner release`, or use `sos-runner
+     release -s force` to re-build all the webpages, then commit your
+     changes to the git repository.
+
+   + Push your changes (`git push ...`) to your favourite git hosting
+     website ([Github](http://github.com),
+     [GitLab](http://gitlab.com), [Bitbucket](https://bitbucket.org),
+     *etc.*).
 
 ## More setup details
 
