@@ -126,10 +126,12 @@ no longer needed (e.g., after renaming a Jupyter notebook); you will
 need to delete them manually.
 
 + Not all Bootstrap themes are currently supported. So far, we have
-only implemented the Cerulean, Flatly and Readable themes. will show up consistently due to conflicts between
-  CSS files.
-
-+ [Link](https://bootswatch.com) to gallery of Bootstrap themes.
+only implemented the Cerulean, Flatly and Readable themes. Go
+[here](https://bootswatch.com) to previous the supported Bootstrap
+themes. Note that there still may be style conflicts or
+inconsistencies in the CSS files; please report these style conflicts
+by posting an
+[Issue](https://github.com/stephenslab/ipynb-website/issues).
 
 ## Credits
 
