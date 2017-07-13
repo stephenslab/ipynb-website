@@ -8,8 +8,8 @@ This repository is an adaptable template for publishing websites from
 View the demo project website
 [here](https://stephenslab.github.io/ipynb-website).
 
-This website template uses the
-[jnbinder pipeline](https://github.com/gaow/jnbinder).
+This website template is based on
+[jnbinder](https://github.com/gaow/jnbinder).
 
 ## License
 
@@ -44,20 +44,28 @@ for Python 3.x:
    have administrative privileges on your computer.
 
 4. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
-clone or fork the latest version of this repository from Github.
+or clone the latest version of this repository from Github.
 
-5.
+5. Create a new git repository (`git init ...`), copy all the files
+from this repository to the new repository folder, then add these files
+to the new repository (using `git add ...` and `git commit -a`).
 
-## More detailed setup instructions
+6. Re-generate all the webpages in your new repository using SoS
+"release" script:
 
-```
-wget https://github.com/gaow/jnbinder/archive/master.zip
-unzip -p master.zip jnbinder-master/release > release.sos
-chmod +x release.sos
-./release.sos setup-jnbinder
-```
+   ```bash
+   sos-runner release -s force
+   ```
 
-## Tips for adapting this repository for your own research
+7. View the home page `docs/index.html` in your favourite Web browser.
+
+8. 
+
+## More setup details
+
++ 
+
+## Tips for adapting this repository for your project
 
 + There are many things that can be done; we will only describe here
 some of the simpler modifications that can be made.
