@@ -34,7 +34,8 @@ commands in the steps below. (For a quick introduction to git, see
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
 is to download and install
 [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
-Python >= 3.5 comes with [pip](https://pip.pypa.io).
+Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should not
+need to install it separately.
 
 2. *Note of caution:* If you already have Jupyter installed for
 Python 2.x (e.g., Anaconda 2), then you will need to be careful that
@@ -51,10 +52,10 @@ for Python 3.x:
    Note that you may need to include the `--user` flag if you do not
    have administrative privileges on the computer.
 
-4. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
-or clone the latest version of this repository from Github.
+4. Install [git](https://git-scm.com/downloads). 
 
-5. Install [git](https://git-scm.com/downloads). 
+5. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
+or clone the latest version of this repository from Github.
 
 6. Create a new git repository (`git init ...`), copy all the files
 from this repository to the new repository folder, then add these
