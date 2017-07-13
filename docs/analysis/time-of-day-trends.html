@@ -122,16 +122,16 @@ body {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Divvy-usage-by-time-of-day">Divvy usage by time-of-day<a class="anchor-link" href="#Divvy-usage-by-time-of-day">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto and Gao Wang<br>
-<strong>date:</strong> July 12, 2017</p>
+<h1 id="Divvy-usage-by-time-of-day">Divvy usage by time-of-day<a class="anchor-link" href="#Divvy-usage-by-time-of-day">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br>
+<strong>date:</strong> July 13, 2017</p>
 <p>Here we use the Divvy trip data to examine biking trends over the course of a typical day in Chicago.</p>
-<p>I begin by loading a few packages, as well as some additional functions I wrote for this project. The <code>repr</code> package is used to adjust the dimensions of the figures in the Jupyter notebook.</p>
+<p>We begin by loading a few packages, as well as some additional R functions implemented for this project. The <code>repr</code> package is used to adjust the dimensions of the figures in the Jupyter notebook.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>repr<span class="p">)</span>
@@ -148,7 +148,7 @@ body {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>Following <a href="first-glance.html">my earlier steps</a>, I use function <code>read.divvy.data</code> to read the trip and station data from the CSV files.</p>
+<h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>Following <a href="first-glance.html">our earlier steps</a>, we use function <code>read.divvy.data</code> to read the trip and station data from the CSV files.</p>
 </div>
 </div>
 </div>
@@ -187,7 +187,7 @@ Converting dates and times.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To make it easier to compile statistics by time of day, I convert the "start hour" column to a factor.</p>
+<p>To make it easier to compile statistics by time of day, we convert the "start hour" column to a factor.</p>
 </div>
 </div>
 </div>
@@ -207,7 +207,7 @@ Converting dates and times.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Count-departures-by-time-of-day">Count departures by time-of-day<a class="anchor-link" href="#Count-departures-by-time-of-day">&#182;</a></h2><p>Now that <code>start.hour</code> is a factor, it is easy to create a bar chart showing the total number of departures at each hour. Unsurprisingly, we se very little biking activity at night. Further, the two peaks ("modes") in the bar chart nicely recapitulate the morning and afternoon rush hours.</p>
+<h2 id="Count-departures-by-time-of-day">Count departures by time-of-day<a class="anchor-link" href="#Count-departures-by-time-of-day">&#182;</a></h2><p>Now that <code>start.hour</code> is a factor, it is easy to create a bar chart showing the total number of departures at each hour. Unsurprisingly, we see very little biking activity at night. Further, the two peaks ("modes") in the bar chart nicely recapitulate the morning and afternoon rush hours.</p>
 </div>
 </div>
 </div>
@@ -2245,17 +2245,6 @@ loaded via a namespace (and not attached):
 [17] IRkernel_0.7     labeling_0.3     tools_3.3.2      stringr_1.2.0   
 [21] munsell_0.4.3    colorspace_1.3-2 pbdZMQ_0.2-5     tibble_1.2      </pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
 </div>
 </div>
 </div>
