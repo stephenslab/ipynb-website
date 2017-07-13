@@ -12,7 +12,9 @@ footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 author: "Peter Carbonetto, Gao Wang"
 
 # When set to True, populate each notebook with the commit id (SHA1)
-# and commit modification date.
+# and commit modification date. This info is added underneath the
+# document title; i.e., <h1>Title goes here.</h1> If there is no <h1>
+# tag then the commit info will not be added to the webpage.
 add_commit_info: True
 
 # These directories contain Jupyter notebooks that will be rendered
