@@ -8,9 +8,6 @@ This repository is an adaptable template for publishing websites from
 View the demo project website
 [here](https://stephenslab.github.io/ipynb-website).
 
-This website template is based on
-[jnbinder](https://github.com/gaow/jnbinder).
-
 If you find any problems, or would like to suggest new features,
 please open an
 [Issue](https://github.com/stephenslab/ipynb-website/issues). We also
