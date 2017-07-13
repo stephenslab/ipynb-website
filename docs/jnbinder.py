@@ -21,8 +21,10 @@ def get_commit_info(conf):
     if conf['add_commit_info']:
         try:
             res.append("<strong>last modified:</strong> {}".format(get_output('git show -s --format="%cd" --date=local HEAD')))
-            res.append('<strong>last committed:</strong> revision {}, <font color=\\"gray\\">{}</font>'.\
-                       format(get_output('git rev-list --count HEAD'), get_output('git rev-parse HEAD')))
+            res.append('<strong>last committed:</strong> revision {}, <a href=\\"{}\\">{}</a>'.\
+                       format(get_output('git rev-list --count HEAD'),
+                              "{}/commit/{}".format(conf['repo'], get_output('git rev-parse HEAD')),
+                              get_output('git rev-parse --short HEAD')))
         except:
             # if git related command fails, indicating it is not a git repo
             # I'll just pass ...
