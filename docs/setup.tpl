@@ -85,7 +85,7 @@ $(document).ready(function () {
 });
 </script>
 
-<title>Divvy data exploration</title>
+<title>Divvy data exploration project</title>
 
 <style type = "text/css">
 body {
@@ -110,7 +110,7 @@ body {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Divvy data exploration</a>
+      <a class="navbar-brand" href="../index.html">Divvy data exploration project</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
