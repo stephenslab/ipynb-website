@@ -119,7 +119,7 @@ body {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h1><p><strong>author:</strong> "Peter Carbonetto"<br>
+<h1 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto and Gao Wang<br>
 <strong>date:</strong> July 12, 2017</p>
 <p>Here, we will take a brief look at the data provided by Divvy.</p>
 <p>I begin by loading a few packages, as well as some additional
@@ -193,20 +193,13 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
-<span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_html rendered_html output_subarea ">
-581
-</div>
-</div>
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
@@ -223,6 +216,27 @@ Converting dates and times.
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_html rendered_html output_subarea ">
+581
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -234,23 +248,16 @@ Converting dates and times.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
-<span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_html rendered_html output_subarea ">
-3595383
-</div>
-</div>
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
@@ -281,6 +288,27 @@ Converting dates and times.
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_html rendered_html output_subarea ">
+3595383
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -292,7 +320,7 @@ Converting dates and times.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>departures <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name<span class="p">)</span>
@@ -332,7 +360,7 @@ Converting dates and times.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">sum</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span>na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
@@ -362,7 +390,7 @@ Converting dates and times.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
