@@ -12,25 +12,28 @@ footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 author: "Peter Carbonetto, Gao Wang"
 
 # When set to True, populate each notebook with the commit id (SHA1)
-# and commit modification date. This info is added underneath the cell
-# containing a top-level header; e.g., # Project title in a Markdown
-# cell, and <h1>Project title</h1> in the rendered HTML. If there is
-# no <h1> tag then the commit info will not be added to the webpage.
+# and commit modification date. This commit info is added underneath
+# the cell containing a top-level header; e.g., # Project title in a
+# Markdown cell, and <h1>Project title</h1> in the rendered HTML. If
+# there is no <h1> tag then the commit info will not be added to the
+# webpage.
 add_commit_info: True
 
-# These directories contain Jupyter notebooks that will be rendered
+# These subdirectories contain Jupyter notebooks that will be rendered
 # into webpages.
 include_dir: ["analysis", "setup", "license"]
 
 # Do not add links in the navigation bar for the Jupyter notebooks in
-# these directories.
+# these subdirectories.
 hide_navbar: ["analysis"]
 
 # Any Jupyter notebooks listed here will not be rendered into webpages
 # (e.g., "analysis/temp.ipynb").
 exclude_file: []
 
-# This is the notebook used to generate the home page for the website.
+# This is the notebook used to generate the home page for the
+# website. If no home page is set, an Overview.ipynb file is
+# automatically generated and saved in the base project directory.
 homepage: "analysis/index.ipynb"
 
 # The name of the homepage link shown in the navigation bar.

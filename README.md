@@ -115,7 +115,7 @@ below. (For a quick introduction to git, see
 + The [jnbinder](https://github.com/gaow/jnbinder) tool is used to
   generate the webpages from the Jupyter notebooks. To retrieve the
   most up-to-date version of jnbinder for your project, run this
-  command in the main directory of your repository:
+  command in the base directory of your repository:
 
   ```bash
   sos-runner ./release.sos upgrade-jnbinder
@@ -124,16 +124,21 @@ below. (For a quick introduction to git, see
 ## Tips for adapting this framework for your project
 
 + The `release.sos` script will not automatically remove webpages that
-are no longer needed (e.g., after renaming a Jupyter notebook); you
-will need to delete them manually.
+  are no longer needed (e.g., after renaming a Jupyter notebook); you
+  will need to delete them manually.
+
++ The `include_dir` setting in `config.yml` specifies the project
+  subdirectories containing Jupyter notebooks to render into
+  webpages. If no `index.ipynb` file is provided within a given
+  subdirectory, an index will automatically be generated.
 
 + So far, only the Cerulean, Flatly and Readable Bootstrap themes have
-been adapted and tested for this framework. It is possible to select
-other themes (see [here](https://bootswatch.com) for a larger
-collection), although they have not been tested. Also note that there
-may be style conflicts or inconsistencies in the included CSS files;
-please report these style conflicts by posting an
-[Issue](https://github.com/stephenslab/ipynb-website/issues).
+  been adapted and tested for this framework. It is possible to select
+  other themes (see [here](https://bootswatch.com) for a larger
+  collection), although they have not been tested. Also note that
+  there may be style conflicts or inconsistencies in the included CSS
+  files; please report these style conflicts by posting an
+  [Issue](https://github.com/stephenslab/ipynb-website/issues).
 
 + For more website customization details, please refer to the comments
   in the [config.yml](config.yml) file.
