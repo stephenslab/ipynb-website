@@ -58,8 +58,7 @@ below. (For a quick introduction to git, see
 
 4. Install [git](https://git-scm.com/downloads). 
 
-5. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
-   or clone the latest version of this repository from Github.
+5. Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9) of this repository from Github.
 
 6. Create a new git repository (`git init ...`), copy all the files
    from this repository to the new repository folder, then add these
