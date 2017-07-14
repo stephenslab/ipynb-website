@@ -522,11 +522,9 @@ def get_notebook_toc(path, exclude):
 
 def get_index_toc(path):
     out = 'var {}Array = ['.format(os.path.basename(path))
-    fi = os.path.join(path, 'index.ipynb')
+    fi = os.path.join(path, '_index.ipynb')
     if not os.path.isfile(fi):
-        fi = os.path.join(path, '_index.ipynb')
-        if not os.path.isfile(fi):
-            return out + ']'
+        return out + ']'
     with open(fi) as f:
         data = json.load(f)
     for cell in data['cells']:
