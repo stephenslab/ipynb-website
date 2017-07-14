@@ -4,3 +4,5 @@ var setupArray = []
 var setupDict = {}
 var licenseArray = []
 var licenseDict = {}
+var notesArray = []
+var notesDict = {}

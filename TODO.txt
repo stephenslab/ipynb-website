@@ -1,1 +1,5 @@
 * Create new release (0.9.1).
+
+* Change the README and config.yml to remove statement about having to
+  include a first level header.
+

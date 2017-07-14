@@ -127,6 +127,10 @@ body {
   <a href="../license.html">License</a>
 </li>
         
+<li>
+  <a href="../notes.html">Notes</a>
+</li>
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
