@@ -8,9 +8,6 @@ repo: "http://github.com/stephenslab/ipynb-website"
 # Footer added to the bottom of some webpages.
 footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
-# Default is None, which means that no author information is displayed.
-author: "Peter Carbonetto, Gao Wang"
-
 # When set to True, populate each notebook with the commit id (SHA1)
 # and commit modification date. This commit info is added underneath
 # the cell containing a top-level header; e.g., # Project title in a
