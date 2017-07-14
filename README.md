@@ -135,6 +135,9 @@ may be style conflicts or inconsistencies in the included CSS files;
 please report these style conflicts by posting an
 [Issue](https://github.com/stephenslab/ipynb-website/issues).
 
++ For more website customization details, please refer to the comments
+  in the [config.yml](config.yml) file.
+
 ## Credits
 
 **ipynb-website** was developed by:
