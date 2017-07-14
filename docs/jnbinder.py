@@ -353,7 +353,7 @@ $(document).ready(function () {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['jnbinder_version'], conf['name'], conf['theme'], get_font(conf['font']), conf['name'],
+	''' % (conf['__version__'], conf['name'], conf['theme'], get_font(conf['font']), conf['name'],
            get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label']),
            conf['repo'], conf['source_label'], conf['footer'],
            get_disqus(conf['disqus']))
@@ -499,7 +499,7 @@ body {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['jnbinder_version'],
+	''' % (conf['__version__'],
            '<link rel="stylesheet" type="text/css" href="../css/%s.css">' % conf['jt_theme']
            if conf['jt_theme'] is not None else '',
            conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
