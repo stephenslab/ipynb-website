@@ -110,12 +110,12 @@ below. (For a quick introduction to git, see
 
 + Whenever you make global changes to the website (e.g., you change
   the Boostrap theme in `config.yml`), use the `-s force` option to force
-  updates to all the webpages.
+  updates to all the webpages, not just the ones that have been modified.
 
-+ The [jnbinder](https://github.com/gaow/jnbinder) tool is used to
-  generate the webpages from the Jupyter notebooks. To retrieve the
-  most up-to-date version of jnbinder for your project, run this
-  command in the base directory of your repository:
++ The [jnbinder tool](https://github.com/gaow/jnbinder) is used to
+  generate the webpages from the Jupyter notebooks. To update jnbinder
+  for your project, run this command in the base directory of your
+  repository:
 
   ```bash
   sos-runner ./release.sos upgrade-jnbinder
@@ -124,17 +124,17 @@ below. (For a quick introduction to git, see
 ## Tips for adapting this framework for your project
 
 + The `release.sos` script will not automatically remove webpages that
-  are no longer needed (e.g., after renaming a Jupyter notebook); you
-  will need to delete them manually.
+  are no longer needed (e.g., after renaming a Jupyter notebook). You
+  will need to delete these unused files manually.
 
 + The `include_dir` setting in `config.yml` specifies the project
   subdirectories containing Jupyter notebooks to render into
   webpages. If no `index.ipynb` file is provided within a given
   subdirectory, an index with filename `_index.ipynb` will
-  automatically be generated, and rendered as `_index`.html.
+  automatically be generated, and rendered as `_index.html`.
 
 + There is also the option of adding a table of contents to each
-  notebook by setting `notebook_toc` to `True` in `config.yml`.
+  notebook by setting `notebook_toc: True` in `config.yml`.
 
 + For the table of contents and the automatically generated index, it
   is recommended that the notebooks have descriptive names; e.g.,
@@ -145,7 +145,7 @@ below. (For a quick introduction to git, see
 + So far, only the Cerulean, Flatly and Readable Bootstrap themes have
   been adapted and tested for this framework. It is possible to select
   other themes (see [here](https://bootswatch.com) for a larger
-  collection), although they have not been tested. Also note that
+  collection), although they may not work as well. Also note that
   there may be style conflicts or inconsistencies in the included CSS
   files; please report these style conflicts by posting an
   [Issue](https://github.com/stephenslab/ipynb-website/issues).
