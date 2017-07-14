@@ -22,10 +22,9 @@ def get_commit_info(fn, conf):
         try:
             long_fmt = get_output('git log -n 1 --pretty=format:%H -- {}'.format(fn))
             short_fmt = get_output('git log -n 1 --pretty=format:%h -- {}'.format(fn))
-            res.append("<strong>last modified:</strong> {}".\
-                       format(get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt))))
-            res.append('<strong>last committed:</strong> revision {}, <a href=\\"{}\\">{}</a>'.\
-                       format(get_output('git rev-list --count {}'.format(long_fmt)),
+            res.append('<strong>last committed:</strong> {} \| revision {}, <a href=\\"{}\\">{}</a>'.\
+                       format(get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt)),
+                              get_output('git rev-list --count {}'.format(long_fmt)),
                               "{}/commit/{}".format(conf['repo'], long_fmt),
                               short_fmt))
         except:
