@@ -1,9 +1,1 @@
-to do:
-
 * Create new release (0.9.1).
-
-* Make git add + commit instructions more clear.
-
-* Explain that converting to HTML doesn't actually run the code.
-
-
