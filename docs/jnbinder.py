@@ -16,7 +16,7 @@ def get_output(cmd, show_command=False, prompt='$ '):
 
 def get_commit_link(repo, cid):
     bits = os.path.split(repo)
-    if "github.com" in bits:
+    if "github.com" or "gitlab.com" in bits:
         return "{}/commit/{}".format(repo, cid)
     elif "bitbucket.org" in bits:
         return "{}/commits/{}".format(repo, cid)
