@@ -1,5 +1,4 @@
 * Create new release (0.9.1).
 
-* Change the README and config.yml to remove statement about having to
-  include a first level header.
-
+* Only allow add_commit_info = True when all changes have been
+  committed.

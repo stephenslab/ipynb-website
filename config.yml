@@ -8,8 +8,11 @@ repo: "http://github.com/stephenslab/ipynb-website"
 # Footer added to the bottom of some webpages.
 footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
-# When set to True, populate the footer of each notebook with the
+# When set to True, populate the footer of each notebook with the git
 # commit id (SHA1) and commit modification date.
+#
+# For this feature to work correctly, the working tree must be empty;
+# that is, all changes must be committed using "git commit".
 add_commit_info: True
 
 # These subdirectories contain Jupyter notebooks that will be rendered
