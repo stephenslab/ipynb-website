@@ -5,8 +5,9 @@ import sys
 sys.path.append('docs')
 
 DEFAULT_CONF = {
-           'name': 'Human Genome Project',
-           'repo': 'http://github.com/gaow/test-jnbinder',
+           'jnbinder_version': '0.9.1',
+           'name': 'A Pet Project',
+           'repo': 'http://github.com/gaow/jnbinder',
            'author': None,
            'footer': "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago",
            'include_dir': [],

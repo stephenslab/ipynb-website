@@ -138,14 +138,13 @@ def get_index_tpl(conf, dirs):
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+<meta name="ipynb_website:version" content="%s" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>%s</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/%s.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
@@ -354,7 +353,7 @@ $(document).ready(function () {
 </body>
 </html>
 {%% endblock %%}
-	''' % (conf['name'], conf['theme'], get_font(conf['font']), conf['name'],
+	''' % (conf['jnbinder_version'], conf['name'], conf['theme'], get_font(conf['font']), conf['name'],
            get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label']),
            conf['repo'], conf['source_label'], conf['footer'],
            get_disqus(conf['disqus']))
@@ -370,8 +369,8 @@ def get_notebook_tpl(conf, dirs, path):
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="%s" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
@@ -500,7 +499,9 @@ body {
 </body>
 </html>
 {%% endblock %%}
-	''' % ('<link rel="stylesheet" type="text/css" href="../css/%s.css">' % conf['jt_theme'] if conf['jt_theme'] is not None else '',
+	''' % (conf['jnbinder_version'],
+           '<link rel="stylesheet" type="text/css" href="../css/%s.css">' % conf['jt_theme']
+           if conf['jt_theme'] is not None else '',
            conf['theme'], get_sidebar(path) if conf['notebook_toc'] else '',
            conf['name'], get_font(conf['font']), conf['name'],
            get_nav([x for x in dirs if not x in conf['hide_navbar']], conf['homepage_label'], '../'),
