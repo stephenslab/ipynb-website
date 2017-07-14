@@ -130,7 +130,17 @@ below. (For a quick introduction to git, see
 + The `include_dir` setting in `config.yml` specifies the project
   subdirectories containing Jupyter notebooks to render into
   webpages. If no `index.ipynb` file is provided within a given
-  subdirectory, an index will automatically be generated.
+  subdirectory, an index with filename `_index.ipynb` will
+  automatically be generated, and rendered as `_index`.html.
+
++ There is also the option of adding a table of contents to each
+  notebook by setting `notebook_toc` to `True` in `config.yml`.
+
++ For the table of contents and the automatically generated index, it
+  is recommended that the notebooks have descriptive names; e.g.,
+  `Plot_station_map.ipynb`. All underscores are automatically treated
+  as spaces, so `Plot_station_map.ipynb` will show as "Plot station
+  map" in the index file and table of contents.
 
 + So far, only the Cerulean, Flatly and Readable Bootstrap themes have
   been adapted and tested for this framework. It is possible to select
