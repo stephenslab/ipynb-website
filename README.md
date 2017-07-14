@@ -42,17 +42,18 @@ need to install it separately.
 2. *Note of caution:* If you already have Jupyter installed for
 Python 2.x (e.g., Anaconda 2), then you will need to be careful that
 you install SoS for Python 3.x in the next step. To make sure, before
-running the commands below, run `pip --version`.)
+running the commands below, run `pip --version` or `pip3 --version`.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
 for Python 3.x:
 
    ```bash
-   pip install sos
+   pip3 install sos
    ```
 
-   Note that you may need to include the `--user` flag if you do not
-   have administrative privileges on the computer.
+   Note that the executable on your computer may be called `pip3` or
+   `pip`. Also note that you may need to include the `--user` flag if
+   you do not have administrative privileges on the computer.
 
 4. Install [git](https://git-scm.com/downloads). 
 
@@ -69,7 +70,7 @@ the files to this new folder.
 using the SoS release script:
 
    ```bash
-   sos-runner ./release -s force
+   sos-runner ./release.sos -s force
    ```
 
    All the webpages are created and stored in the "docs"
@@ -93,9 +94,9 @@ favorite Web browser.
    + Edit the notebooks interactively in Jupyter.
 
    + After you are satisfied with your changes, re-build the modified
-     webpages by running `sos-runner ./release`, or use `sos-runner
-     ./release -s force` to re-build all the webpages, then commit your
-     changes to the git repository.
+     webpages by running `sos-runner ./release.sos`, or use
+     `sos-runner ./release.sos -s force` to re-build all the webpages,
+     then commit your changes to the git repository.
 
    + Push your changes (`git remote add ...` and `git push ...`) to
      your favourite git hosting website ([Github](http://github.com),
@@ -121,9 +122,9 @@ favorite Web browser.
 
 ## Tips for adapting this repository for your project
 
-+ The `release` script will not automatically remove webpages that are
-no longer needed (e.g., after renaming a Jupyter notebook); you will
-need to delete them manually.
++ The `release.sos` script will not automatically remove webpages that
+are no longer needed (e.g., after renaming a Jupyter notebook); you
+will need to delete them manually.
 
 + Not all Bootstrap themes are currently fine-tuned. So far, we have
 only tailored the Cerulean, Flatly and Readable themes. Go
