@@ -52,24 +52,36 @@ below. (For an introduction to git, see
    pip3 install sos
    ```
 
-   Note that the executable on your computer may be called `pip3` or
-   `pip`. Also note that you may need to include the `--user` flag if
-   you do not have administrative privileges on the computer.
+   Note that the executable on your computer may be either `pip` or
+   `pip3`, depending on your setup. Also note that you may need to
+   include the `--user` flag if you do not have administrative
+   privileges on the computer.
 
    If you get a warning, "Could not find .egg-info directory in
    install record for sos...", please ignore it.
 
 4. Install [git](https://git-scm.com/downloads). 
 
-5. Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9) of this repository from Github.
+5. Make a personal copy of this repository:
 
-6. Create a new git repository (`git init ...`), copy all the files
-   from this repository to the new repository folder, then add these
-   files to the new repository (using `git add .` and `git commit`).
-   Alternatively, create a new folder (`mkdir ...`) and add copy the
-   files to this new folder.
+   + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9) of this repository from Github.
 
-7. Inside your new project directory, re-generate all the webpages
+   + Create a new git repository (`git init ...`), copy all the files
+   from this repository to the new repository folder.
+
+   + Change the
+   working directory to the new repository folder and commit these
+   files to the new repository:
+
+   ```bash
+   git add .
+   git commit
+   ```
+
+   + Alternatively, if you are not using git, create a new folder
+   (`mkdir ...`) and add copy the files to this new folder.
+
+6. Inside your new project directory, re-generate all the webpages
    using the SoS release script:
 
    ```bash
@@ -77,13 +89,30 @@ below. (For an introduction to git, see
    ```
 
    All the webpages are created and stored in the "docs"
-   directory. This is particularly convenient for git repositories on
+   directory. This is convenient for git repositories hosted on
    Github because 
    [Github Pages](https://help.github.com/categories/github-pages-basics)
    can be configured to publish the webpages from the "docs" folder.
 
-8. View the newly generated home page `docs/index.html` in your
+7. View the newly generated home page `docs/index.html` in your
    favorite Web browser.
+
+8. If you would like to upload your new git repository to a git
+   hosting website, do the following:
+
+   + Create a new empty repository on tour favorite git hosting
+     website (e.g., [Github](http://github.com),
+     [GitLab](http://gitlab.com), [Bitbucket](https://bitbucket.org).
+     Currently, only Github has been tested; other sites may work as
+     well, but may not support all the website publishing features.
+
+   + Determine the URL of the host repository, and add this URL to the
+     repository on your computer with `git remote add origin ...`.
+
+   + Upload to the host repository with `git push origin master`.
+
+   + Configure the repository settings to publish the webpages; e.g.,
+     using [Github Pages](https://help.github.com/categories/github-pages-basics)).
 
 9. You are now ready to adapt the Jupyter-notebook-based website for
    your own project:
@@ -100,13 +129,6 @@ below. (For an introduction to git, see
      webpages by running `sos-runner ./release.sos`, or use
      `sos-runner ./release.sos -s force` to re-build all the webpages,
      then commit your changes to the git repository.
-
-   + Push your changes (`git remote add ...` and `git push ...`) to
-     your favourite git hosting website ([Github](http://github.com),
-     [GitLab](http://gitlab.com), [Bitbucket](https://bitbucket.org),
-     *etc.*), and configure the repository settings to publish the
-     webpages (e.g., using
-     [Github Pages](https://help.github.com/categories/github-pages-basics)).
 
 ## More setup details
 
