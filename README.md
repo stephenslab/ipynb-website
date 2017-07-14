@@ -56,15 +56,18 @@ below. (For a quick introduction to git, see
    `pip`. Also note that you may need to include the `--user` flag if
    you do not have administrative privileges on the computer.
 
+   If you get a warning, "Could not find .egg-info directory in
+   install record for sos...", please ignore it.
+
 4. Install [git](https://git-scm.com/downloads). 
 
 5. Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9) of this repository from Github.
 
 6. Create a new git repository (`git init ...`), copy all the files
    from this repository to the new repository folder, then add these
-   files to the new repository (using `git add ...` and `git commit
-   -a`). Alternatively, create a new folder (`mkdir ...`) and add copy
-   the files to this new folder.
+   files to the new repository (using `git add .` and `git commit`).
+   Alternatively, create a new folder (`mkdir ...`) and add copy the
+   files to this new folder.
 
 7. Inside your new project directory, re-generate all the webpages
    using the SoS release script:

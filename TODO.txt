@@ -1,3 +1,10 @@
 to do:
-* Create first release.
+
+* Use the GitHub importer GitHub tool: https://github.com/new/import
+
+* Make git add + commit instructions more clear.
+
+* Explain that converting to HTML doesn't actually run the code.
+
+* Add (optional) instructions for installing Jupyter R kernel.
 
