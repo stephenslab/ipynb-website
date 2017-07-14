@@ -82,10 +82,9 @@ if flag:
 import os
 from jnbinder import make_index_nb, make_empty_nb
 for binder in binders:
-  if not os.path.isfile('{}/index.ipynb'.format(binder)):
-    data = make_index_nb(binder, CONFIG['exclude_file'] + [CONFIG['homepage']])
-    with open('{}/_index.ipynb'.format(binder), 'w') as f:
-      f.write(data.strip())
+  data = make_index_nb(binder, CONFIG['exclude_file'] + [CONFIG['homepage']])
+  with open('{}/_index.ipynb'.format(binder), 'w') as f:
+    f.write(data.strip())
 if not os.path.isfile(CONFIG['homepage']):
   with open(CONFIG['homepage'], 'w') as f:
     f.write(make_empty_nb(CONFIG['name']))
@@ -138,14 +137,17 @@ if CONFIG['post_release_actions']:
 [default_1]
 # compile everything
 if len(binders):
-   sos_run('update-tpl')
-   sos_run('update-index')
-   sos_run('update-hp')
+  sos_run('update-tpl')
+  sos_run('update-index')
+  sos_run('update-hp')
 if len(notebook_files):
-   sos_run('update-nb')
+  sos_run('update-nb')
 if len(pipeline_files):
-   sos_run('update-sos')
+  sos_run('update-sos')
 sos_run('update-toc')
+for binder in binders:
+  if os.path.isfile("{}/_index.ipynb".format(binder)):
+    os.remove("{}/_index.ipynb".format(binder))
 if CONFIG['release_message']:
-   if get_output('git status --untracked-files=no --porcelain').strip():
-      sos_run('release-website')
+  if get_output('git status --untracked-files=no --porcelain').strip():
+    sos_run('release-website')
