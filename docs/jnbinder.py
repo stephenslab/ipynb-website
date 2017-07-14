@@ -14,6 +14,15 @@ def get_output(cmd, show_command=False, prompt='$ '):
     else:
         return output.strip()
 
+def get_commit_link(repo, cid):
+    bits = os.path.split(repo)
+    if "github.com" in bits:
+        return "{}/commit/{}".format(repo, cid)
+    elif "bitbucket.org" in bits:
+        return "{}/commits/{}".format(repo, cid)
+    else:
+        return repo
+
 def get_commit_info(fn, conf):
     res = []
     if conf['author']:
@@ -24,7 +33,7 @@ def get_commit_info(fn, conf):
             short_fmt = get_output('git log -n 1 --pretty=format:%h -- {}'.format(fn))
             res.append('<strong>last commit:</strong> revision {}, <a href=\\"{}\\">{}</a> on {}'.\
                        format(get_output('git rev-list --count {}'.format(long_fmt)),
-                              "{}/commit/{}".format(conf['repo'], long_fmt), short_fmt,
+                              get_commit_link(conf['repo'], long_fmt), short_fmt,
                               get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt))))
         except:
             # if git related command fails, indicating it is not a git repo
@@ -521,18 +530,36 @@ def get_notebook_toc(path, exclude):
     return out
 
 def get_index_toc(path):
-    out = 'var {}Array = ['.format(os.path.basename(path))
-    fi = os.path.join(path, '_index.ipynb')
+    out = 'var {}Array = '.format(os.path.basename(path))
+    # Reference index
+    fr = os.path.join(path, '_index.ipynb')
+    if not os.path.isfile(fr):
+        return out + '[]'
+    # Actual index
+    fi = os.path.join(path, 'index.ipynb')
     if not os.path.isfile(fi):
-        return out + ']'
+        fi = fr
+    # Collect HTML file names from index file
+    res = []
     with open(fi) as f:
         data = json.load(f)
     for cell in data['cells']:
         for sentence in cell["source"]:
             doc = re.search('(.+?)/(.+?).html', sentence)
             if doc:
-                out += '"' + doc.group(2) + '", '
-    return out.rstrip().rstrip(',') + ']'
+                res.append(doc.group(2))
+    # Filter by reference index
+    if not fi == fr:
+        ref = []
+        with open(fr) as f:
+            data = json.load(f)
+        for cell in data['cells']:
+            for sentence in cell["source"]:
+                doc = re.search('(.+?)/(.+?).html', sentence)
+                if doc:
+                    ref.append(doc.group(2))
+        res = [x for x in res if x in ref]
+    return out + repr(res)
 
 def get_toc(path, exclude):
     return [get_index_toc(path) + '\n' + get_notebook_toc(path, exclude)]

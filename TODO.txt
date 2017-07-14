@@ -8,3 +8,5 @@ to do:
 
 * Add (optional) instructions for installing Jupyter R kernel.
 
+* Add note about supporting only Github.
+
