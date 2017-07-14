@@ -42,9 +42,11 @@ def get_commit_info(fn, conf):
                               get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt)),
                               get_commit_link(conf['repo'], long_fmt),
                               get_output('git rev-list --count {}'.format(long_fmt)), short_fmt)
-            out = '<p><small>Exported from {} committed {} <a href=\\"{}\\">{}</a></small></p>'.\
+            out = '<p><small>Exported from {} committed {} {}</small></p>'.\
                   format(get_notebook_link(conf['repo'], long_fmt, fn), rev_string,
-                         conf['__about_commit__'], '<span class=\\"fa fa-question-circle\\"></span>')
+                         '<a href=\\"{}\\">{}</a>'.\
+                         format(conf['__about_commit__'], '<span class=\\"fa fa-question-circle\\"></span>')
+                         if conf['__about_commit__'] else '')
         except:
             raise
             # if git related command fails, indicating it is not a git repo

@@ -6,7 +6,7 @@ sys.path.append('docs')
 
 DEFAULT_CONF = {
            '__version__': '0.9.1',
-           '__about_commit__': 'http://stephenslab.github.io/ipynb-website',
+           '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
            'repo': 'http://github.com/gaow/jnbinder',
            'footer': "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago",
@@ -109,7 +109,7 @@ output: 'docs/' + _input[0].replace('.ipynb', '.html')
 #task:
 run:
   sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
-  num=`grep -n -m 1 "^${CONFIG['footer']}" ${_output!a} | sed 's/\([0-9]*\).*/\1/'`
+  num=`grep -n -Fx '''${CONFIG['footer']}''' ${_output!a} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
   perl -i -lpe 'print "${_nb_info}" if $. == '"$num"'+1' ${_output!a}
   perl -i -ne 'print if /\S/' ${_output!a}
 
