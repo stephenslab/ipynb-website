@@ -1,5 +1,11 @@
 to do:
 
+* Create new release (0.9.1).
+
+* Add version info to webpages.
+
+* Add version numbers of jupyter, etc., to demo website.
+
 * Use the GitHub importer GitHub tool: https://github.com/new/import
 
 * Make git add + commit instructions more clear.
