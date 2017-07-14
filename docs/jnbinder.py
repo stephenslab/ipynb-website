@@ -23,27 +23,34 @@ def get_commit_link(repo, cid):
     else:
         return repo
 
+def get_notebook_link(repo, cid, fn):
+    bits = os.path.split(repo)
+    if "github.com" or "gitlab.com" in bits:
+        link = "{}/blob/{}/{}".format(repo, cid, fn)
+        return '<a href=\\"{}\\"><code>{}</code></a>'.format(link, fn)
+    else:
+        return '<code>{}</code>'.format(fn)
+
 def get_commit_info(fn, conf):
-    res = []
-    if conf['author']:
-        res.append("<strong>author(s):</strong> {}".format(conf['author']))
+    out = ''
     if conf['add_commit_info']:
         try:
             long_fmt = get_output('git log -n 1 --pretty=format:%H -- {}'.format(fn))
             short_fmt = get_output('git log -n 1 --pretty=format:%h -- {}'.format(fn))
-            res.append('<strong>last commit:</strong> revision {}, <a href=\\"{}\\">{}</a> on {}'.\
-                       format(get_output('git rev-list --count {}'.format(long_fmt)),
-                              get_commit_link(conf['repo'], long_fmt), short_fmt,
-                              get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt))))
+            rev_string = 'by {} on {} <a href=\\"{}\\">revision {}, {}</a>'.\
+                       format(get_output('git log -n 1 --format="%an" {}'.format(long_fmt)),
+                              get_output('git show -s --format="%cd" --date=local {}'.format(long_fmt)),
+                              get_commit_link(conf['repo'], long_fmt),
+                              get_output('git rev-list --count {}'.format(long_fmt)), short_fmt)
+            out = '<p><small>Exported from {} committed {} <a href=\\"{}\\">{}</a></small></p>'.\
+                  format(get_notebook_link(conf['repo'], long_fmt, fn), rev_string,
+                         conf['__about_commit__'], '<span class=\\"fa fa-question-circle\\"></span>')
         except:
+            raise
             # if git related command fails, indicating it is not a git repo
             # I'll just pass ...
             pass
-    if len(res):
-        out = '<p>' + '<br>'.join(res) + '</p>'
-        return out.replace('/', '\/')
-    else:
-        return ''
+    return out.replace('/', '\/')
 
 def get_nav(dirs, home_label, prefix = './'):
     out = '''

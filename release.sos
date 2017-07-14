@@ -6,9 +6,9 @@ sys.path.append('docs')
 
 DEFAULT_CONF = {
            '__version__': '0.9.1',
+           '__about_commit__': 'http://stephenslab.github.io/ipynb-website',
            'name': 'A Pet Project',
            'repo': 'http://github.com/gaow/jnbinder',
-           'author': None,
            'footer': "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago",
            'include_dir': [],
            'exclude_file': [],
@@ -103,14 +103,14 @@ run:
 [update-nb]
 # update notebook HTML
 from jnbinder import get_commit_info
-parameter: nb_headers = [get_commit_info(x, CONFIG) for x in notebook_files]
-input: notebook_files, group_by = 1, paired_with = ['nb_headers']
+parameter: nb_info = [get_commit_info(x, CONFIG) for x in notebook_files]
+input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: 'docs/' + _input[0].replace('.ipynb', '.html')
 #task:
 run:
   sos convert ${_input!a} ${_output!a} --template docs/${_input!d}.tpl --log-level 0
-  num=`grep -n -m 1 "^<h1 id=" ${_output!a} | sed 's/\([0-9]*\).*/\1/'`
-  perl -i -lpe 'print "${_nb_headers}" if $. == '"$num"'+1' ${_output!a}
+  num=`grep -n -m 1 "^${CONFIG['footer']}" ${_output!a} | sed 's/\([0-9]*\).*/\1/'`
+  perl -i -lpe 'print "${_nb_info}" if $. == '"$num"'+1' ${_output!a}
   perl -i -ne 'print if /\S/' ${_output!a}
 
 [update-sos]
