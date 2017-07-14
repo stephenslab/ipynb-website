@@ -1,4 +1,4 @@
-# Simple data science website using Jupyter notebooks
+# ipynb website: Simple data science website using Jupyter notebooks
 
 This repository is an adaptable framework for publishing websites from
 [Jupyter interactive notebooks](https://jupyter.org).
@@ -155,7 +155,7 @@ below. (For a quick introduction to git, see
 
 ## Credits
 
-**ipynb-website** was developed by:
+**ipynb website** was developed by:
 
 Peter Carbonetto and Gao Wang<br>
 Dept. of Human Genetics<br>
