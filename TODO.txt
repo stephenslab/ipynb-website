@@ -2,8 +2,6 @@ to do:
 
 * Create new release (0.9.1).
 
-* Add version info to webpages.
-
 * Add version numbers of jupyter, etc., to demo website.
 
 * Use the GitHub importer GitHub tool: https://github.com/new/import
@@ -11,8 +9,6 @@ to do:
 * Make git add + commit instructions more clear.
 
 * Explain that converting to HTML doesn't actually run the code.
-
-* Add (optional) instructions for installing Jupyter R kernel.
 
 * Add note about supporting only Github.
 

@@ -3,7 +3,7 @@
 This repository is an adaptable framework for publishing websites from
 [Jupyter interactive notebooks](https://jupyter.org).
 
-*Please clone and adapt this repository for your own project.*
+*Please copy and adapt this repository for your own project.*
 
 View the demo project website
 [here](https://stephenslab.github.io/ipynb-website).
@@ -28,10 +28,10 @@ follow these steps.
 
 *Note:* These instructions assume that you are managing your project
 files inside a git repository, but this is not strictly necessary; if
-you prefer not to do this, simply skip the git commands in the steps
-below. (For a quick introduction to git, see
+you prefer not to do this, skip the git commands in the steps
+below. (For an introduction to git, see
 [here](https://swcarpentry.github.io/git-novice) or
-[here](https://doi.org/10.1371/journal.pcbi.1004668 ).)
+[here](https://doi.org/10.1371/journal.pcbi.1004668).)
 
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
    is to download and install
@@ -39,10 +39,10 @@ below. (For a quick introduction to git, see
    Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should
    not need to install it separately.
 
-2. *Note of caution:* If you already have Jupyter installed for
+2. **Please note:** If you already have Jupyter installed for
    Python 2.x (e.g., Anaconda 2), then you will need to be careful
    that you install SoS for Python 3.x in the next step. To make sure,
-   before running the commands below, run `pip --version` or `pip3
+   before running the commands below run `pip --version` or `pip3
    --version`.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
