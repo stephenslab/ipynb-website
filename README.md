@@ -1,6 +1,6 @@
 # Simple data science website using Jupyter notebooks
 
-This repository is an adaptable template for publishing websites from
+This repository is an adaptable framework for publishing websites from
 [Jupyter interactive notebooks](https://jupyter.org).
 
 *Please clone and adapt this repository for your own project.*
@@ -34,18 +34,19 @@ below. (For a quick introduction to git, see
 [here](https://doi.org/10.1371/journal.pcbi.1004668 ).)
 
 1. Install Python >= 3.5 and Jupyter. The recommended way to do this
-is to download and install
-[Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
-Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should not
-need to install it separately.
+   is to download and install
+   [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
+   Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should
+   not need to install it separately.
 
 2. *Note of caution:* If you already have Jupyter installed for
-Python 2.x (e.g., Anaconda 2), then you will need to be careful that
-you install SoS for Python 3.x in the next step. To make sure, before
-running the commands below, run `pip --version` or `pip3 --version`.)
+   Python 2.x (e.g., Anaconda 2), then you will need to be careful
+   that you install SoS for Python 3.x in the next step. To make sure,
+   before running the commands below, run `pip --version` or `pip3
+   --version`.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
-for Python 3.x:
+   for Python 3.x:
 
    ```bash
    pip3 install sos
@@ -58,16 +59,16 @@ for Python 3.x:
 4. Install [git](https://git-scm.com/downloads). 
 
 5. [Download](https://github.com/stephenslab/ipynb-website/archive/master.zip),
-or clone the latest version of this repository from Github.
+   or clone the latest version of this repository from Github.
 
 6. Create a new git repository (`git init ...`), copy all the files
-from this repository to the new repository folder, then add these
-files to the new repository (using `git add ...` and `git commit
--a`). Alternatively, create a new folder (`mkdir ...`) and add copy
-the files to this new folder.
+   from this repository to the new repository folder, then add these
+   files to the new repository (using `git add ...` and `git commit
+   -a`). Alternatively, create a new folder (`mkdir ...`) and add copy
+   the files to this new folder.
 
 7. Inside your new project directory, re-generate all the webpages
-using the SoS release script:
+   using the SoS release script:
 
    ```bash
    sos-runner ./release.sos -s force
@@ -80,7 +81,7 @@ using the SoS release script:
    can be configured to publish the webpages from the "docs" folder.
 
 8. View the newly generated home page `docs/index.html` in your
-favorite Web browser.
+   favorite Web browser.
 
 9. You are now ready to adapt the Jupyter-notebook-based website for
    your own project:
@@ -120,18 +121,18 @@ favorite Web browser.
   sos-runner ./release.sos upgrade-jnbinder
   ```
 
-## Tips for adapting this repository for your project
+## Tips for adapting this framework for your project
 
 + The `release.sos` script will not automatically remove webpages that
 are no longer needed (e.g., after renaming a Jupyter notebook); you
 will need to delete them manually.
 
-+ Not all Bootstrap themes are currently fine-tuned. So far, we have
-only tailored the Cerulean, Flatly and Readable themes. Go
-[here](https://bootswatch.com) to view available Bootstrap
-themes. Note that there still may be style conflicts or
-inconsistencies in the CSS files; please report these style conflicts
-by posting an
++ So far, only the Cerulean, Flatly and Readable Bootstrap themes have
+been adapted and tested for this framework. It is possible to select
+other themes (see [here](https://bootswatch.com) for a larger
+collection), although they have not been tested. Also note that there
+may be style conflicts or inconsistencies in the included CSS files;
+please report these style conflicts by posting an
 [Issue](https://github.com/stephenslab/ipynb-website/issues).
 
 ## Credits
