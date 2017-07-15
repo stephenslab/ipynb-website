@@ -26,7 +26,7 @@ DEFAULT_CONF = {
            }
 CONFIG.update({k:v for k,v in DEFAULT_CONF.items() if k not in CONFIG})
 CONFIG['jt_theme'] = CONFIG['theme'] if os.path.isfile("docs/css/{}.css".format(CONFIG['theme'])) else None
-parameter: binders = CONFIG['include_dir']
+parameter: binders = [x for x in CONFIG['include_dir'] if os.path.isdir(x)]
 # parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
 parameter: notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
 parameter: pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x)) if y not in CONFIG['exclude_file']] for x in binders], [])
@@ -129,18 +129,30 @@ with open('docs/js/docs.js', 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
 [release-website]
-# release website
+# release `docs`
 run:
   cd docs && git add . && git commit --no-verify -m "${CONFIG['release_message']}" && git push --no-verify
 if CONFIG['post_release_actions']:
    run(CONFIG['post_release_actions'])
 
 [default_1]
-# compile everything
-if len(binders):
-  sos_run('update-tpl')
-  sos_run('update-index')
-  sos_run('update-hp')
+# build ipynb website ...
+parameter: err_msg1 = '''
+[ERROR] No valid path found in `include_dir`!
+Please properly set `include_dir` in `config.yml`.
+'''
+parameter: err_msg2 = '''
+[ERROR] To properly add git commit info, the working tree must be empty;
+that is, all changes must be committed using "git commit".
+Please commit all changes, or you may set `add_commit_info: False`
+in `config.yaml` if you want to disable this feature.
+'''
+stop_if(len(binders) == 0, msg = err_msg1)
+if CONFIG['add_commit_info'] and os.path.isdir('.git'):
+  stop_if(get_output('git status --untracked-files=no --porcelain').strip(), msg = err_msg2)
+sos_run('update-tpl')
+sos_run('update-index')
+sos_run('update-hp')
 if len(notebook_files):
   sos_run('update-nb')
 if len(pipeline_files):
