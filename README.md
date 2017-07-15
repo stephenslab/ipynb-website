@@ -64,7 +64,7 @@ below. (For an introduction to git, see
 
 5. Make a personal copy of this repository:
 
-   + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9) of this repository from Github.
+   + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9.1) of this repository from Github.
 
    + Create a new git repository (`git init ...`), copy all the files
    from this repository to the new repository folder.
