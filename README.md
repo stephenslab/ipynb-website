@@ -102,10 +102,11 @@ below. (For an introduction to git, see
    + Alternatively, if you are not using git, create a new folder
    (`mkdir ...`) and add copy the files to this new folder.
 
-7. Inside your new project directory, re-generate all the webpages
-   using the SoS release script:
+7. Inside your new project directory, clean up and then re-generate
+   all the webpages using the SoS release script:
 
    ```bash
+   sos-runner ./release.sos clean
    sos-runner ./release.sos -s force
    ```
 
