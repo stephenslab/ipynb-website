@@ -88,19 +88,18 @@ below. (For an introduction to git, see
    + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9.1) of this repository from Github.
 
    + Create a new git repository (`git init ...`), copy all the files
-   from this repository to the new repository folder.
+     from this repository to the new repository folder.
 
-   + Change the
-   working directory to the new repository folder and commit these
-   files to the new repository:
+   + Change the working directory to the new repository folder and
+     commit these files to the new repository:
 
-   ```bash
-   git add ./
-   git commit
-   ```
+     ```bash
+     git add ./
+     git commit
+     ```
 
    + Alternatively, if you are not using git, create a new folder
-   (`mkdir ...`) and add copy the files to this new folder.
+     (`mkdir ...`) and add copy the files to this new folder.
 
 7. Inside your new project directory, clean up and then re-generate
    all the webpages using the SoS release script:
