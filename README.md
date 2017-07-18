@@ -39,11 +39,12 @@ below. (For an introduction to git, see
    Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should
    not need to install it separately.
 
-2. **Please note:** If you already have Jupyter installed for
-   Python 2.x (e.g., Anaconda 2), then you will need to be careful
-   that you install SoS for Python 3.x in the next step. To make sure,
-   before running the commands below run `pip --version` or `pip3
-   --version`.)
+2. **Please also note:** If you already have Jupyter installed for
+   Python 2.x (e.g., Anaconda 2), or any other version of Python, then
+   in the next step you will need to be careful that you install SoS
+   for the same Python >= 3.5. In other words, you need Jupyter and
+   SoS to be installed with the same Python >= 3.5. Run `pip
+   --version` or `pip3 --version` to make sure.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
    for Python 3.x:
@@ -62,7 +63,27 @@ below. (For an introduction to git, see
 
 4. Install [git](https://git-scm.com/downloads). 
 
-5. Make a personal copy of this repository:
+5. At this point, you should have all the software you need to build
+   webpages from the Jupyter notebooks. Please double-check this. For
+   example, this is the setup on my MacBook Air with macOS 10.12.5:
+
+   ```bash
+   which python; python --version
+   # /Users/pcarbo/anaconda3/bin/python
+   # Python 3.6.1 :: Anaconda 4.4.0 (x86_64)
+   which jupyter; jupyter --version
+   # /Users/pcarbo/anaconda3/bin/jupyter
+   # 4.3.0
+   which sos; sos --version
+   # /Users/pcarbo/anaconda3/bin/sos
+   # sos 0.9.8.5 for Python 3.6.1
+   which git; git --version
+   $ which git; git --version
+   /usr/bin/git
+   git version 2.9.3 (Apple Git-75)
+   ```
+
+6. Make a personal copy of this repository:
 
    + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9.1) of this repository from Github.
 
@@ -81,7 +102,7 @@ below. (For an introduction to git, see
    + Alternatively, if you are not using git, create a new folder
    (`mkdir ...`) and add copy the files to this new folder.
 
-6. Inside your new project directory, re-generate all the webpages
+7. Inside your new project directory, re-generate all the webpages
    using the SoS release script:
 
    ```bash
@@ -100,10 +121,10 @@ below. (For an introduction to git, see
    [Github Pages](https://help.github.com/categories/github-pages-basics)
    can be configured to publish the webpages from the "docs" folder.
 
-7. View the newly generated home page `docs/index.html` in your
+8. View the newly generated home page `docs/index.html` in your
    favorite Web browser.
 
-8. If you would like to upload your new git repository to a git
+9. If you would like to upload your new git repository to a git
    hosting website, do the following:
 
    + Create a new empty repository on tour favorite git hosting
@@ -120,7 +141,7 @@ below. (For an introduction to git, see
    + Configure the repository settings to publish the webpages; e.g.,
      using [Github Pages](https://help.github.com/categories/github-pages-basics)).
 
-9. You are now ready to adapt the Jupyter-notebook-based website for
+10. You are now ready to adapt the Jupyter-notebook-based website for
    your own project:
 
    + Modify the website settings by editing `config.yml`. See the

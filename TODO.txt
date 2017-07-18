@@ -1,6 +1,1 @@
 Currently to-do list is empty.
-
-* Make it clear that Jupyter and SoS have to be installed for same
-  Python 3.x on your computer.
-
-* Give example of working installation on my MacBook Air.
