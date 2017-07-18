@@ -128,6 +128,10 @@ out = [get_toc(x, CONFIG['exclude_file'] + [CONFIG['homepage']]) for x in binder
 with open('docs/js/docs.js', 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
+[clean]
+tobe_removed = ['docs/{}.html'.format(x) for x in binders if x not in CONFIG['hide_navbar']] + ['docs/index.html'] + ['docs/' + x.replace('.ipynb', '.html') for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + ["docs/{}.tpl".format(x) for x in binders]
+run("rm -f ${tobe_removed}")
+
 [release-website]
 # release `docs`
 run:
@@ -143,9 +147,9 @@ Please properly set `include_dir` in `config.yml`.
 '''
 parameter: err_msg2 = '''
 [ERROR] To properly add git commit info, the working tree must be empty;
-that is, all changes must be committed using "git commit".
-Please commit all changes, or you may set `add_commit_info: False`
-in `config.yaml` if you want to disable this feature.
+that is, all changes must be committed via "git commit".
+Please commit all changes and run this command again. Or you may set
+`add_commit_info: False` in `config.yaml` if you want to disable this feature.
 '''
 stop_if(len(binders) == 0, msg = err_msg1)
 if CONFIG['add_commit_info'] and os.path.isdir('.git'):
