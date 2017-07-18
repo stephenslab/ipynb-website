@@ -79,8 +79,8 @@ below. (For an introduction to git, see
    # sos 0.9.8.5 for Python 3.6.1
    which git; git --version
    $ which git; git --version
-   /usr/bin/git
-   git version 2.9.3 (Apple Git-75)
+   # /usr/bin/git
+   # git version 2.9.3 (Apple Git-75)
    ```
 
 6. Make a personal copy of this repository:
