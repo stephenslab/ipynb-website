@@ -54,7 +54,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         },
         "HTML-CSS": {
             preferredFont: "TeX",
-            availableFonts: ["STIX","TeX"],
+            availableFonts: ["TeX"],
             styles: {
                 scale: 110,
                 ".MathJax_Display": {
