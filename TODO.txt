@@ -1,1 +1,5 @@
-Currently to-do list is empty.
+Update jnbinder when the next SoS is released:
+- add new options to `config.yml` and comment them out
+- change this line in README: an index with filename _index.ipynb will automatically be generated, and rendered as _index.html.
+- remove this line in README: The release.sos script will not automatically remove webpages that are no longer needed (e.g., after renaming a Jupyter notebook). You will need to delete these unused files manually.
+
