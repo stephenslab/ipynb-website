@@ -30,12 +30,13 @@ exclude_file: []
 homepage: "analysis/index.ipynb"
 
 # The name of the homepage link shown in the navigation bar.
+# Set to NULL to hide it
 homepage_label: "Overview"
 
 # The name of the link to the source repository. It is shown in the
-# top-right corner of the navigation bar. If this line is removed or
-# commented out, then the default is to show a Github logo (the
-# "Octocat").
+# top-right corner of the navigation bar. Set it to NULL to hide it.
+# If this line is removed or commented out, then the default is to 
+# show a Github logo (the "Octocat"). 
 source_label: "source"
 
 # Bootstrap theme. Current supported themes are "cerulean", "flatly"
