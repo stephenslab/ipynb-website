@@ -174,15 +174,15 @@ below. (For an introduction to git, see
 
 ## Tips for adapting this framework for your project
 
-+ The `release.sos` script will not automatically remove webpages that
-  are no longer needed (e.g., after renaming a Jupyter notebook). You
-  will need to delete these unused files manually.
++ You can add option `-J` to the command if you want to control the 
+  number of parallel processes that generate the notebook. For example
+  `-J 8` uses 8 processes.
 
 + The `include_dir` setting in `config.yml` specifies the project
   subdirectories containing Jupyter notebooks to render into
   webpages. If no `index.ipynb` file is provided within a given
-  subdirectory, an index with filename `_index.ipynb` will
-  automatically be generated, and rendered as `_index.html`.
+  subdirectory, an index will automatically be generated that lists
+  links to all notebooks under that directory.
 
 + There is also the option of adding a table of contents to each
   notebook by setting `notebook_toc: True` in `config.yml`.

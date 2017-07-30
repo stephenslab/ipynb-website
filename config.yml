@@ -10,9 +10,6 @@ footer: "&copy; 2017 Peter Carbonetto &amp; Gao Wang"
 
 # When set to True, populate the footer of each notebook with the git
 # commit id (SHA1) and commit modification date.
-#
-# For this feature to work correctly, the working tree must be empty;
-# that is, all changes must be committed using "git commit".
 add_commit_info: True
 
 # These subdirectories contain Jupyter notebooks that will be rendered
@@ -56,3 +53,10 @@ notebook_toc: False
 
 # Set this variable to enable auto-commit.
 # release_message: "Build website with jnbinder."
+
+# When set to `True` the automatically generated index pages will use
+# the entire first paragraph of each notebook as page summary.
+# long_autoindex: False 
+
+# Directories for which the order of auto-index entries are reversed. 
+# reverse_autoindex: [] 
