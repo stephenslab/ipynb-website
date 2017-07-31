@@ -185,7 +185,7 @@ $(document).ready(function () {
 <li>
   <a href="./index.html">Overview</a>
 </li>
-    
+        
 <li>
   <a href="./setup.html">Setup</a>
 </li>
@@ -199,13 +199,13 @@ $(document).ready(function () {
 </li>
         
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-    <a href="http://github.com/stephenslab/ipynb-website">
-    source
-    </a>
-    </li>
-    </ul>
+    
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/stephenslab/ipynb-website"> source </a>
+</li>
+</ul>
+        
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
