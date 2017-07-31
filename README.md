@@ -163,14 +163,9 @@ below. (For an introduction to git, see
   the Boostrap theme in `config.yml`), use the `-s force` option to force
   updates to all the webpages, not just the ones that have been modified.
 
-+ The [jnbinder tool](https://github.com/gaow/jnbinder) is used to
-  generate the webpages from the Jupyter notebooks. To update jnbinder
-  for your project, run this command in the base directory of your
-  repository:
-
-  ```bash
-  sos-runner ./release.sos upgrade-jnbinder
-  ```
++ The website is built by [`jnbinder`](https://github.com/gaow/jnbinder)
+  which does not make any formal releases. This repo releases / ships with
+  its latest stable version.
 
 ## Tips for adapting this framework for your project
 
