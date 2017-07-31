@@ -182,7 +182,7 @@ try:
 except:
   sos_run('setup-jnbinder')
   from jnbinder import compare_versions
-if compare_versions(SOS_VERSION, '0.9.8.8') < 0:
+if compare_versions(SOS_VERSION, '0.9.8.9') < 0:
   sos_run("upgrade-sos")
 sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete')
 sos_run('release-website')
