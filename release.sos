@@ -59,10 +59,10 @@ run:
 
 [upgrade-sos]
 # Upgrade SoS from `SOS/master` branch
-download: decompress = True, dest_file = 'SOS-master.zip'
+download: dest_file = 'SOS-master.zip'
   https://github.com/vatlab/SOS/archive/master.zip
 run:
-  cd SOS-master && python setup.py install && cd ..
+  unzip SOS-master.zip && cd SOS-master && python setup.py install && cd ..
   rm -rf SOS-master*
 
 [check-link]
