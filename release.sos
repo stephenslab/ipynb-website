@@ -58,7 +58,7 @@ run:
   rm -rf jnbinder-master*
 
 [upgrade-sos]
-# Upgrade SoS from `SOS/master` branch
+# using https://github.com/vatlab/SOS/tree/master
 download: dest_file = 'SOS-master.zip'
   https://github.com/vatlab/SOS/archive/master.zip
 run:
@@ -70,9 +70,7 @@ depends: executable('linkchecker')
 run:
   linkchecker http://${CONFIG['repo']!db}.github.io/${CONFIG['repo']!b}
 
-[update-tpl]
-# set up templates in existing directories
-# and update gitignore file
+[update-tpl (Jupyter HTML template Updater)]
 input: None
 output: ["docs/{}.tpl".format(x) for x in binders] + ['docs/index.tpl', '.gitignore']
 from jnbinder import make_template
@@ -86,8 +84,7 @@ if flag:
   with open('.gitignore', 'a') as f:
     f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
 
-[update-index: skip = len(notebook_files) == 0]
-# update index
+[update-index (Index notebook generator): skip = len(notebook_files) == 0]
 input: notebook_files
 output: [binder + '/_index.ipynb' for binder in binders]
 from jnbinder import make_index_nb, make_empty_nb
@@ -99,8 +96,7 @@ if not os.path.isfile(CONFIG['homepage']):
   with open(CONFIG['homepage'], 'w') as f:
     f.write(make_empty_nb(CONFIG['name']))
 
-[update-hp]
-# update homepages HTML
+[update-hp (Index HTML updater)]
 depends: sos_step("update-tpl"), sos_step("update-index")
 input: dynamic(index_files + [CONFIG['homepage']]), group_by = 1
 output: ['docs/{}.html'.format(x) for x in binders if x not in CONFIG['hide_navbar']] + ['docs/index.html'], group_by = 1
@@ -110,8 +106,7 @@ run:
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output!e}
   perl -i -ne 'print if /\S/' ${_output!e}
 
-[update-nb: skip = len(notebook_files) == 0]
-# update notebook HTML
+[update-nb (Notebook to HTML converter): skip = len(notebook_files) == 0]
 depends: sos_step("update-tpl")
 from jnbinder import get_commit_info
 parameter: nb_info = [get_commit_info(x, CONFIG) for x in notebook_files]
@@ -124,16 +119,14 @@ run:
   perl -i -lpe 'print "${_nb_info}" if $. == '"$num"'+1' ${_output!e}
   perl -i -ne 'print if /\S/' ${_output!e}
 
-[update-wf: skip = len(pipeline_files) == 0]
-# update pipeline workflow HTML
+[update-wf (Pipeline to HTML converter): skip = len(pipeline_files) == 0]
 input: pipeline_files, group_by = 1
 output: 'docs/' + _input[0].replace('.sos', '.pipeline.html')
 task:
 run:
   sos convert ${_input} ${_output}
 
-[update-toc]
-# update js file for toc
+[update-toc (TOC Javascript updater)]
 depends: sos_step("update-index")
 input: dynamic(notebook_files + index_files)
 output: 'docs/js/docs.js'
@@ -142,8 +135,7 @@ out = [get_toc(x, CONFIG['exclude_file'] + [CONFIG['homepage']]) for x in binder
 with open(output[0], 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
-[remove-obsolete]
-# remove HTML files that are no longer needed
+[remove-obsolete (Obsolete files remover)]
 input: None
 output: 'docs/MANIFEST'
 if os.path.isfile(output[0]):
@@ -152,8 +144,7 @@ if os.path.isfile(output[0]):
 with open(output[0], 'w') as f:
   f.write('\n'.join(sorted(generated_files)))
 
-[release-website: skip = CONFIG['release_message'] is None]
-# git push website
+[release-website (gh-pages uploader): skip = CONFIG['release_message'] is None]
 try:
   run('cd docs && git add . && git commit --no-verify -m "{}" && git push --no-verify'.format(CONFIG['release_message']))
   run(CONFIG['post_release_actions'])
