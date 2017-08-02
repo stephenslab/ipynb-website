@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="ipynb_website:version" content="0.9.1" />
+<meta name="ipynb_website:version" content="0.9.2" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>Divvy data exploration project</title>
@@ -94,14 +94,9 @@ body {
   padding-bottom: 40px;
 }
 
-h1 {
-  margin-top: 25px;
-  margin-bottom: 30px;
-}
-
-h2 {
-  margin-bottom: 25px;
-}
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+ }
 
 a.anchor-link:link {
   text-decoration: none;
