@@ -2,8 +2,7 @@
 /* https://github.com/pcarbo/ipynb-demo/commit/fd8df802ada64aeefca368d3c54a899f5e8a2d7e */
 
 .rendered_html h1, h2, h3, h4, h5, h6 {
-    font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding-top: 0.6em;
+  font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 div.text_cell_render h1,
@@ -17,6 +16,10 @@ div.rendered_html h4,
 div.text_cell_render h5,
 div.rendered_html h5 {
   font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+div.rendered_html {
+  padding-top: 16px
 }
 
 .rendered_html h1,
