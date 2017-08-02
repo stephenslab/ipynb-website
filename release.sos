@@ -57,20 +57,21 @@ run:
   fi
   rm -rf jnbinder-master*
 
-[upgrade-sos]
-# using https://github.com/vatlab/SOS/tree/master
-download: dest_file = 'SOS-master.zip'
-  https://github.com/vatlab/SOS/archive/master.zip
+[upgrade-sos (SoS upgrader)]
+# using latest release from https://github.com/vatlab/SOS/releases
+parameter: version = "0.9.8.9"
+download: dest_file = "SOS-${version}.zip"
+  https://github.com/vatlab/SOS/archive/${version}.zip
 run:
-  unzip SOS-master.zip && cd SOS-master && python setup.py install && cd ..
-  rm -rf SOS-master*
+  unzip SOS-${version}.zip && cd SOS-${version} && python setup.py install && cd ..
+  rm -rf SOS-${version}*
 
-[check-link]
+[check-link (Broken link checker)]
 depends: executable('linkchecker')
 run:
   linkchecker http://${CONFIG['repo']!db}.github.io/${CONFIG['repo']!b}
 
-[update-tpl (Jupyter HTML template Updater)]
+[update-tpl (Jupyter HTML template updater)]
 input: None
 output: ["docs/{}.tpl".format(x) for x in binders] + ['docs/index.tpl', '.gitignore']
 from jnbinder import make_template
