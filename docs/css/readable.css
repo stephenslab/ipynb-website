@@ -3,6 +3,7 @@
 
 .rendered_html h1, h2, h3, h4, h5, h6 {
   font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding-top: 16px;
 }
 
 div.text_cell_render h1,
@@ -16,10 +17,6 @@ div.rendered_html h4,
 div.text_cell_render h5,
 div.rendered_html h5 {
   font-family:"Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-div.rendered_html {
-  padding-top: 16px
 }
 
 .rendered_html h1,

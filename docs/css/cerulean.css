@@ -2,7 +2,8 @@
 /* https://github.com/pcarbo/ipynb-demo/commit/fd8df802ada64aeefca368d3c54a899f5e8a2d7e */
 
 .rendered_html h1, h2, h3, h4, h5, h6 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 16px;
 }
 
 div.text_cell_render h1,
