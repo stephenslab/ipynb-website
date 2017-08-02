@@ -124,7 +124,7 @@ input: pipeline_files, group_by = 1
 output: 'docs/' + _input[0].replace('.sos', '.pipeline.html')
 task:
 run:
-  sos convert ${_input} ${_output}
+  sos convert ${_input} ${_output} --style tango --lineno
 
 [update-toc (TOC Javascript updater)]
 depends: sos_step("update-index")
