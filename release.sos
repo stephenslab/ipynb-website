@@ -168,11 +168,12 @@ Please use `git commit` to commit changes and run this command again. Or you may
 set `add_commit_info: False` in `config.yml` if you want to disable this feature.
 '''
 fail_if(len(binders) == 0, msg = err_msg1)
-fail_if('ipynb' in get_output('git status --untracked-files=no --porcelain') and CONFIG['add_commit_info'] and os.path.isdir('.git'), msg = err_msg2)
+fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and CONFIG['add_commit_info'], msg = err_msg2)
 try:
   from jnbinder import compare_versions
 except:
   sos_run('setup-jnbinder')
+  stop_if(1, msg = 'Installation complete. Please rerun this script.')
   from jnbinder import compare_versions
 if compare_versions(SOS_VERSION, '0.9.8.9') < 0:
   sos_run("upgrade-sos")
