@@ -163,7 +163,7 @@ below. (For an introduction to git, see
   the Boostrap theme in `config.yml`), use the `-s force` option to force
   updates to all the webpages, not just the ones that have been modified.
 
-+ The website is built by [`jnbinder`](https://github.com/gaow/jnbinder)
++ The website is built by [`jnbinder`](https://github.com/vatlab/jnbinder)
   which does not make any formal releases. This repo releases / ships with
   its latest stable version.
 

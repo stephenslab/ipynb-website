@@ -7,7 +7,7 @@ DEFAULT_CONF = {
            '__version__': '0.9.2',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
-           'repo': 'http://github.com/gaow/jnbinder',
+           'repo': 'http://github.com/vatlab/jnbinder',
            'footer': "&copy 2016-2017 Gao Wang at Stephens Lab, University of Chicago",
            'include_dir': [],
            'exclude_file': [],
@@ -36,7 +36,7 @@ generated_files = ['docs/{}.html'.format(x) for x in binders if x not in CONFIG[
 
 [download-jnbinder: provides = 'jnbinder-master/README.md']
 download: decompress = True, dest_file = 'jnbinder-master.zip'
-  https://github.com/gaow/jnbinder/archive/master.zip
+  https://github.com/vatlab/jnbinder/archive/master.zip
 
 [setup-jnbinder]
 depends: 'jnbinder-master/README.md'
