@@ -33,21 +33,21 @@ below. (For an introduction to git, see
 [here](https://swcarpentry.github.io/git-novice) or
 [here](https://doi.org/10.1371/journal.pcbi.1004668).)
 
-1. Install Python >= 3.5 and Jupyter. The recommended way to do this
+1. Install Python >= 3.6 and Jupyter. The recommended way to do this
    is to download and install
    [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
-   Python >= 3.5 comes with [pip](https://pip.pypa.io), so you should
+   Python >= 3.6 comes with [pip](https://pip.pypa.io), so you should
    not need to install it separately.
 
 2. **Please also note:** If you already have Jupyter installed for
    Python 2.x (e.g., Anaconda 2), or any other version of Python, then
    in the next step you will need to be careful that you install SoS
-   for the same Python >= 3.5. In other words, you need Jupyter and
-   SoS to be installed with the same Python >= 3.5. Run `pip
+   for the same Python >= 3.6. In other words, you need Jupyter and
+   SoS to be installed with the same Python >= 3.6. Run `pip
    --version` or `pip3 --version` to make sure.)
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
-   for Python 3.x:
+   for Python 3.6:
 
    ```bash
    pip3 install sos

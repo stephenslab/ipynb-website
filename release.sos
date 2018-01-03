@@ -3,6 +3,7 @@
 
 sys.path.append('docs')
 
+[init: shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
 DEFAULT_CONF = {
            '__version__': '0.9.2',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
@@ -13,6 +14,7 @@ DEFAULT_CONF = {
            'exclude_file': [],
            'hide_navbar': [],
            'disqus': None,
+           'report_style': True,
            'release_message': None,
            'post_release_actions': None,
            'homepage_label': "Overview",
@@ -22,17 +24,20 @@ DEFAULT_CONF = {
            'font': "Droid Sans",
            'notebook_toc': True,
            'add_commit_info': True,
-           'long_autoindex': False,
+           'long_autoindex': True,
            'reverse_autoindex': []
            }
-CONFIG.update({k:v for k,v in DEFAULT_CONF.items() if k not in CONFIG})
-CONFIG['jt_theme'] = CONFIG['theme'] if os.path.isfile("docs/css/{}.css".format(CONFIG['theme'])) else None
-parameter: binders = [x for x in CONFIG['include_dir'] if os.path.isdir(x)]
-# parameter: binders = [x for x in next(os.walk('./'))[1] if x not in CONFIG['exclude_dir'] + ['docs'] and not x.startswith('.')]
-notebook_files = sum([[y for y in glob.glob("{}/*.ipynb".format(x)) if y not in ["{}/index.ipynb".format(x), "{}/_index.ipynb".format(x), CONFIG['homepage']] + CONFIG['exclude_file']] for x in binders], [])
-index_files = ['{}/index.ipynb'.format(x) if os.path.isfile('{}/index.ipynb'.format(x)) else '{}/_index.ipynb'.format(x) for x in binders if x not in CONFIG['hide_navbar']]
-pipeline_files = sum([[y for y in glob.glob("{}/*.sos".format(x)) if y not in CONFIG['exclude_file']] for x in binders], [])
-generated_files = ['docs/{}.html'.format(x) for x in binders if x not in CONFIG['hide_navbar']] + ['docs/index.html'] + ['docs/' + x.replace('.ipynb', '.html') for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + ["docs/{}.tpl".format(x) for x in binders]
+
+from sos.utils import load_config_files
+conf = load_config_files('config.yml')
+conf.update({k:v for k,v in DEFAULT_CONF.items() if k not in conf})
+conf['jt_theme'] = conf['theme'] if os.path.isfile(f"docs/css/{conf['theme']}.css") else None
+binders = [x for x in conf['include_dir'] if os.path.isdir(x)]
+# binders = [x for x in next(os.walk('./'))[1] if x not in conf['exclude_dir'] + ['docs'] and not x.startswith('.')]
+notebook_files = sum([[y for y in glob.glob(f"{x}/*.ipynb") if y not in [f"{x}/index.ipynb", f"{x}/_index.ipynb", conf['homepage']] + conf['exclude_file']] for x in binders], [])
+index_files = [f'{x}/index.ipynb' if os.path.isfile(f'{x}/index.ipynb') else f'{x}/_index.ipynb' for x in binders if x not in conf['hide_navbar']]
+pipeline_files = sum([[y for y in glob.glob(f"{x}/*.sos") if y not in conf['exclude_file']] for x in binders], [])
+generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'] + ['docs/' + x.replace('.ipynb', '.html') for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + [f"docs/{x}.tpl" for x in binders]
 
 [download-jnbinder: provides = 'jnbinder-master/README.md']
 download: decompress = True, dest_file = 'jnbinder-master.zip'
@@ -58,24 +63,21 @@ run:
   rm -rf jnbinder-master*
 
 [upgrade-sos (SoS upgrader)]
-# using latest release from https://github.com/vatlab/SOS/releases
-parameter: version = "0.9.8.9"
-download: dest_file = "SOS-${version}.zip"
-  https://github.com/vatlab/SOS/archive/${version}.zip
+# using latest pip release
 run:
-  unzip SOS-${version}.zip && cd SOS-${version} && python setup.py install && cd ..
-  rm -rf SOS-${version}*
+  pip install sos --upgrade
 
 [check-link (Broken link checker)]
-depends: executable('linkchecker')
-run:
-  linkchecker http://${CONFIG['repo']!db}.github.io/${CONFIG['repo']!b}
+depends: executable('linkchecker'), sos_step('init')
+run: expand = "${ }"
+  linkchecker http://${path(conf['repo']):db}.github.io/${path(conf['repo']):b}
 
 [update-tpl (Jupyter HTML template updater)]
+depends: sos_step('init')
 input: None
-output: ["docs/{}.tpl".format(x) for x in binders] + ['docs/index.tpl', '.gitignore']
+output: [f"docs/{x}.tpl" for x in binders] + ['docs/index.tpl', '.gitignore']
 from jnbinder import make_template
-make_template(CONFIG, binders, 'docs')
+make_template(conf, binders, 'docs')
 flag = True
 if os.path.isfile('.gitignore'):
   lines = [x.strip() for x in open('.gitignore').readlines()]
@@ -85,97 +87,107 @@ if flag:
   with open('.gitignore', 'a') as f:
     f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
 
-[update-index (Index notebook generator): skip = len(notebook_files) == 0]
+[update-index (Index notebook generator)]
+depends: sos_step('init')
+stop_if(len(notebook_files) == 0)
 input: notebook_files
 output: [binder + '/_index.ipynb' for binder in binders]
 from jnbinder import make_index_nb, make_empty_nb
 for binder in binders:
-  content = make_index_nb(binder, CONFIG['exclude_file'] + [CONFIG['homepage']], CONFIG['long_autoindex'], binder in CONFIG['reverse_autoindex'])
-  with open('{}/_index.ipynb'.format(binder), 'w') as f:
+  content = make_index_nb(binder, conf['exclude_file'] + [conf['homepage']], conf['long_autoindex'], binder in conf['reverse_autoindex'])
+  with open(f'{binder}/_index.ipynb', 'w') as f:
     f.write(content)
-if not os.path.isfile(CONFIG['homepage']):
-  with open(CONFIG['homepage'], 'w') as f:
-    f.write(make_empty_nb(CONFIG['name']))
+if not os.path.isfile(conf['homepage']):
+  with open(conf['homepage'], 'w') as f:
+    f.write(make_empty_nb(conf['name']))
 
 [update-hp (Index HTML updater)]
-depends: sos_step("update-tpl"), sos_step("update-index")
-input: dynamic(index_files + [CONFIG['homepage']]), group_by = 1
-output: ['docs/{}.html'.format(x) for x in binders if x not in CONFIG['hide_navbar']] + ['docs/index.html'], group_by = 1
+depends: sos_step("update-tpl"), sos_step("update-index"), sos_step('init')
+input: dynamic(index_files + [conf['homepage']]), group_by = 1
+output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
 task:
-run:
-  sos convert ${_input!e} ${_output!e} --template docs/index.tpl --log-level 0
-  # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output!e}
-  perl -i -ne 'print if /\S/' ${_output!e}
+run: expand = "${ }"
+  sos convert ${_input:e} ${_output:e} --template docs/index.tpl --log-level 0
+  # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
+  perl -i -ne 'print if /\S/' ${_output:e}
 
-[update-nb (Notebook to HTML converter): skip = len(notebook_files) == 0]
-depends: sos_step("update-tpl")
+[update-nb (Notebook to HTML converter)]
+depends: sos_step("update-tpl"), sos_step('init')
+stop_if(len(notebook_files) == 0)
 from jnbinder import get_commit_info
-parameter: nb_info = [get_commit_info(x, CONFIG) for x in notebook_files]
+nb_info = [get_commit_info(x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info']
-output: 'docs/' + _input[0].replace('.ipynb', '.html')
+output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
 task:
-run:
-  sos convert ${_input!e} ${_output!e} --template docs/${_input!d}.tpl --log-level 0
-  num=`grep -n -Fx '''${CONFIG['footer']}''' ${_output!e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
-  perl -i -lpe 'print "${_nb_info}" if $. == '"$num"'+1' ${_output!e}
-  perl -i -ne 'print if /\S/' ${_output!e}
+run: expand = "${ }"
+  sos convert ${_input:e} ${_output:e} --template docs/${_input:d}.tpl --log-level 0
+  num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
+  perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
+  perl -i -ne 'print if /\S/' ${_output:e}
 
-[update-wf (Pipeline to HTML converter): skip = len(pipeline_files) == 0]
+[update-wf (Pipeline to HTML converter)]
+depends: sos_step('init')
+stop_if(len(pipeline_files) == 0)
 input: pipeline_files, group_by = 1
-output: 'docs/' + _input[0].replace('.sos', '.pipeline.html')
+output: [f"docs/{x.replace('.ipynb', '.html')}" for x in pipeline_files], group_by = 1
 task:
-run:
+run: expand = "${ }"
   sos convert ${_input} ${_output} --style tango --lineno
 
 [update-toc (TOC Javascript updater)]
-depends: sos_step("update-index")
+depends: sos_step("update-index"), sos_step('init')
 input: dynamic(notebook_files + index_files)
 output: 'docs/js/docs.js'
 from jnbinder import get_toc
-out = [get_toc(x, CONFIG['exclude_file'] + [CONFIG['homepage']]) for x in binders]
-with open(output[0], 'w') as f:
+out = [get_toc(x, conf['exclude_file'] + [conf['homepage']]) for x in binders]
+with open(_output, 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
 [remove-obsolete (Obsolete files remover)]
+depends: sos_variable('generated_files')
 input: None
 output: 'docs/MANIFEST'
-if os.path.isfile(output[0]):
-  old_files = [x.strip() for x in open(output[0]).readlines()]
-  run("rm -f ${[x for x in old_files if not x in generated_files]}")
-with open(output[0], 'w') as f:
+if os.path.isfile(_output):
+  old_files = [x.strip() for x in open(_output).readlines()]
+  run(f"rm -f {paths([x for x in old_files if not x in generated_files])}")
+with open(_output, 'w') as f:
   f.write('\n'.join(sorted(generated_files)))
 
-[release-website (gh-pages uploader): skip = CONFIG['release_message'] is None]
+[release-website (gh-pages uploader)]
+depends: sos_variable('conf')
+stop_if(conf['release_message'] is None)
 try:
-  run('cd docs && git add . && git commit --no-verify -m "{}" && git push --no-verify'.format(CONFIG['release_message']))
-  run(CONFIG['post_release_actions'])
+  run(f'''cd docs && git add . && git commit --no-verify -m "{conf['release_message']}" && git push --no-verify''')
+  run(conf['post_release_actions'])
 except:
   pass
 
 [clean]
 # remove generated files
-run("rm -f ${generated_files}")
+depends: sos_variable('generated_files')
+run(f"rm -f {paths(generated_files)}")
 
 [default_1]
 # build ipynb website ...
-parameter: err_msg1 = '''
+depends: sos_step('init')
+err_msg1 = '''
 No valid path found in `include_dir`!
 Please properly set `include_dir` in `config.yml`.
 '''
-parameter: err_msg2 = '''
+err_msg2 = '''
 To properly add notebook version info, all changes made to notebooks must be committed.
 Please use `git commit` to commit changes and run this command again. Or you may
 set `add_commit_info: False` in `config.yml` if you want to disable this feature.
 '''
 fail_if(len(binders) == 0, msg = err_msg1)
-fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and CONFIG['add_commit_info'], msg = err_msg2)
+fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
 try:
   from jnbinder import compare_versions
 except:
   sos_run('setup-jnbinder')
   stop_if(1, msg = 'Installation complete. Please rerun this script.')
   from jnbinder import compare_versions
-if compare_versions(SOS_VERSION, '0.9.8.9') < 0:
+if compare_versions(SOS_VERSION, '0.9.10.17') < 0:
   sos_run("upgrade-sos")
   stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
 sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete')
@@ -183,5 +195,6 @@ sos_run('release-website')
 
 [default_2]
 # remove intermediate files
-run:
-  rm -f ${[binder + '/_index.ipynb' for binder in binders]}
+depends: sos_variable('binders')
+run: expand = True
+  rm -f {[binder + '/_index.ipynb' for binder in binders]}
