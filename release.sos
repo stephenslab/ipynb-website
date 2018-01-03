@@ -191,7 +191,7 @@ except:
   sos_run('setup-jnbinder')
   stop_if(1, msg = 'Installation complete. Please rerun this script.')
   from jnbinder import compare_versions
-if compare_versions(SOS_VERSION, '0.9.10.17') < 0:
+if compare_versions(SOS_VERSION, '0.9.10.16') < 0:
   sos_run("upgrade-sos")
   stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
 sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete')
