@@ -64,8 +64,12 @@ run:
 
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
-run:
-  pip install sos --upgrade
+try:
+  exec = get_output('which pip3').strip()
+except:
+  exec = 'pip'
+run: expand = True
+  {exec} install --upgrade --upgrade-strategy only-if-needed sos
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_step('init')
