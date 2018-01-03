@@ -14,7 +14,7 @@ DEFAULT_CONF = {
            'exclude_file': [],
            'hide_navbar': [],
            'disqus': None,
-           'report_style': True,
+           'report_style': False,
            'release_message': None,
            'post_release_actions': None,
            'homepage_label': "Overview",
@@ -197,4 +197,4 @@ sos_run('release-website')
 # remove intermediate files
 depends: sos_variable('binders')
 run: expand = True
-  rm -f {[binder + '/_index.ipynb' for binder in binders]}
+  rm -f {paths([binder + '/_index.ipynb' for binder in binders])}

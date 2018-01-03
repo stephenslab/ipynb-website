@@ -85,6 +85,8 @@ $(document).ready(function () {
 });
 </script>
 
+
+
 <title>Divvy data exploration project</title>
 
 <style type = "text/css">
@@ -142,7 +144,9 @@ body {
       </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
 {%- endblock header -%}
+
 {% block footer %}
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang

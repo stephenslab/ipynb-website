@@ -76,7 +76,7 @@ below. (For an introduction to git, see
    # 4.3.0
    which sos; sos --version
    # /Users/pcarbo/anaconda3/bin/sos
-   # sos 0.9.8.5 for Python 3.6.1
+   # sos 0.9.10.16 for Python 3.6.1
    which git; git --version
    $ which git; git --version
    # /usr/bin/git
@@ -105,9 +105,17 @@ below. (For an introduction to git, see
    all the webpages using the SoS release script:
 
    ```bash
-   sos-runner ./release.sos clean
-   sos-runner ./release.sos -s force
+   sos run release.sos clean
+   sos run release.sos -s force
    ```
+
+   Or, simply:
+
+   ```bash
+   ./release.sos clean
+   ./release.sos -s force
+   ```
+   if `release.sos` is granted executable permission.
 
    **Important note:** Building the webpages from the Jupyter
    notebooks does not actually run the code in the notebooks. If you
@@ -153,8 +161,8 @@ below. (For an introduction to git, see
    + Edit the notebooks interactively in Jupyter.
 
    + After you are satisfied with your changes, re-build the modified
-     webpages by running `sos-runner ./release.sos`, or use
-     `sos-runner ./release.sos -s force` to re-build all the webpages,
+     webpages by running `sos run release.sos`, or use
+     `sos run release.sos -s force` to re-build all the webpages,
      then commit your changes to the git repository.
 
 ## More setup details
