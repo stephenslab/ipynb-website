@@ -182,19 +182,15 @@ $(document).ready(function () {
 </li>
         
 <li>
-  <a href="././analysis.html">./analysis</a>
+  <a href="./setup.html">Setup</a>
 </li>
         
 <li>
-  <a href="././setup.html">./setup</a>
+  <a href="./license.html">License</a>
 </li>
         
 <li>
-  <a href="././license.html">./license</a>
-</li>
-        
-<li>
-  <a href="././notes.html">./notes</a>
+  <a href="./notes.html">Notes</a>
 </li>
         
       </ul>
