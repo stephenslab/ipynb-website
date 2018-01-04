@@ -32,7 +32,7 @@ from sos.utils import load_config_files
 conf = load_config_files('config.yml')
 conf.update({k:v for k,v in DEFAULT_CONF.items() if k not in conf})
 conf['jt_theme'] = conf['theme'] if os.path.isfile(f"docs/css/{conf['theme']}.css") else None
-for k in ['include_dir', 'hide_navbar', 'exclude_file']:
+for k in ['include_dir', 'hide_navbar', 'exclude_file', 'reverse_autoindex']:
     conf[k] = [os.path.normpath(x) for x in conf[k]]
 binders = [x for x in conf['include_dir'] if os.path.isdir(x)]
 # binders = [x for x in next(os.walk('./'))[1] if x not in conf['exclude_dir'] + ['docs'] and not x.startswith('.')]
