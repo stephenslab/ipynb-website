@@ -3,7 +3,7 @@
 
 sys.path.append('docs')
 
-[init: shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
+[default_0: shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
 DEFAULT_CONF = {
            '__version__': '0.9.2',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
@@ -72,12 +72,11 @@ run: expand = True
   {exec} install --upgrade --upgrade-strategy only-if-needed sos
 
 [check-link (Broken link checker)]
-depends: executable('linkchecker'), sos_step('init')
+depends: executable('linkchecker'), sos_variable('conf')
 run: expand = "${ }"
   linkchecker http://${path(conf['repo']):db}.github.io/${path(conf['repo']):b}
 
 [update-tpl (Jupyter HTML template updater)]
-depends: sos_step('init')
 input: None
 output: [f"docs/{x}.tpl" for x in binders] + ['docs/index.tpl', '.gitignore']
 from jnbinder import make_template
@@ -92,7 +91,6 @@ if flag:
     f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
 
 [update-index (Index notebook generator)]
-depends: sos_step('init')
 stop_if(len(notebook_files) == 0)
 input: notebook_files
 output: [binder + '/_index.ipynb' for binder in binders]
@@ -106,17 +104,17 @@ if not os.path.isfile(conf['homepage']):
     f.write(make_empty_nb(conf['name']))
 
 [update-hp (Index HTML updater)]
-depends: sos_step("update-tpl"), sos_step("update-index"), sos_step('init')
+depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter')
 input: dynamic(index_files + [conf['homepage']]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
 task:
 run: expand = "${ }"
-  sos convert ${_input:e} ${_output:e} --template docs/index.tpl --log-level 0
+  jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   perl -i -ne 'print if /\S/' ${_output:e}
 
 [update-nb (Notebook to HTML converter)]
-depends: sos_step("update-tpl"), sos_step('init')
+depends: sos_step("update-tpl"), executable('jupyter')
 stop_if(len(notebook_files) == 0)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x, conf) for x in notebook_files]
@@ -124,13 +122,12 @@ input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
 task:
 run: expand = "${ }"
-  sos convert ${_input:e} ${_output:e} --template docs/${_input:d}.tpl --log-level 0
+  jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
   perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
   perl -i -ne 'print if /\S/' ${_output:e}
 
 [update-wf (Pipeline to HTML converter)]
-depends: sos_step('init')
 stop_if(len(pipeline_files) == 0)
 input: pipeline_files, group_by = 1
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in pipeline_files], group_by = 1
@@ -139,7 +136,6 @@ run: expand = "${ }"
   sos convert ${_input} ${_output} --style tango --lineno
 
 [update-toc (TOC Javascript updater)]
-depends: sos_step("update-index"), sos_step('init')
 input: dynamic(notebook_files + index_files)
 output: 'docs/js/docs.js'
 from jnbinder import get_toc
@@ -148,7 +144,6 @@ with open(_output, 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
 [remove-obsolete (Obsolete files remover)]
-depends: sos_variable('generated_files')
 input: None
 output: 'docs/MANIFEST'
 if os.path.isfile(_output):
@@ -173,7 +168,6 @@ run(f"rm -f {paths(generated_files)}")
 
 [default_1]
 # build ipynb website ...
-depends: sos_step('init')
 err_msg1 = '''
 No valid path found in `include_dir`!
 Please properly set `include_dir` in `config.yml`.
@@ -194,11 +188,10 @@ except:
 if compare_versions(SOS_VERSION, '0.9.10.16') < 0:
   sos_run("upgrade-sos")
   stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
-sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete')
+sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files)
 sos_run('release-website')
 
 [default_2]
 # remove intermediate files
-depends: sos_variable('binders')
 run: expand = True
   rm -f {paths([binder + '/_index.ipynb' for binder in binders])}
