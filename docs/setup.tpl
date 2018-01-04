@@ -122,15 +122,19 @@ body {
 </li>
         
 <li>
-  <a href="../setup.html">Setup</a>
+  <a href=".././analysis.html">./analysis</a>
 </li>
         
 <li>
-  <a href="../license.html">License</a>
+  <a href=".././setup.html">./setup</a>
 </li>
         
 <li>
-  <a href="../notes.html">Notes</a>
+  <a href=".././license.html">./license</a>
+</li>
+        
+<li>
+  <a href=".././notes.html">./notes</a>
 </li>
         
       </ul>
