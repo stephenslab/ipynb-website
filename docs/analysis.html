@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Divvy data exploration project</title>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  div.input_prompt {display: none;}
+  div.output_html {
+     font-family: "PT Mono", monospace;
+     font-size: 10.0pt;
+     color: #353535;
+     padding-bottom: 25px;
+ }
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'] ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+</head>
+<body>
+<style type = "text/css">
+@font-face {
+ font-family: 'Droid Sans';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Droid Sans'), url('fonts/droid-sans.ttf') format('truetype');
+}
+@font-face {
+ font-family: 'Fira Code';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Fira Code'), url('fonts/firacode.otf') format('opentype');
+}
+@font-face {
+ font-family: 'PT Mono';
+ font-weight: normal;
+ font-style: normal;
+ src: local('PT Mono'), url('fonts/ptmono.ttf') format('truetype');
+}
+body {
+  font-size: 160%;
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+ }
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+<!-- code folding -->
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Divvy data exploration project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="./index.html">Overview</a>
+</li>
+<li>
+  <a href="././analysis.html">./analysis</a>
+</li>
+<li>
+  <a href="././setup.html">./setup</a>
+</li>
+<li>
+  <a href="././license.html">./license</a>
+</li>
+<li>
+  <a href="././notes.html">./notes</a>
+</li>
+      </ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/stephenslab/ipynb-website"> source </a>
+</li>
+</ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Divvy-data-exploration-project">Divvy data exploration project<a class="anchor-link" href="#Divvy-data-exploration-project">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br>
+<strong>date:</strong> July 13, 2017</p>
+<p><img src="divvy.jpg" alt="Divvy bikes"> <br>
+<em><a href="https://www.flickr.com/photos/jamesbondsv/9041673199">Photo</a> by
+<a href="https://www.flickr.com/photos/jamesbondsv">Steven Vance</a> /
+<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Project-overview">Project overview<a class="anchor-link" href="#Project-overview">&#182;</a></h2><p>The purpose of this project is to gain some insight into city-wide biking trends by analyzing the <a href="https://www.divvybikes.com/system-data">Divvy trip
+data</a>. We also examine trip data from a single bike station at the University of Chicago to compare the biking patterns at the university against city-wide trends.</p>
+<p>All the results and plots presented in the pages below should be reproducable on your computer. Follow the
+<a href="setup.html">Setup Instructions</a> if you are interested in reproducing the results for yourself.</p>
+<p>These are the results of our analyses. They were generated by rendering the <a href="https://github.com/stephenslab/ipynb-website/tree/master/analysis">Jupyter notebooks</a> into webpages.</p>
+<ol>
+<li><p><a href="analysis/first-glance.html">A first glance at the Divvy data.</a></p>
+</li>
+<li><p><a href="analysis/station-map.html">A map of the Divvy stations in Chicago.</a></p>
+</li>
+<li><p><a href="analysis/time-of-day-trends.html">Exploring daily bike commuting trends from the Divvy data.</a></p>
+</li>
+<li><p><a href="analysis/seasonal-trends.html">Exploring seasonal biking trends from the Divvy data.</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Credits">Credits<a class="anchor-link" href="#Credits">&#182;</a></h2><p>This Jupyter notebook website was developed by <a href="http://pcarbo.github.io">Peter Carbonetto</a> and <a href="https://github.com/gaow">Gao Wang</a> at the <a href="https://www.uchicago.edu">University of Chicago</a>.</p>
+<p>Thanks to <a href="https://github.com/jdblischak">John Blischak</a> and <a href="http://stephenslab.uchicago.edu">Matthew Stephens</a> for their assistance and support. Also, thanks to <a href="https://rstudio-pubs-static.s3.amazonaws.com/63061_90f5136ffdf74740b6ba4ad8f2fd72fe.html">Larry Layne</a> and <a href="http://www.austinwehrwein.com/data-visualization/heatmaps-with-divvy-data">Austin Wehrwein</a> for sharing their analyses of the Divvy trip data that inspired some of the investigations here.</p>
+</div>
+</div>
+</div>
+<hr>
+&copy; 2017 Peter Carbonetto &amp; Gao Wang
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+</div>
+<script>
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>
