@@ -5,7 +5,7 @@ sys.path.append('docs')
 
 [default_0: shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
 DEFAULT_CONF = {
-           '__version__': '0.9.2',
+           '__version__': '0.9.3',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
            'repo': 'http://github.com/vatlab/jnbinder',
