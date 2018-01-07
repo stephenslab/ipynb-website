@@ -183,10 +183,12 @@ fail_if(len(binders) == 0, msg = err_msg1)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
 try:
   from jnbinder import compare_versions
-except:
-  sos_run('setup-jnbinder')
-  stop_if(1, msg = 'Installation complete. Please rerun this script.')
-  from jnbinder import compare_versions
+except Exception as e:
+  if 'jnbinder' in str(e):
+     sos_run('setup-jnbinder')
+     stop_if(1, msg = 'Installation complete. Please rerun this script.')
+  else:
+     raise RuntimeError(f'{e}. You can try `pip install` to install the missing module.')
 if compare_versions(SOS_VERSION, '0.9.10.16') < 0:
   sos_run("upgrade-sos")
   stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
