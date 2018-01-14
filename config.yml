@@ -60,4 +60,8 @@ notebook_toc: False
 # long_autoindex: False 
 
 # Directories for which the order of auto-index entries are reversed. 
-# reverse_autoindex: [] 
+# reverse_autoindex: []
+
+# When set to `True` the empty lines in HTML will be removed. This will
+# make code blocks more compact.
+# remove_whiteline: False
