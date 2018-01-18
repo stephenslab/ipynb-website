@@ -44,17 +44,21 @@ below. (For an introduction to git, see
    in the next step you will need to be careful that you install SoS
    for the same Python >= 3.6. In other words, you need Jupyter and
    SoS to be installed with the same Python >= 3.6. Run `pip
-   --version` or `pip3 --version` to make sure.)
+   --version` to make sure.)
+   
+   ```bash
+   pip --version
+   # pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
+   ```
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
    for Python 3.6:
 
    ```bash
-   pip3 install sos
+   pip install sos-essentials
    ```
 
-   Note that the executable on your computer may be either `pip` or
-   `pip3`, depending on your setup. Also note that you may need to
+   Note that you may need to
    include the `--user` flag if you do not have administrative
    privileges on the computer.
 
