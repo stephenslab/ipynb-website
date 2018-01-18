@@ -3,7 +3,7 @@
 
 sys.path.append('docs')
 
-[default_0: shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
+[default_0 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
 DEFAULT_CONF = {
            '__version__': '0.9.3',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
@@ -28,7 +28,20 @@ DEFAULT_CONF = {
            'reverse_autoindex': [],
            'remove_whiteline': False
            }
-
+try:
+  from jnbinder import compare_versions, update_gitignore
+except Exception as e:
+  if 'jnbinder' in str(e):
+     sos_run('setup-jnbinder')
+     stop_if(1, msg = 'Installation complete. Please rerun this script.')
+  else:
+     raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
+if compare_versions(SOS_VERSION, '0.9.10.16') < 0:
+  sos_run("upgrade-sos")
+  stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
+if len([str(p.parent) for p in path('.sos').rglob('*') if p.is_file()]) and os.path.isdir(".git"):
+   update_gitignore()
+#
 from sos.utils import load_config_files
 conf = load_config_files('config.yml')
 conf.update({k:v for k,v in DEFAULT_CONF.items() if k not in conf})
@@ -68,8 +81,8 @@ bash:
 
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
-bash: expand = True
-  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir sos-essentials
+bash:
+  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos-essentials
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
@@ -162,18 +175,8 @@ except:
 depends: sos_variable('generated_files')
 run(f"rm -f {paths(generated_files)}")
 
-[default_1]
+[default_1 (Build website)]
 # build ipynb website ...
-
-flag = True
-if os.path.isfile('.gitignore'):
-  lines = [x.strip() for x in open('.gitignore').readlines()]
-  if '**/.sos' in lines:
-    flag = False
-if flag:
-  with open('.gitignore', 'a') as f:
-    f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
-
 err_msg1 = '''
 No valid path found in `include_dir`!
 Please properly set `include_dir` in `config.yml`.
@@ -185,17 +188,6 @@ set `add_commit_info: False` in `config.yml` if you want to disable this feature
 '''
 fail_if(len(binders) == 0, msg = err_msg1)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
-try:
-  from jnbinder import compare_versions
-except Exception as e:
-  if 'jnbinder' in str(e):
-     sos_run('setup-jnbinder')
-     stop_if(1, msg = 'Installation complete. Please rerun this script.')
-  else:
-     raise RuntimeError(f'{e}. You can try `pip install` to install the missing module.')
-if compare_versions(SOS_VERSION, '0.9.10.16') < 0:
-  sos_run("upgrade-sos")
-  stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
 sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files)
 sos_run('release-website')
 

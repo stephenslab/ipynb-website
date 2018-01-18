@@ -22,6 +22,26 @@ def get_output(cmd, show_command=False, prompt='$ '):
     else:
         return output.strip()
 
+def compare_versions(v1, v2):
+    # This will split both the versions by '.'
+    arr1 = v1.split(".")
+    arr2 = v2.split(".")
+    # Initializer for the version arrays
+    i = 0
+    # We have taken into consideration that both the
+    # versions will contains equal number of delimiters
+    while(i < len(arr1)):
+        # Version 2 is greater than version 1
+        if int(arr2[i]) > int(arr1[i]):
+            return -1
+        # Version 1 is greater than version 2
+        if int(arr1[i]) > int(arr2[i]):
+            return 1
+        # We can't conclude till now
+        i += 1
+    # Both the versions are equal
+    return 0
+
 def get_commit_link(repo, cid):
     bits = os.path.split(repo)
     if "github.com" or "gitlab.com" in bits:
@@ -839,6 +859,16 @@ body {
            conf['footer'])
     return content
 
+def update_gitignore():
+    flag = True
+    if os.path.isfile('.gitignore'):
+      lines = [x.strip() for x in open('.gitignore').readlines()]
+      if '**/.sos' in lines:
+        flag = False
+    if flag:
+      with open('.gitignore', 'a') as f:
+        f.write('\n**/.sos\n**/.ipynb_checkpoints\ndocs/__pycache__')
+
 def make_template(conf, dirs, outdir):
     with open('{}/index.tpl'.format(outdir), 'w') as f:
         f.write(get_index_tpl(conf, dirs).strip())
@@ -1050,23 +1080,3 @@ def make_empty_nb(name):
  "nbformat": 4,
  "nbformat_minor": 2
 }''' % name
-
-def compare_versions(v1, v2):
-    # This will split both the versions by '.'
-    arr1 = v1.split(".")
-    arr2 = v2.split(".")
-    # Initializer for the version arrays
-    i = 0
-    # We have taken into consideration that both the
-    # versions will contains equal number of delimiters
-    while(i < len(arr1)):
-        # Version 2 is greater than version 1
-        if int(arr2[i]) > int(arr1[i]):
-            return -1
-        # Version 1 is greater than version 2
-        if int(arr1[i]) > int(arr2[i]):
-            return 1
-        # We can't conclude till now
-        i += 1
-    # Both the versions are equal
-    return 0
