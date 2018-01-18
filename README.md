@@ -46,7 +46,7 @@ below. (For an introduction to git, see
    SoS to be installed with the same Python >= 3.6. Run `pip
    --version` to make sure.)
    
-   ```
+   ```bash
    pip --version
    # pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
    ```
