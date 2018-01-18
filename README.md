@@ -55,7 +55,7 @@ below. (For an introduction to git, see
    for Python 3.6:
 
    ```bash
-   pip install sos
+   pip install sos-essentials
    ```
 
    Note that you may need to
