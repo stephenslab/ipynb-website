@@ -47,7 +47,8 @@ below. (For an introduction to git, see
    --version` to make sure.)
    
    ```
-   pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
+   pip --version
+   # pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
    ```
 
 3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
