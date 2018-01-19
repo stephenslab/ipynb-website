@@ -1,12 +1,15 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="ipynb_website:version" content="0.9.2" />
+<meta name="ipynb_website:version" content="0.9.3" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/readable.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
 <link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -15,9 +18,11 @@
 <script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
 <link rel="stylesheet"
       href="../site_libs/highlight/textmate.css"
       type="text/css" />
+
 <script src="../site_libs/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
@@ -26,8 +31,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
    }, 0);
 }
 </script>
+
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
@@ -50,6 +57,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         }
     });
 </script>
+
 <script>
 // manage active state of menu based on current page
 $(document).ready(function () {
@@ -73,18 +81,26 @@ $(document).ready(function () {
   window.buildTabsets("TOC");
 });
 </script>
+
+
+
 <title>Divvy data exploration project</title>
+
 <style type = "text/css">
 body {
+  
   padding-top: 66px;
   padding-bottom: 40px;
 }
 </style>
 </head>
+
 <body>
 <div tabindex="-1" id="notebook" class="border-box-sizing">
 <div class="container" id="notebook-container">
+
 <!-- code folding -->
+
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -97,24 +113,31 @@ body {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+        
 <li>
   <a href="../index.html">Overview</a>
 </li>
+        
 <li>
   <a href="../setup.html">Setup</a>
 </li>
+        
 <li>
   <a href="../license.html">License</a>
 </li>
+        
 <li>
   <a href="../notes.html">Notes</a>
 </li>
+        
       </ul>
+        
 <ul class="nav navbar-nav navbar-right">
 <li>
    <a href="http://github.com/stephenslab/ipynb-website"> source </a>
 </li>
 </ul>
+        
       </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -125,6 +148,7 @@ body {
 <h1 id="A-map-of-the-Divvy-stations-in-Chicago">A map of the Divvy stations in Chicago<a class="anchor-link" href="#A-map-of-the-Divvy-stations-in-Chicago">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>In this analysis, we use the Divvy trip and station data to generate a map of Chicago.</p>
 <p>We begin by loading a few packages, as well as some additional R functions implemented for this project. The <code>repr</code> package is used to adjust the figure dimensions in the Jupyter notebook.</p>
+
 </div>
 </div>
 </div>
@@ -138,15 +162,18 @@ body {
 <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>As <a href="first-glance.html">before</a>, we use function <code>read.divvy.data</code> to read the trip and station data from the CSV files.</p>
+
 </div>
 </div>
 </div>
@@ -157,13 +184,20 @@ body {
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Reading station data from ../data/Divvy_Stations_2016_Q4.csv.
 Reading trip data from ../data/Divvy_Trips_2016_Q1.csv.
@@ -177,14 +211,17 @@ Converting dates and times.
 </pre>
 </div>
 </div>
+
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Get-total-number-of-departures-by-station">Get total number of departures by station<a class="anchor-link" href="#Get-total-number-of-departures-by-station">&#182;</a></h2><p>We use the trip data to get the total number of departures by station. From these data, we create a "departures" column in the table.</p>
+
 </div>
 </div>
 </div>
@@ -198,20 +235,32 @@ Converting dates and times.
     <span class="kt">data.frame</span><span class="p">(</span>departures <span class="o">=</span> <span class="kp">as.vector</span><span class="p">(</span><span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_id<span class="p">))))</span>
 <span class="kp">summary</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="o">$</span>departures<span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
+
 <div class="output_text output_subarea ">
 <pre>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       1     557    3060    6190    9030   90000 </pre>
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -219,6 +268,7 @@ Converting dates and times.
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Create-a-Divvy-stations-map">Create a Divvy stations map<a class="anchor-link" href="#Create-a-Divvy-stations-map">&#182;</a></h2><p>A plot of the Divvy stations by geographic location (latitude and longitude) traces the outlines of the City of Chicago and the Lake Michigan shore. Further, the location of the downtown is apparent by scaling the area of each circle by the number of trips.</p>
 <p>The University of Chicago Divvy station is highlighted in red.</p>
+
 </div>
 </div>
 </div>
@@ -241,16 +291,32 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>stations<span class="
   theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
+
+
 </div>
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhwAAAIcCAYAAAC9/nd8AAAEDWlDQ1BJQ0MgUHJvZmlsZQAA
 OI2NVV1oHFUUPrtzZyMkzlNsNIV0qD8NJQ2TVjShtLp/3d02bpZJNtoi6GT27s6Yyc44M7v9
@@ -1915,15 +1981,19 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 5AyIABEgAkSACOQ9Av8DCm5jA0r2vbcAAAAASUVORK5CYII="
 >
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
+
 </div>
 </div>
 </div>
@@ -1934,25 +2004,37 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 '4.3.0'
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
+
 </div>
 </div>
 </div>
@@ -1963,23 +2045,36 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
+
 <div class="output_text output_subarea ">
 <pre>R version 3.3.2 (2016-10-31)
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
 Running under: macOS Sierra 10.12.5
+
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
+
 other attached packages:
 [1] ggplot2_2.2.1     data.table_1.10.4 repr_0.12.0      
+
 loaded via a namespace (and not attached):
  [1] Rcpp_0.12.11     assertthat_0.2.0 digest_0.6.12    crayon_1.3.2    
  [5] IRdisplay_0.4.4  plyr_1.8.4       grid_3.3.2       R6_2.2.0        
@@ -1988,9 +2083,12 @@ loaded via a namespace (and not attached):
 [17] IRkernel_0.7     labeling_0.3     tools_3.3.2      stringr_1.2.0   
 [21] munsell_0.4.3    colorspace_1.3-2 pbdZMQ_0.2-5     tibble_1.2      </pre>
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang

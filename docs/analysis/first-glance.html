@@ -1,12 +1,15 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="ipynb_website:version" content="0.9.2" />
+<meta name="ipynb_website:version" content="0.9.3" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <link rel="stylesheet" type="text/css" href="../css/jt.css">
 <link rel="stylesheet" type="text/css" href="../css/readable.css">
 <link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
 <link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -15,9 +18,11 @@
 <script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
 <link rel="stylesheet"
       href="../site_libs/highlight/textmate.css"
       type="text/css" />
+
 <script src="../site_libs/highlight/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
@@ -26,8 +31,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
    }, 0);
 }
 </script>
+
 <script src="../js/toc2.js"></script>
 <script src="../js/docs.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 <script>
     MathJax.Hub.Config({
@@ -50,6 +57,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         }
     });
 </script>
+
 <script>
 // manage active state of menu based on current page
 $(document).ready(function () {
@@ -73,18 +81,26 @@ $(document).ready(function () {
   window.buildTabsets("TOC");
 });
 </script>
+
+
+
 <title>Divvy data exploration project</title>
+
 <style type = "text/css">
 body {
+  
   padding-top: 66px;
   padding-bottom: 40px;
 }
 </style>
 </head>
+
 <body>
 <div tabindex="-1" id="notebook" class="border-box-sizing">
 <div class="container" id="notebook-container">
+
 <!-- code folding -->
+
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -97,24 +113,31 @@ body {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+        
 <li>
   <a href="../index.html">Overview</a>
 </li>
+        
 <li>
   <a href="../setup.html">Setup</a>
 </li>
+        
 <li>
   <a href="../license.html">License</a>
 </li>
+        
 <li>
   <a href="../notes.html">Notes</a>
 </li>
+        
       </ul>
+        
 <ul class="nav navbar-nav navbar-right">
 <li>
    <a href="http://github.com/stephenslab/ipynb-website"> source </a>
 </li>
 </ul>
+        
       </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -125,6 +148,7 @@ body {
 <h1 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>Here, we will take a brief look at the data provided by Divvy.</p>
 <p>We begin by loading a few packages, as well as some additional R functions implemented for this project.</p>
+
 </div>
 </div>
 </div>
@@ -136,15 +160,18 @@ body {
 <div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>data.table<span class="p">)</span>
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Reading-the-data">Reading the data<a class="anchor-link" href="#Reading-the-data">&#182;</a></h2><p>Function <code>read.divvy.data</code> reads in the trip and station data from the <a href="https://www.divvybikes.com/system-data">Divvy CSV files</a>. This function uses <code>fread</code> from the <code>data.table</code> package to quickly read in the data (it is much faster than <code>read.table</code>). This function also prepares the data, including the departure dates and times, so that they are easier to work with.</p>
+
 </div>
 </div>
 </div>
@@ -155,13 +182,20 @@ body {
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Reading station data from ../data/Divvy_Stations_2016_Q4.csv.
 Reading trip data from ../data/Divvy_Trips_2016_Q1.csv.
@@ -175,14 +209,17 @@ Converting dates and times.
 </pre>
 </div>
 </div>
+
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h2><p>We have data on 581 Divvy stations across the city.</p>
+
 </div>
 </div>
 </div>
@@ -193,13 +230,20 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>                       name latitude longitude dpcapacity online_date
         2112 W Peterson Ave    41.99    -87.68         15   5/12/2015
@@ -211,8 +255,10 @@ Converting dates and times.
 </pre>
 </div>
 </div>
+
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -221,25 +267,37 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 581
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We also have information about the &gt;3 million trips taken on Divvy bikes in 2016.</p>
+
 </div>
 </div>
 </div>
@@ -250,13 +308,20 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> trip_id           starttime bikeid tripduration from_station_id
  9080551 2016-03-31 23:53:00    155          841             344
@@ -282,8 +347,10 @@ Converting dates and times.
 </pre>
 </div>
 </div>
+
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -292,25 +359,37 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 3595383
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Out of all the Divvy stations in Chicago, the one on Navy Pier (near the corner of Streeter and Grand) had the most activity by far.</p>
+
 </div>
 </div>
 </div>
@@ -322,13 +401,21 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span>departures <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name<span class="p">)</span>
 <span class="kp">as.matrix</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span><span class="kp">sort</span><span class="p">(</span>departures<span class="p">,</span>decreasing <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 <table>
 <tbody>
@@ -340,16 +427,21 @@ Converting dates and times.
 	<tr><th scope=row>Clinton St &amp; Madison St</th><td>41744</td></tr>
 </tbody>
 </table>
+
+</div>
+
+</div>
+
 </div>
 </div>
-</div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Divvy-bikes-at-the-University-of-Chicago">Divvy bikes at the University of Chicago<a class="anchor-link" href="#Divvy-bikes-at-the-University-of-Chicago">&#182;</a></h2><p>In subsequent analyses, we will also take a close look at the trip data for the main Divvy station on the University of Chicago campus. The Divvy bikes were rented almost 8,000 times in 2016 at this location.</p>
+
 </div>
 </div>
 </div>
@@ -360,25 +452,37 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">sum</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span>na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 7944
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
+
 </div>
 </div>
 </div>
@@ -389,25 +493,37 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
 <div class="output_html rendered_html output_subarea ">
 '4.3.0'
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
+
 </div>
 </div>
 </div>
@@ -418,32 +534,48 @@ Converting dates and times.
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
+
+
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
+
+
 <div class="output_text output_subarea ">
 <pre>R version 3.3.2 (2016-10-31)
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
 Running under: macOS Sierra 10.12.5
+
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
+
 other attached packages:
 [1] data.table_1.10.4
+
 loaded via a namespace (and not attached):
  [1] R6_2.2.0        magrittr_1.5    IRdisplay_0.4.4 pbdZMQ_0.2-5   
  [5] tools_3.3.2     crayon_1.3.2    uuid_0.1-2      stringi_1.1.2  
  [9] IRkernel_0.7    jsonlite_1.5    stringr_1.2.0   digest_0.6.12  
 [13] repr_0.12.0     evaluate_0.10.1</pre>
 </div>
+
+</div>
+
 </div>
 </div>
-</div>
+
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang

@@ -1,16 +1,21 @@
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="ipynb_website:version" content="0.9.2" />
+<meta name="ipynb_website:version" content="0.9.3" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <title>Divvy data exploration project</title>
+
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
       href="site_libs/highlight/textmate.css"
@@ -57,6 +62,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
     });
 </script>
 </head>
+
 <body>
 <style type = "text/css">
 @font-face {
@@ -77,19 +83,24 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
  font-style: normal;
  src: local('PT Mono'), url('fonts/ptmono.ttf') format('truetype');
 }
+
 body {
+  
   font-size: 160%;
   padding-top: 66px;
   padding-bottom: 40px;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 20px;
  }
+
 a.anchor-link:link {
   text-decoration: none;
   padding: 0px 20px;
   visibility: hidden;
 }
+
 h1:hover .anchor-link,
 h2:hover .anchor-link,
 h3:hover .anchor-link,
@@ -98,6 +109,7 @@ h5:hover .anchor-link,
 h6:hover .anchor-link {
   visibility: visible;
 }
+
 .main-container {
   max-width: 940px;
   margin-left: auto;
@@ -118,6 +130,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 <script>
 // manage active state of menu based on current page
 $(document).ready(function () {
@@ -127,13 +140,17 @@ $(document).ready(function () {
   if (href === "")
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
+
   // mark it active
   menuAnchor.parent().addClass('active');
+
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
 });
 </script>
+
 <div class="container-fluid main-container">
+
 <!-- tabsets -->
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
@@ -141,7 +158,9 @@ $(document).ready(function () {
   window.buildTabsets("TOC");
 });
 </script>
+
 <!-- code folding -->
+
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -154,24 +173,31 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+        
 <li>
   <a href="./index.html">Overview</a>
 </li>
+        
 <li>
   <a href="./setup.html">Setup</a>
 </li>
+        
 <li>
   <a href="./license.html">License</a>
 </li>
+        
 <li>
   <a href="./notes.html">Notes</a>
 </li>
+        
       </ul>
+    
 <ul class="nav navbar-nav navbar-right">
 <li>
    <a href="http://github.com/stephenslab/ipynb-website"> source </a>
 </li>
 </ul>
+        
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -180,6 +206,7 @@ $(document).ready(function () {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Project-notes">Project notes<a class="anchor-link" href="#Project-notes">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br></p>
+
 </div>
 </div>
 </div>
@@ -189,19 +216,23 @@ $(document).ready(function () {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Note-about-commit-ids">Note about commit ids<a class="anchor-link" href="#Note-about-commit-ids">&#182;</a></h2><p>A git commit id (SHA1) and commit modification date is included at the bottom of each exported webpage. This git commit id uniquely identifies the version of the Jupyter notebook that was used to create the webpage.</p>
 <p>It is important to note that the webpage is exported using the <code>jupyter nbconvert</code> command <em>without</em> the <code>--execute</code> flag; that is, the webpage is exported from the Jupyter notebook <em>as is</em> without executing code. Therefore, there is no guarantee that the given version of code will reproduce the results and figures as shown in the webpage and notebook.</p>
+
 </div>
 </div>
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang
 <!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
 </div>
+
 <script>
 // add bootstrap table styles to pandoc tables
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
 </script>
+
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
