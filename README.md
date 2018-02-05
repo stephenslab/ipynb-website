@@ -181,9 +181,9 @@ below. (For an introduction to git, see
 
 ## Tips for adapting this framework for your project
 
-+ You can add option `-J` to the command if you want to control the 
++ You can add option `-j` to the command if you want to control the 
   number of parallel processes that generate the notebook. For example
-  `-J 8` uses 8 processes.
+  `-j 8` uses 8 processes.
 
 + The `include_dir` setting in `config.yml` specifies the project
   subdirectories containing Jupyter notebooks to render into
