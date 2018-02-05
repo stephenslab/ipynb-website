@@ -67,6 +67,10 @@ generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navb
 if conf['password_file'] is not None and os.path.isfile(conf['password_file']):
    with open(conf['password_file']) as f:
         password = {os.path.abspath(os.path.expanduser(k)): v for k, v in yaml.load(f).items()}
+   for key in password:
+       if not os.path.isdir(key) and not os.path.isfile(key):
+          status = 1
+          stop_if(status, msg = f"Cannot find ``{key}``. Please comment out or remove it from ``{conf['password_file']}``")
 else:
    password = None
 
@@ -162,7 +166,7 @@ bash: expand = "${ }"
 
 python: expand = "${ }"
   password = ${password}
-  tmp = '' if password is None or (${_input:adr} not in password and ${_input:ar} not in password) else (password[${_input:adr} if (${_input:adr} in password and not ${_input:ar} in password) else ${_input:ar}])
+  tmp = '' if password is None or ${_input:ar} not in password else password[${_input:ar}]
   if len(tmp) > 0:
      import sys
      sys.path.append('docs')

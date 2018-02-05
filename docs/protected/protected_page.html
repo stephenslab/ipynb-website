@@ -107,7 +107,7 @@
          function login(secret) {
              var hash = Sha1.hash(secret)
              var path = window.location.pathname.split("/")
-             var file = path.pop()
+             var file = Sha1.hash(path.pop()) + '.html'
              var path = path.join("/")
              var url = path + "/" + hash + '_' + file
              var alert = document.querySelectorAll('[data-id="alert"]')
