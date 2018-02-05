@@ -126,8 +126,9 @@ if not os.path.isfile(conf['homepage']):
 
 [update-hp (Index HTML updater)]
 depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter')
-input: dynamic(index_files + [conf['homepage']]), group_by = 1, concurrent = True
+input: dynamic(index_files + [conf['homepage']]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
+task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl 2> /dev/null
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
@@ -135,13 +136,24 @@ bash: expand = "${ }"
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
 
+python: expand = "${ }"
+  password = ${password}
+  tmp = '' if password is None or (${_input:adr} not in password and ${_input:ar} not in password) else (password[${_input:adr} if (${_input:adr} in password and not ${_input:ar} in password) else ${_input:ar}])
+  if len(tmp) > 0:
+     import sys
+     sys.path.append('docs')
+     from jnbinder import protect_page
+     new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
+     open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
+
 [update-nb (Notebook to HTML converter)]
 depends: sos_step("update-tpl"), executable('jupyter')
 stop_if(len(notebook_files) == 0)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x, conf) for x in notebook_files]
-input: notebook_files, group_by = 1, paired_with = ['nb_info'], concurrent = True
+input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
+task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl 2> /dev/null
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
@@ -149,6 +161,16 @@ bash: expand = "${ }"
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
+
+python: expand = "${ }"
+  password = ${password}
+  tmp = '' if password is None or (${_input:adr} not in password and ${_input:ar} not in password) else (password[${_input:adr} if (${_input:adr} in password and not ${_input:ar} in password) else ${_input:ar}])
+  if len(tmp) > 0:
+     import sys
+     sys.path.append('docs')
+     from jnbinder import protect_page
+     new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
+     open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
 [update-wf (Pipeline to HTML converter)]
 stop_if(len(pipeline_files) == 0)
@@ -165,16 +187,7 @@ out = [get_toc(x, conf['exclude_file'] + [conf['homepage']]) for x in binders]
 with open(_output, 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
-[protect-pages]
-depends: sos_step('update-nb'), sos_step('update-hp')
-input: dynamic(index_files + [conf['homepage']] + notebook_files + [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'] + [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files]), group_by = 'pairs'
-stop_if(password is None or (f'{_input[0]:ad}' not in password and f'{_input[0]:a}' not in password))
-from jnbinder import protect_page
-new_page = protect_page(f'{_input[1]:ae}', f'{_input[1]:ad}', 'docs/site_libs/jnbinder_password.html', password[f'{_input[0]:a}' if f'{_input[0]:a}' in password else f'{_input[0]:ad}'])
-open(f'docs/{path(new_page):n}_{_input[1]:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
-
 [remove-obsolete (Obsolete files remover)]
-depends: sos_step('protect-pages')
 output: 'docs/MANIFEST'
 if os.path.isfile(_output):
   old_files = [x.strip() for x in open(_output).readlines()]
@@ -211,7 +224,8 @@ set `add_commit_info: False` in `config.yml` if you want to disable this feature
 stop_if(status)
 fail_if(len(binders) == 0, msg = err_msg1)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
-sos_run('update-hp + update-nb + protect-pages + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password = password)
+sos_run('update-hp + update-nb + update-wf + update-toc', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password = password)
+sos_run('remove-obsolete', generated_files=generated_files)
 sos_run('release-website')
 
 [default_2]
