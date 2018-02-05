@@ -126,9 +126,8 @@ if not os.path.isfile(conf['homepage']):
 
 [update-hp (Index HTML updater)]
 depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter')
-input: dynamic(index_files + [conf['homepage']]), group_by = 1
+input: dynamic(index_files + [conf['homepage']]), group_by = 1, concurrent = True
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
-task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl 2> /dev/null
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
@@ -151,9 +150,8 @@ depends: sos_step("update-tpl"), executable('jupyter')
 stop_if(len(notebook_files) == 0)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x, conf) for x in notebook_files]
-input: notebook_files, group_by = 1, paired_with = ['nb_info']
+input: notebook_files, group_by = 1, paired_with = ['nb_info'], concurrent = True
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
-task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl 2> /dev/null
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
@@ -192,7 +190,7 @@ output: 'docs/MANIFEST'
 if os.path.isfile(_output):
   old_files = [x.strip() for x in open(_output).readlines()]
   sha1_files = [f"docs/{item.rsplit('_', 1)[-1][:-5]}/{path(item.rsplit('_', 1)[0]):b}.html" if item.rsplit('_', 1)[-1][:-5] != 'docs' else f"docs/{path(item.rsplit('_', 1)[0]):b}.html" for item in glob.glob('docs/*.sha1')]
-  run(f"rm -f {paths([x for x in old_files if not x in generated_files + sha1_files])} {paths(glob.glob('docs/*.sha1'))}")
+  get_output(f"rm -f {paths([x for x in old_files if not x in generated_files + sha1_files])} {paths(glob.glob('docs/*.sha1'))}")
 with open(_output, 'w') as f:
   f.write('\n'.join(sorted(generated_files + sha1_files)))
 
@@ -200,15 +198,15 @@ with open(_output, 'w') as f:
 depends: sos_variable('conf')
 stop_if(conf['release_message'] is None)
 try:
-  run(f'''cd docs && git add . && git commit --no-verify -m "{conf['release_message']}" && git push --no-verify''')
-  run(conf['post_release_actions'])
+  get_output(f'''cd docs && git add . && git commit --no-verify -m "{conf['release_message']}" && git push --no-verify''')
+  get_output(conf['post_release_actions'])
 except:
   pass
 
 [clean]
 # remove generated files
-depends: sos_variable('generated_files')
-run(f"rm -f {paths(generated_files)}")
+depends: 'docs/MANIFEST'
+get_output(f"rm -f {paths([x.strip() for x in open('docs/MANIFEST').readlines()])}")
 
 [default_1 (Build website)]
 # build ipynb website ...
