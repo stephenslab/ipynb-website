@@ -65,3 +65,6 @@ notebook_toc: False
 # When set to `True` the empty lines in HTML will be removed. This will
 # make code blocks more compact.
 # remove_whiteline: False
+
+# Load a list of password protected folders / pages and their passwords
+password_file: .passwd

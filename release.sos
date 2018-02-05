@@ -3,7 +3,7 @@
 
 sys.path.append('docs')
 
-[default_0 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files']]
+[default_0 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 DEFAULT_CONF = {
            '__version__': '0.9.3',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
@@ -13,6 +13,7 @@ DEFAULT_CONF = {
            'include_dir': [],
            'exclude_file': [],
            'hide_navbar': [],
+           'protected_page': [],
            'disqus': None,
            'report_style': False,
            'release_message': None,
@@ -26,27 +27,32 @@ DEFAULT_CONF = {
            'add_commit_info': True,
            'long_autoindex': True,
            'reverse_autoindex': [],
-           'remove_whiteline': False
+           'remove_whiteline': False,
+           'password_file': None
            }
+status = 0
 try:
   from jnbinder import compare_versions, update_gitignore
 except Exception as e:
   if 'jnbinder' in str(e):
      sos_run('setup-jnbinder')
-     stop_if(1, msg = 'Installation complete. Please rerun this script.')
+     status = 1
+     stop_if(status, msg = 'Installation complete. Please rerun this script.')
   else:
      raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
-if compare_versions(SOS_VERSION, '0.9.10.17') < 0:
-  sos_run("upgrade-sos")
-  stop_if(1, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
 if len(glob.glob('.sos/*')) and os.path.isdir(".git"):
    update_gitignore()
+if compare_versions(SOS_VERSION, '0.9.10.17') < 0:
+  sos_run("upgrade-sos")
+  status = 1
+  stop_if(status, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
 #
-from sos.utils import load_config_files
-conf = load_config_files('config.yml')
+import yaml
+with open('config.yml', 'r') as f:
+    conf = yaml.load(f)
 conf.update({k:v for k,v in DEFAULT_CONF.items() if k not in conf})
 conf['jt_theme'] = conf['theme'] if os.path.isfile(f"docs/css/{conf['theme']}.css") else None
-for k in ['include_dir', 'hide_navbar', 'exclude_file', 'reverse_autoindex']:
+for k in ['include_dir', 'hide_navbar', 'exclude_file', 'protected_page', 'reverse_autoindex']:
     conf[k] = [os.path.normpath(x) for x in conf[k]]
 conf['remove_whiteline'] = 1 if conf['remove_whiteline'] else 0
 binders = [x for x in conf['include_dir'] if os.path.isdir(x)]
@@ -55,6 +61,11 @@ notebook_files = sum([[y for y in glob.glob(f"{x}/*.ipynb") if y not in [f"{x}/i
 index_files = [f'{x}/index.ipynb' if os.path.isfile(f'{x}/index.ipynb') else f'{x}/_index.ipynb' for x in binders if x not in conf['hide_navbar']]
 pipeline_files = sum([[y for y in glob.glob(f"{x}/*.sos") if y not in conf['exclude_file']] for x in binders], [])
 generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'] + ['docs/' + x.replace('.ipynb', '.html') for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + [f"docs/{x}.tpl" for x in binders]
+if conf['password_file'] is not None and os.path.isfile(conf['password_file']):
+   with open(conf['password_file']) as f:
+        password = {os.path.abspath(os.path.expanduser(k)): v for k, v in yaml.load(f).items()}
+else:
+   password = None
 
 [download-jnbinder: provides = 'jnbinder-master/README.md']
 download: decompress = True, dest_file = 'jnbinder-master.zip'
@@ -68,10 +79,12 @@ bash:
   rm -rf jnbinder-master*
 
 [upgrade-jnbinder]
+# only update jnbinder, not the CSS files
 depends: 'jnbinder-master/README.md'
 bash:
   cp jnbinder-master/docs/jnbinder.py docs
-  cp jnbinder-master/docs/css/* docs/css
+  cp jnbinder-master/docs/site_libs/jnbinder_password.html docs/site_libs
+  cp jnbinder-master/docs/js/* docs/js
   if [ -f release.sos ]; then
      cp jnbinder-master/release ./release.sos
   else
@@ -112,13 +125,17 @@ if not os.path.isfile(conf['homepage']):
 depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter')
 input: dynamic(index_files + [conf['homepage']]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
-task:
+#task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
+
+stop_if(password is None or (f'{_input:ad}' not in password and f'{_input:a}' not in password))
+from jnbinder import protect_page
+protect_page(f'{_output:ae}', f'{_output:ad}', 'docs/site_libs/jnbinder_password.html', password[f'{_input:ad}' if f'{_input:ad}' in password else f'{_input:a}'])
 
 [update-nb (Notebook to HTML converter)]
 depends: sos_step("update-tpl"), executable('jupyter')
@@ -127,7 +144,7 @@ from jnbinder import get_commit_info
 nb_info = [get_commit_info(x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
-task:
+#task: concurrent = True
 bash: expand = "${ }"
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
@@ -136,11 +153,15 @@ bash: expand = "${ }"
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
 
+stop_if(password is None or f'{_input:a}' not in password)
+from jnbinder import protect_page
+protect_page(f'{_output:ae}', f'{_output:ad}', 'docs/site_libs/jnbinder_password.html', password[f'{_input:a}'])
+
 [update-wf (Pipeline to HTML converter)]
 stop_if(len(pipeline_files) == 0)
 input: pipeline_files, group_by = 1
 output: [f"docs/{x.replace('.sos', '.html')}" for x in pipeline_files], group_by = 1
-task:
+#task: concurrent = True
 bash: expand = "${ }"
   sos convert ${_input} ${_output} --style tango --lineno
 
@@ -186,12 +207,14 @@ To properly add notebook version info, all changes made to notebooks must be com
 Please use `git commit` to commit changes and run this command again. Or you may
 set `add_commit_info: False` in `config.yml` if you want to disable this feature.
 '''
+stop_if(status)
 fail_if(len(binders) == 0, msg = err_msg1)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
-sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files)
+sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password = password)
 sos_run('release-website')
 
 [default_2]
 # remove intermediate files
+stop_if(status)
 bash: expand = True
   rm -f {paths([binder + '/_index.ipynb' for binder in binders])}
