@@ -174,6 +174,7 @@ new_page = protect_page(f'{_input[1]:ae}', f'{_input[1]:ad}', 'docs/site_libs/jn
 open(f'docs/{path(new_page):n}_{_input[1]:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
 [remove-obsolete (Obsolete files remover)]
+depends: sos_step('protect-pages')
 output: 'docs/MANIFEST'
 if os.path.isfile(_output):
   old_files = [x.strip() for x in open(_output).readlines()]
