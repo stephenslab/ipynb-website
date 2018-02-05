@@ -143,7 +143,7 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
   password = ${password}
   tmp = '' if password is None or (${_input:adr} not in password and ${_input:ar} not in password) else (password[${_input:adr} if (${_input:adr} in password and not ${_input:ar} in password) else ${_input:ar}])
   if len(tmp) > 0:
-     new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
+     new_page = protect_page(${_output:r}, 'docs/site_libs/jnbinder_password.html', tmp)
      open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
 [update-nb (Notebook to HTML converter)]
@@ -165,7 +165,7 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
   password = ${password}
   tmp = '' if password is None or ${_input:ar} not in password else password[${_input:ar}]
   if len(tmp) > 0:
-     new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
+     new_page = protect_page(${_output:r}, 'docs/site_libs/jnbinder_password.html', tmp)
      open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
 [update-wf (Pipeline to HTML converter)]
