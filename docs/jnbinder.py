@@ -1084,7 +1084,10 @@ def make_empty_nb(name):
 }''' % name
 
 def protect_page(page, page_dir, page_tpl, password):
-    secret = page_dir + '/' + sha1(password.encode()).hexdigest()
-    os.makedirs(secret, exist_ok=True)
-    os.rename(page, f'{secret}/{os.path.split(page)[-1]}')
+    secret = page_dir + '/' + sha1(password.encode()).hexdigest() + f'_{os.path.split(page)[-1]}'
+    content = open(page).readlines()
+    content.insert(5, '<meta name="robots" content="noindex">\n')
+    with open(secret, 'w') as f:
+        f.write(''.join(content))
     copyfile(page_tpl, page)
+    return os.path.basename(secret)
