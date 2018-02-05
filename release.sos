@@ -102,7 +102,7 @@ bash:
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
 bash:
-  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos sos-notebook sos-bash sos-python
+  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos sos-notebook sos-bash sos-python sos-r
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
@@ -139,13 +139,10 @@ bash: expand = "${ }"
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
 
-python: expand = "${ }"
+python: expand = "${ }", input = 'docs/jnbinder.py'
   password = ${password}
   tmp = '' if password is None or (${_input:adr} not in password and ${_input:ar} not in password) else (password[${_input:adr} if (${_input:adr} in password and not ${_input:ar} in password) else ${_input:ar}])
   if len(tmp) > 0:
-     import sys
-     sys.path.append('docs')
-     from jnbinder import protect_page
      new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
      open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
@@ -164,13 +161,10 @@ bash: expand = "${ }"
      perl -i -ne 'print if /\S/' ${_output:e}
   fi
 
-python: expand = "${ }"
+python: expand = "${ }", input = 'docs/jnbinder.py'
   password = ${password}
   tmp = '' if password is None or ${_input:ar} not in password else password[${_input:ar}]
   if len(tmp) > 0:
-     import sys
-     sys.path.append('docs')
-     from jnbinder import protect_page
      new_page = protect_page(${_output:aer}, ${_output:adr}, 'docs/site_libs/jnbinder_password.html', tmp)
      open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
 
@@ -226,7 +220,7 @@ set `add_commit_info: False` in `config.yml` if you want to disable this feature
 stop_if(status)
 fail_if(len(binders) == 0, msg = err_msg1)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
-sos_run('update-hp + update-nb + update-wf + update-toc', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password = password)
+sos_run('update-hp + update-nb + update-wf + update-toc', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password)
 sos_run('remove-obsolete', generated_files=generated_files)
 sos_run('release-website')
 
