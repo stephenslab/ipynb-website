@@ -109,7 +109,7 @@
              var path = window.location.pathname.split("/")
              var file = path.pop()
              var path = path.join("/")
-             var url = path + "/" + hash + '/' + file
+             var url = path + "/" + hash + '_' + file
              var alert = document.querySelectorAll('[data-id="alert"]')
 
              var request = new XMLHttpRequest()
