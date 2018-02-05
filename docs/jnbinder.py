@@ -3,7 +3,6 @@ import glob
 import re
 import json
 from hashlib import sha1
-from shutil import copyfile
 from dateutil.parser import parse
 
 def is_date(string):
@@ -1092,5 +1091,7 @@ def protect_page(page, page_tpl, password):
     content.insert(5, '<meta name="robots" content="noindex">\n')
     with open(secret, 'w') as f:
         f.write(''.join(content))
-    copyfile(page_tpl, page)
+    content = open(page_tpl).readlines()
+    with open(page, 'w') as f:
+        f.write(''.join(content).replace("TPL_PLACEHOLDER", page_file))
     return os.path.basename(secret)

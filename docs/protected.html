@@ -105,7 +105,8 @@
          var password = document.querySelectorAll('[data-id="password"]')
 
          function login(secret) {
-             var hash = Sha1.hash(secret + window.location.pathname)
+             const dirname = "protected.html"
+             var hash = Sha1.hash(secret + dirname)
              var path = window.location.pathname.split("/").splice(-1, 1).join("/")
              var url = path + "/" + hash + '.html'
              var alert = document.querySelectorAll('[data-id="alert"]')
@@ -119,7 +120,7 @@
                  } else {
                      parent.location.hash = hash
                      alert[0].style.display = 'block'
-                     password[0].setAttribute('placeholder', window.location.pathname)
+                     password[0].setAttribute('placeholder', 'Incorrect password')
                      password[0].value = ''
                  }
              }
