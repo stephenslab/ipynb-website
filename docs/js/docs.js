@@ -6,3 +6,5 @@ var licenseArray = []
 var licenseDict = {}
 var notesArray = []
 var notesDict = {}
+var protectedArray = ['protected_page']
+var protectedDict = {"This-page-is-password-protected-1":"protected_page"}

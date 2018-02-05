@@ -193,6 +193,10 @@ $(document).ready(function () {
   <a href="./notes.html">Notes</a>
 </li>
         
+<li>
+  <a href="./protected.html">Protected</a>
+</li>
+        
       </ul>
     
 <ul class="nav navbar-nav navbar-right">
