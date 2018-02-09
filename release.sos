@@ -41,7 +41,7 @@ except Exception as e:
      raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
 if len(glob.glob('.sos/*')) and os.path.isdir(".git"):
    update_gitignore()
-if compare_versions(SOS_VERSION, '0.9.11.4') < 0:
+if compare_versions(SOS_VERSION, '0.9.12.1') < 0:
   sos_run("upgrade-sos")
   status = 1
   stop_if(status, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
@@ -60,6 +60,11 @@ for item in conf['include_dir']:
 conf['remove_whiteline'] = 1 if conf['remove_whiteline'] else 0
 binders = [x for x in conf['include_dir'] if os.path.isdir(x)]
 # binders = [x for x in next(os.walk('./'))[1] if x not in conf['exclude_dir'] + ['docs'] and not x.startswith('.')]
+err_msg = '''
+No valid path found in ``include_dir``!
+Please properly set ``include_dir`` in ``config.yml``
+'''
+fail_if(len(binders) == 0, msg = err_msg)
 notebook_files = sum([[y for y in glob.glob(f"{x}/*.ipynb") if y not in [f"{x}/index.ipynb", f"{x}/_index.ipynb", conf['homepage']] + conf['exclude_file']] for x in binders], [])
 index_files = [f'{x}/index.ipynb' if os.path.isfile(f'{x}/index.ipynb') else f'{x}/_index.ipynb' for x in binders if x not in conf['hide_navbar']]
 pipeline_files = sum([[y for y in glob.glob(f"{x}/*.sos") if y not in conf['exclude_file']] for x in binders], [])
@@ -102,7 +107,7 @@ bash:
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
 bash:
-  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos sos-notebook sos-bash sos-python sos-r
+  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
@@ -208,18 +213,13 @@ get_output(f"rm -f {paths([x.strip() for x in open('docs/MANIFEST').readlines()]
 
 [default_1 (Build website)]
 # build ipynb website ...
-err_msg1 = '''
-No valid path found in `include_dir`!
-Please properly set `include_dir` in `config.yml`.
-'''
-err_msg2 = '''
+err_msg = '''
 To properly add notebook version info, all changes made to notebooks must be committed.
-Please use `git commit` to commit changes and run this command again. Or you may
-set `add_commit_info: False` in `config.yml` if you want to disable this feature.
+Please use ``git commit`` to commit changes and run this command again. Or you may
+set ``add_commit_info: False`` in ``config.yml`` if you want to disable this feature.
 '''
 stop_if(status)
-fail_if(len(binders) == 0, msg = err_msg1)
-fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg2)
+fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg)
 sos_run('update-hp + update-nb + update-wf + update-toc', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password)
 sos_run('remove-obsolete', generated_files=generated_files)
 sos_run('release-website')
