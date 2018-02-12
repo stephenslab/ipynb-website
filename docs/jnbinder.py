@@ -205,9 +205,9 @@ def get_index_tpl(conf, dirs):
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
-      href="site_libs/highlight/textmate.css"
+      href="site_libs/highlightjs-1.1/textmate.css"
       type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <style type="text/css">
   div.input_prompt {display: none;}
   div.output_html {
@@ -737,10 +737,10 @@ def get_notebook_tpl(conf, dirs, path):
 <script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 
 <link rel="stylesheet"
-      href="../site_libs/highlight/textmate.css"
+      href="../site_libs/highlightjs-1.1/textmate.css"
       type="text/css" />
 
-<script src="../site_libs/highlight/highlight.js"></script>
+<script src="../site_libs/highlightjs-1.1/highlight.js"></script>
 <script type="text/javascript">
 if (window.hljs && document.readyState && document.readyState === "complete") {
    window.setTimeout(function() {
