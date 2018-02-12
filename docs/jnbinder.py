@@ -1082,16 +1082,27 @@ def make_empty_nb(name):
  "nbformat_minor": 2
 }''' % name
 
-def protect_page(page, page_tpl, password):
+def protect_page(page, page_tpl, password, write):
     # page: docs/{name}
     page_dir, page_file = os.path.split(page)
     page_file = '/'.join(page.split('/')[1:])
     secret = page_dir + '/' + sha1((password + page_file).encode()).hexdigest() + '.html'
-    content = open(page).readlines()
-    content.insert(5, '<meta name="robots" content="noindex">\n')
-    with open(secret, 'w') as f:
-        f.write(''.join(content))
-    content = open(page_tpl).readlines()
-    with open(page, 'w') as f:
-        f.write(''.join(content).replace("TPL_PLACEHOLDER", page_file))
-    return os.path.basename(secret)
+    if write:
+        content = open(page).readlines()
+        content.insert(5, '<meta name="robots" content="noindex">\n')
+        with open(secret, 'w') as f:
+            f.write(''.join(content))
+        content = open(page_tpl).readlines()
+        with open(page, 'w') as f:
+            f.write(''.join(content).replace("TPL_PLACEHOLDER", page_file))
+    secret = os.path.basename(secret)
+    return secret, f'docs/{secret.rsplit(".", 1)[0]}_{os.path.basename(page_dir)}.sha1'
+
+def get_sha1_files(index_files, notebook_files, passwords, write = False):
+    '''
+    Inputs are list of files [(input, output), ...]
+    '''
+    password = [None if passwords is None or (os.path.dirname(fn[0]) not in passwords and fn[0] not in passwords) else (passwords[os.path.dirname(fn[0]) if (os.path.dirname(fn[0]) in passwords and not fn[0] in passwords) else fn[0]]) for fn in index_files] + [None if passwords is None or fn[0] not in passwords else passwords[fn[0]] for fn in notebook_files]
+    res = [protect_page(fn[1], 'docs/site_libs/jnbinder_password.html', p, write)[1]
+           for fn, p in zip(index_files + notebook_files, password) if y]
+    return res

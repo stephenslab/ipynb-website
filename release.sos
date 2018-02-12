@@ -145,11 +145,7 @@ bash: expand = "${ }", stderr = None
   fi
 
 python: expand = "${ }", input = 'docs/jnbinder.py'
-  password = ${password}
-  tmp = '' if password is None or (${_input:dr} not in password and ${_input:r} not in password) else (password[${_input:dr} if (${_input:dr} in password and not ${_input:r} in password) else ${_input:r}])
-  if len(tmp) > 0:
-     new_page = protect_page(${_output:r}, 'docs/site_libs/jnbinder_password.html', tmp)
-     open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
+  get_sha1_files([(${_input:r}, ${_output:r})], [], ${password}, write = True)
 
 [update-nb (Notebook to HTML converter)]
 depends: sos_step("update-tpl"), executable('jupyter')
@@ -167,11 +163,7 @@ bash: expand = "${ }", stderr = None
   fi
 
 python: expand = "${ }", input = 'docs/jnbinder.py'
-  password = ${password}
-  tmp = '' if password is None or ${_input:r} not in password else password[${_input:r}]
-  if len(tmp) > 0:
-     new_page = protect_page(${_output:r}, 'docs/site_libs/jnbinder_password.html', tmp)
-     open(f'docs/{new_page.rsplit(".", 1)[0]}_${_output:db}.sha1', 'w').write(f'{new_page.split("_")[0]}')
+  get_sha1_files([], [(${_input:r}, ${_output:r})], ${password}, write = True)
 
 [update-wf (Pipeline to HTML converter)]
 stop_if(len(pipeline_files) == 0)
@@ -190,10 +182,13 @@ with open(_output, 'w') as f:
 
 [remove-obsolete (Obsolete files remover)]
 output: 'docs/MANIFEST'
+from jnbinder import get_sha1_files
 if os.path.isfile(_output):
   old_files = [x.strip() for x in open(_output).readlines()]
-  sha1_files = [f"docs/{item.rsplit('_', 1)[-1][:-5]}/{path(item.rsplit('_', 1)[0]):b}.html" if item.rsplit('_', 1)[-1][:-5] != 'docs' else f"docs/{path(item.rsplit('_', 1)[0]):b}.html" for item in glob.glob('docs/*.sha1')]
-  get_output(f"rm -f {paths([x for x in old_files if not x in generated_files + sha1_files])} {paths(glob.glob('docs/*.sha1'))}")
+  all_f1 = [(x, y) for x, y in zip(index_files + [conf['homepage']], [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'])]
+  all_f2 = [(x, y) for x, y in zip(notebook_files,  [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files])]
+  sha1_files = [f"docs/{item.rsplit('_', 1)[-1][:-5]}/{path(item.rsplit('_', 1)[0]):b}.html" if item.rsplit('_', 1)[-1][:-5] != 'docs' else f"docs/{path(item.rsplit('_', 1)[0]):b}.html" for item in get_sha1_files(all_f1, all_f2, password)]
+  get_output(f"rm -f {paths([x for x in old_files if not x in generated_files + sha1_files])}")
 with open(_output, 'w') as f:
   f.write('\n'.join(sorted(generated_files + sha1_files)))
 
@@ -220,8 +215,7 @@ set ``add_commit_info: False`` in ``config.yml`` if you want to disable this fea
 '''
 stop_if(status)
 fail_if(os.path.isdir('.git') and 'ipynb' in get_output('git status --untracked-files=no --porcelain') and conf['add_commit_info'], msg = err_msg)
-sos_run('update-hp + update-nb + update-wf + update-toc', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password)
-sos_run('remove-obsolete', generated_files=generated_files)
+sos_run('update-hp + update-nb + update-wf + update-toc + remove-obsolete', conf=conf, binders=binders, notebook_files=notebook_files, index_files=index_files, pipeline_files=pipeline_files, generated_files=generated_files, password=password)
 sos_run('release-website')
 
 [default_2]
