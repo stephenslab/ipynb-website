@@ -1104,5 +1104,5 @@ def get_sha1_files(index_files, notebook_files, passwords, write = False):
     '''
     password = [None if passwords is None or (os.path.dirname(fn[0]) not in passwords and fn[0] not in passwords) else (passwords[os.path.dirname(fn[0]) if (os.path.dirname(fn[0]) in passwords and not fn[0] in passwords) else fn[0]]) for fn in index_files] + [None if passwords is None or fn[0] not in passwords else passwords[fn[0]] for fn in notebook_files]
     res = [protect_page(fn[1], 'docs/site_libs/jnbinder_password.html', p, write)[1]
-           for fn, p in zip(index_files + notebook_files, password) if y]
+           for fn, p in zip(index_files + notebook_files, password) if p]
     return res
