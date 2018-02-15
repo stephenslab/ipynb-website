@@ -2,6 +2,7 @@ import os
 import glob
 import re
 import json
+import subprocess
 from hashlib import sha1
 from dateutil.parser import parse
 
@@ -13,7 +14,6 @@ def is_date(string):
         return False
 
 def get_output(cmd, show_command=False, prompt='$ '):
-    import subprocess
     try:
         output = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, shell=True).decode()
     except subprocess.CalledProcessError as e:
@@ -912,9 +912,9 @@ def get_index_toc(path):
         data = json.load(f)
     for cell in data['cells']:
         for sentence in cell["source"]:
-            doc = re.search('(.+?)/(.+?).html', sentence)
+            doc = re.search('^.*\/(.+?).html', sentence)
             if doc:
-                res.append(doc.group(2))
+                res.append(doc.group(1))
     # Filter by reference index
     if not fi == fr:
         ref = []
@@ -922,9 +922,9 @@ def get_index_toc(path):
             data = json.load(f)
         for cell in data['cells']:
             for sentence in cell["source"]:
-                doc = re.search('(.+?)/(.+?).html', sentence)
+                doc = re.search('^.*\/(.+?).html', sentence)
                 if doc:
-                    ref.append(doc.group(2))
+                    ref.append(doc.group(1))
         res = [x for x in res if x in ref]
     return out + repr(res)
 
@@ -1099,9 +1099,7 @@ def protect_page(page, page_tpl, password, write):
     return secret, f'docs/{secret.rsplit(".", 1)[0]}_{os.path.basename(page_dir)}.sha1'
 
 def get_sha1_files(index_files, notebook_files, passwords, write = False):
-    '''
-    Inputs are list of files [(input, output), ...]
-    '''
+    # Inputs are list of files [(input, output), ...]
     password = [None if passwords is None or (os.path.dirname(fn[0]) not in passwords and fn[0] not in passwords) else (passwords[os.path.dirname(fn[0]) if (os.path.dirname(fn[0]) in passwords and not fn[0] in passwords) else fn[0]]) for fn in index_files] + [None if passwords is None or fn[0] not in passwords else passwords[fn[0]] for fn in notebook_files]
     res = [protect_page(fn[1], 'docs/site_libs/jnbinder_password.html', p, write)[1]
            for fn, p in zip(index_files + notebook_files, password) if p]
