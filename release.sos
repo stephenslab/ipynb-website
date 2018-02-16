@@ -41,7 +41,7 @@ except Exception as e:
      raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
 if len(glob.glob('.sos/*')) and os.path.isdir(".git"):
    update_gitignore()
-if compare_versions(SOS_VERSION, '0.9.12.1') < 0:
+if compare_versions(SOS_VERSION, '0.9.12.2') < 0:
   sos_run("upgrade-sos")
   status = 1
   stop_if(status, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
@@ -107,7 +107,7 @@ bash:
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
 bash:
-  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos
+  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir sos
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
