@@ -2,6 +2,7 @@
 #fileformat=SOS1.0
 
 sys.path.append('docs')
+parameter: pip = 'pip'
 
 [default_0 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 DEFAULT_CONF = {
@@ -106,8 +107,10 @@ bash:
 
 [upgrade-sos (SoS upgrader)]
 # using latest pip release
-bash:
-  pip install --upgrade --upgrade-strategy only-if-needed --no-cache-dir sos
+try:
+  get_output(f'{pip} install --upgrade --upgrade-strategy only-if-needed --no-cache-dir sos')
+except:
+  get_output(f'{pip} install --upgrade --upgrade-strategy only-if-needed --no-cache-dir --user sos')
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
