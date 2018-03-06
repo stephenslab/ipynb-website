@@ -21,6 +21,34 @@
 }
 */
 
+
+.scatterplot_by_rowname div.xAxis div.tickLabel {
+    transform: translateY(15px) translateX(15px) rotate(45deg);
+    -ms-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -moz-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -webkit-transform: translateY(15px) translateX(15px) rotate(45deg);
+    -o-transform: translateY(15px) translateX(15px) rotate(45deg);
+    /*rotation-point:50% 50%;*/
+    /*rotation:270deg;*/
+}
+
+.sos_dataframe td, .sos_dataframe th {
+    white-space: nowrap;
+}
+
+.sos_hint {
+  color: rgba(0,0,0,.4);
+  font-family: monospace;
+}
+.session_info td th {
+   text-align: left;
+}
+.session_section {
+   text-align: left;
+   font-weight: bold;
+   font-size: 120%;
+}
+
 /* FIXME: Need to load some version of font awesome */
 
 /*!
@@ -4177,7 +4205,7 @@ div.output.output_scroll {
 }
 ::-webkit-scrollbar-thumb {
  background-color: #ffffff;
- background-image: -webkit-gradient(linear,40% 0%,75% 86%,from(#800000 ),color-stop(0.5,#ff8b42 ),to(#800000 ));
+ background-image: -webkit-gradient(linear,40% 0%,75% 86%,from(#ff6b0f ),color-stop(0.5,#ff8b42 ),to(#ff6b0f ));
  min-height: 60px;
  border-radius: 2px;
 }
@@ -5233,12 +5261,6 @@ span.save_widget span.filename:hover {
     text-align: center !important;
     margin: 0em !important;
 }
-/* Prevents MathJax from jittering */
-/* cell position when cell is selected */
-.MathJax:focus, body :focus .MathJax {
-    display: inline-block !important;
-}
-
 
 /* Overrides of notebook CSS for static HTML export */
 body {

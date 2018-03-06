@@ -4,151 +4,185 @@
 /*background color for links when you mouse over it 
 This style is used on export, but can be overwritted in the livenotebook 
 by selecting a color in the nbextension-configurator*/
-#toc-level0 li > a:hover {  display: block; background-color: beige} 
 
-#toc-level0  a {text-decoration: none;}
-#navigate_menu li a:hover {background-color: #f1f1f1}
+#toc-level0 li>a:hover {
+    display: block;
+    /* background-color: #DAA520 */
+    text-decoration: underline;
+}
+
+#toc-level0 li {
+    padding-top:  2px;
+    padding-bottom:  2px;
+}
+
+#toc-level0 a {
+    text-decoration: none;
+}
+
+#toc-level0 {
+    background-color: #ddd;
+}
+
+#navigate_menu li a:hover {
+    /* background-color: #f1f1f1 */
+    text-decoration: underline;
+}
 
 
-/* Move menus and toolbar to the left, following @Kevin-McIsaac suggestion */
-/* div#menubar-container, div#header-container { */
-/* width: auto; */
-/* padding-left: 20px; */
-/* } */
+/* Move menus and toolbar to the left, following @Kevin-McIsaac suggestion
+div#menubar-container, div#header-container {
+width: auto;
+padding-left: 20px;
+}*/
 
 #navigate_menu {
-  /*display: block;*/
-  list-style-type: none;
-  max-width: 800px; 
-  min-width: 100px; 
-  width: 250px; 
-  overflow: auto;
+    /*display: block;*/
+    list-style-type: none;
+    max-width: 800px;
+    min-width: 100px;
+    width: 250px;
+    overflow: auto;
 }
-
 
 #navigate_menu a {
-  list-style-type: none;
-  color: #333333; 
-  text-decoration: none;
+    list-style-type: none;
+    color: #333333;
+    text-decoration: none;
 }
 
-#navigate_menu li  {
-  padding-left: 2px;
-  clear: both;
-  list-style-type: none;
+#navigate_menu li {
+    padding-left: 2px;
+    clear: both;
+    list-style-type: none;
 }
 
-#navigate_menu-level0  {padding-left: 10px;}
-#navigate_menu-level0 ul  {padding-left: 10px;}
+#navigate_menu-level0 {
+    padding-left: 10px;
+}
 
+#navigate_menu-level0 ul {
+    padding-left: 10px;
+}
 
 .toc {
-  max-height: 500px;
-  padding: 0px;
-  overflow-y: auto;
-  font-weight: normal;
-  color: #333333;
-  white-space: nowrap;
-  overflow-x: auto;
-} 
+    max-height: 500px;
+    padding: 0px;
+    overflow-y: auto;
+    font-weight: normal;
+    color: #333333;
+    white-space: nowrap;
+    overflow-x: auto;
+}
 
-.toc  ol.toc-item {
+.toc ol.toc-item {
     counter-reset: item;
     list-style: none;
     padding: 0.1em;
-  }
+}
 
 .toc ol.toc-item li {
     display: block;
-  }
+}
 
 #toc ul.toc-item {
     list-style-type: none;
     padding: 0;
-    margin:  0;
+    margin: 0;
 }
 
 .toc ol.toc-item li:before {
     font-size: 90%;
-    /* font-family: Georgia, Times New Roman, Times, serif; */
+    font-family: Georgia, Times New Roman, Times, serif;
     counter-increment: item;
     content: counters(item, ".")" ";
-  }
-
+}
 
 .float-wrapper {
-  position: fixed !important;
-  top: 120px;
-  max-width:600px;
-  right: 20px;
-  border: thin solid rgba(0, 0, 0, 0.38);
-  border-radius: 5px;
-  /*padding:10px; */
-  padding-top: 5pt;
-  padding-left: 5pt;
-  background-color: #fff;
-  opacity: .8;
-  z-index: 100;
-  overflow: hidden;
+    position: fixed !important;
+    top: 120px;
+    max-width: 600px;
+    right: 20px;
+    border: thin solid rgba(0, 0, 0, 0.38);
+    border-radius: 5px;
+    /*padding:10px; */
+    padding-top: 5pt;
+    padding-left: 5pt;
+    background-color: #fff;
+    opacity: .8;
+    z-index: 100;
+    overflow: hidden;
 }
+
+div#toc-wrapper li {
+    padding-left: 10px;
+}
+
+div#toc-header {
+    padding-left: 10px;
+}
+
 
 .sidebar-wrapper {
     height: 100%;
     left: 5px;
     padding-top: 70px;
-    padding-left: 10px;
+    padding-left: 0px;
     position: fixed !important;
     width: 212px;
     max-width: 28%;
-    background-color: ivory;
+    background-color: #eee;
     font-size: 80%;
-    border-style: solid;
-    border-color: #eeeeee;
+    border-width: 0px;
     opacity: .99;
     overflow: hidden;
 }
 
-
 .col-md-9 {
-  overflow:hidden;
-  margin-left: 14%;
-  width: 80%}
+    overflow: hidden;
+    margin-left: 14%;
+    width: 80%
+}
 
 #toc-wrapper.closed {
-  min-width: 100px;
-  width: auto;
-  transition: width;
+    min-width: 100px;
+    width: auto;
+    transition: width;
 }
-#toc-wrapper:hover{
-  opacity: 1;
+
+#toc-wrapper:hover {
+    opacity: 1;
 }
+
 #toc-wrapper .header {
-  font-size: 18px;
-  font-weight: bold;
+    font-size: 18px;
+    font-weight: bold;
 }
+
 #toc-wrapper .hide-btn {
-  font-size: 14px;
-  font-family: monospace;
+    font-size: 14px;
+    font-family: monospace;
 }
 
 #toc-wrapper .reload-btn {
-  font-size: 14px;
-  font-family: monospace;
+    font-size: 14px;
+    font-family: monospace;
 }
 
 #toc-wrapper .number_sections-btn {
-  font-size: 14px;
-  font-family: monospace;
+    font-size: 14px;
+    font-family: monospace;
 }
 
 
 /* don't waste so much screen space... */
-#toc-wrapper .toc-item{
-  padding-left: 20px;
+
+#toc-wrapper .toc-item {
+    padding-left: 20px;
 }
 
-#toc-wrapper .toc-item .toc-item{
-  padding-left: 10px;
+#toc-wrapper .toc-item .toc-item {
+    padding-left: 10px;
 }
 
 .toc-item-num {
@@ -161,6 +195,11 @@ by selecting a color in the nbextension-configurator*/
     color: black;
 }
 
+html body div#toc-wrapper div.toc#toc ul li ul li ul li a code {
+    background-color: #ddd;
+    background: #ddd;
+}
+
 /*
 These colors are now specified in js, after reading the extension's config stored in system
 and updated using the nbextension-configurator
@@ -168,11 +207,58 @@ and updated using the nbextension-configurator
 .toc-item-highlight-execute  {background-color: red} 
 .toc-item-highlight-execute.toc-item-highlight-select   {background-color: Gold} */
 
-.lev1 {margin-left: 80px}
-.lev2 {margin-left: 100px}
-.lev3 {margin-left: 120px}
-.lev4 {margin-left: 140px}
-.lev5 {margin-left: 160px}
-.lev6 {margin-left: 180px}
-.lev7 {margin-left: 200px}
-.lev8 {margin-left: 220px}
+.lev1 {
+    margin-left: 80px
+}
+
+.lev2 {
+    margin-left: 100px
+}
+
+.lev3 {
+    margin-left: 120px
+}
+
+.lev4 {
+    margin-left: 140px
+}
+
+.lev5 {
+    margin-left: 160px
+}
+
+.lev6 {
+    margin-left: 180px
+}
+
+.lev7 {
+    margin-left: 200px
+}
+
+.lev8 {
+    margin-left: 220px
+}
+
+div#toc-header {
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .sidebar-wrapper {
+        display: none;
+    }
+    #notebook-container {
+        margin: 0px !important;
+        padding: 0px !important;
+        width: 100% !important;
+        font-size: 120% !important;
+    }
+    #notebook {
+        overflow: hidden;
+    }
+}
+
+div.toc li {
+    word-wrap:break-word;
+    white-space: normal;
+}
