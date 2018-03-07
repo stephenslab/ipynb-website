@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.3" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Divvy data exploration project</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<style type="text/css">
+  div.input_prompt {display: none;}
+  div.output_html {
+     font-family: "PT Mono", monospace;
+     font-size: 10.0pt;
+     color: #353535;
+     padding-bottom: 25px;
+ }
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'] ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+
+</head>
+
+<body>
+<style type = "text/css">
+@font-face {
+ font-family: 'Droid Sans';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Droid Sans'), url('fonts/droid-sans.ttf') format('truetype');
+}
+@font-face {
+ font-family: 'Fira Code';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Fira Code'), url('fonts/firacode.otf') format('opentype');
+}
+@font-face {
+ font-family: 'PT Mono';
+ font-weight: normal;
+ font-style: normal;
+ src: local('PT Mono'), url('fonts/ptmono.ttf') format('truetype');
+}
+
+body {
+  
+  font-size: 160%;
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+ }
+
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: hidden;
+}
+
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Divvy data exploration project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="./index.html">Overview</a>
+</li>
+        
+<li>
+  <a href="./setup.html">Setup</a>
+</li>
+        
+<li>
+  <a href="./license.html">License</a>
+</li>
+        
+<li>
+  <a href="./notes.html">Notes</a>
+</li>
+        
+<li>
+  <a href="./protected.html">Protected</a>
+</li>
+        
+      </ul>
+    
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/stephenslab/ipynb-website"> source </a>
+</li>
+</ul>
+        
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Setup-for-Divvy-data-analysis">Setup for Divvy data analysis<a class="anchor-link" href="#Setup-for-Divvy-data-analysis">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br>
+<strong>date:</strong> July 13, 2017</p>
+<p>To reproduce the results on your own computer, please follow these setup instructions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Setup-instructions">Setup instructions<a class="anchor-link" href="#Setup-instructions">&#182;</a></h2><ul>
+<li>Download or clone the <a href="https://github.com/stephenslab/ipynb-website">ipynb-website git repository</a> on your computer.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Download the Divvy data files and copy the files to the "data" directory. We have provided a script <code>code/retrieve_divvy_data.sh</code> that will automatically retrieve the data files and move them to the expected location. Alternatively, you can view this script and follow the steps by hand. After completing this step, these files should be in the data directory:</li>
+</ul>
+
+<pre><code>Divvy_Stations_2016_Q1Q2.csv
+Divvy_Stations_2016_Q3.csv
+Divvy_Stations_2016_Q4.csv
+Divvy_Trips_2016_04.csv
+Divvy_Trips_2016_05.csv
+Divvy_Trips_2016_06.csv
+Divvy_Trips_2016_Q1.csv
+Divvy_Trips_2016_Q3.csv
+Divvy_Trips_2016_Q4.csv</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Install <a href="http://cran.r-project.org">R</a>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Optionally, install <a href="http://jupyter.org">Jupyter</a>. The recommended way to do this is to download and install <a href="https://www.continuum.io/anaconda-overview">Anaconda</a>. This is only needed if you would like to run the code interactively within the Jupyter notebooks.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>If you are using Jupyter, download and install the <a href="https://irkernel.github.io">Jupyter R kernel</a>.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Install the R packages used for the analyses:</li>
+</ul>
+
+<pre><code>install.packages(c("repr","data.table","ggplot2"))</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once you have completed these steps, you are ready to run the R code. There are several ways this can be done.</p>
+<p>One simple way is to run the individual code chunks by copying and pasting into the R console. When
+running the code in this way, make sure your working directory is set to the "analysis" directory, e.g.,</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;../analysis&quot;</span><span class="p">)</span>
+<span class="kp">getwd</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+'/Users/pcarbo/git/ipynb-website/analysis'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Alternatively, you can open the notebooks in Jupyter and run the code interactively.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter that was used to generate the results from the notebooks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+'4.3.0'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the version of R and the packages that were used to generate the results from the Jupyter notebooks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>R version 3.3.2 (2016-10-31)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Running under: macOS Sierra 10.12.5
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] R6_2.2.0        magrittr_1.5    IRdisplay_0.4.4 pbdZMQ_0.2-5   
+ [5] tools_3.3.2     crayon_1.3.2    uuid_0.1-2      stringi_1.1.2  
+ [9] IRkernel_0.7    jsonlite_1.5    stringr_1.2.0   digest_0.6.12  
+[13] repr_0.12.0     evaluate_0.10.1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<hr>
+&copy; 2017 Peter Carbonetto &amp; Gao Wang
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+</div>
+
+<script>
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>

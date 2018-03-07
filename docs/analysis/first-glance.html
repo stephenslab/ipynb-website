@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.3" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css" href="../css/jt.css">
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlightjs-1.1/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = function(a, b) { 
+            return parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+        }
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim()); 
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]); 
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+
+
+<title>Divvy data exploration project</title>
+
+<style type = "text/css">
+body {
+  
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">Divvy data exploration project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="../index.html">Overview</a>
+</li>
+        
+<li>
+  <a href="../setup.html">Setup</a>
+</li>
+        
+<li>
+  <a href="../license.html">License</a>
+</li>
+        
+<li>
+  <a href="../notes.html">Notes</a>
+</li>
+        
+<li>
+  <a href="../protected.html">Protected</a>
+</li>
+        
+      </ul>
+        
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/stephenslab/ipynb-website"> source </a>
+</li>
+</ul>
+        
+      </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
+<p>Here, we will take a brief look at the data provided by Divvy.</p>
+<p>We begin by loading a few packages, as well as some additional R functions implemented for this project.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>data.table<span class="p">)</span>
+<span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reading-the-data">Reading the data<a class="anchor-link" href="#Reading-the-data">&#182;</a></h2><p>Function <code>read.divvy.data</code> reads in the trip and station data from the <a href="https://www.divvybikes.com/system-data">Divvy CSV files</a>. This function uses <code>fread</code> from the <code>data.table</code> package to quickly read in the data (it is much faster than <code>read.table</code>). This function also prepares the data, including the departure dates and times, so that they are easier to work with.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reading station data from ../data/Divvy_Stations_2016_Q4.csv.
+Reading trip data from ../data/Divvy_Trips_2016_Q1.csv.
+Reading trip data from ../data/Divvy_Trips_2016_04.csv.
+Reading trip data from ../data/Divvy_Trips_2016_05.csv.
+Reading trip data from ../data/Divvy_Trips_2016_06.csv.
+Reading trip data from ../data/Divvy_Trips_2016_Q3.csv.
+Reading trip data from ../data/Divvy_Trips_2016_Q4.csv.
+Preparing Divvy data for analysis in R.
+Converting dates and times.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h2><p>We have data on 581 Divvy stations across the city.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>                       name latitude longitude dpcapacity online_date
+        2112 W Peterson Ave    41.99    -87.68         15   5/12/2015
+              63rd St Beach    41.78    -87.58         23   4/20/2015
+          900 W Harrison St    41.87    -87.65         19    8/6/2013
+ Aberdeen St &amp; Jackson Blvd    41.88    -87.65         15   6/21/2013
+    Aberdeen St &amp; Monroe St    41.88    -87.66         19   6/26/2013
+   Ada St &amp; Washington Blvd    41.88    -87.66         15  10/10/2013
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+581
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We also have information about the &gt;3 million trips taken on Divvy bikes in 2016.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> trip_id           starttime bikeid tripduration from_station_id
+ 9080551 2016-03-31 23:53:00    155          841             344
+ 9080550 2016-03-31 23:46:00   4831          649             128
+ 9080549 2016-03-31 23:42:00   4232          210             350
+ 9080548 2016-03-31 23:37:00   3464         1045             303
+ 9080547 2016-03-31 23:33:00   1750          202             334
+ 9080546 2016-03-31 23:31:00   4302          638              67
+             from_station_name to_station_id               to_station_name
+ Ravenswood Ave &amp; Lawrence Ave           458      Broadway &amp; Thorndale Ave
+       Damen Ave &amp; Chicago Ave           213        Leavitt St &amp; North Ave
+     Ashland Ave &amp; Chicago Ave           210     Ashland Ave &amp; Division St
+       Broadway &amp; Cornelia Ave           458      Broadway &amp; Thorndale Ave
+   Lake Shore Dr &amp; Belmont Ave           329 Lake Shore Dr &amp; Diversey Pkwy
+ Sheffield Ave &amp; Fullerton Ave           304       Broadway &amp; Waveland Ave
+   usertype gender birthyear start.week start.day start.hour
+ Subscriber   Male      1986         13  Thursday         23
+ Subscriber   Male      1980         13  Thursday         23
+ Subscriber   Male      1979         13  Thursday         23
+ Subscriber   Male      1980         13  Thursday         23
+ Subscriber   Male      1969         13  Thursday         23
+ Subscriber   Male      1991         13  Thursday         23
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+3595383
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Out of all the Divvy stations in Chicago, the one on Navy Pier (near the corner of Streeter and Grand) had the most activity by far.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>departures <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name<span class="p">)</span>
+<span class="kp">as.matrix</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span><span class="kp">sort</span><span class="p">(</span>departures<span class="p">,</span>decreasing <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<table>
+<tbody>
+	<tr><th scope=row>Streeter Dr &amp; Grand Ave</th><td>90042</td></tr>
+	<tr><th scope=row>Lake Shore Dr &amp; Monroe St</th><td>51090</td></tr>
+	<tr><th scope=row>Theater on the Lake</th><td>47927</td></tr>
+	<tr><th scope=row>Clinton St &amp; Washington Blvd</th><td>47125</td></tr>
+	<tr><th scope=row>Lake Shore Dr &amp; North Blvd</th><td>45754</td></tr>
+	<tr><th scope=row>Clinton St &amp; Madison St</th><td>41744</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Divvy-bikes-at-the-University-of-Chicago">Divvy bikes at the University of Chicago<a class="anchor-link" href="#Divvy-bikes-at-the-University-of-Chicago">&#182;</a></h2><p>In subsequent analyses, we will also take a close look at the trip data for the main Divvy station on the University of Chicago campus. The Divvy bikes were rented almost 8,000 times in 2016 at this location.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">sum</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span>na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+7944
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+'4.3.0'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the version of R and the packages that were used to generate these results.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre>R version 3.3.2 (2016-10-31)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Running under: macOS Sierra 10.12.5
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] data.table_1.10.4
+
+loaded via a namespace (and not attached):
+ [1] R6_2.2.0        magrittr_1.5    IRdisplay_0.4.4 pbdZMQ_0.2-5   
+ [5] tools_3.3.2     crayon_1.3.2    uuid_0.1-2      stringi_1.1.2  
+ [9] IRkernel_0.7    jsonlite_1.5    stringr_1.2.0   digest_0.6.12  
+[13] repr_0.12.0     evaluate_0.10.1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<hr>
+&copy; 2017 Peter Carbonetto &amp; Gao Wang
+<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4/analysis/first-glance.ipynb"><code>analysis/first-glance.ipynb</code></a> committed by Peter Carbonetto on Tue Mar 6 21:16:30 2018 <a href="http://github.com/stephenslab/ipynb-website/commit/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4">revision 11, c2d196c</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+</div>
+</div>
+</body>
+</html>
