@@ -7,7 +7,7 @@ parameter: pip = 'pip'
 [default_1 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'rmd_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 depends: Py_Module('bs4'), Py_Module('date_parser')
 DEFAULT_CONF = {
-           '__version__': '0.9.3',
+           '__version__': '0.9.4',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
            'repo': 'http://github.com/vatlab/jnbinder',
@@ -44,7 +44,7 @@ except Exception as e:
      raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
 if len(glob.glob('.sos/*')) and os.path.isdir(".git"):
    update_gitignore()
-if compare_versions(SOS_VERSION, '0.9.12.7') < 0:
+if compare_versions(SOS_VERSION, '0.9.12.9') < 0:
   sos_run("upgrade-sos")
   status = 1
   stop_if(status, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
@@ -100,12 +100,10 @@ bash:
   rm -rf jnbinder-master*
 
 [upgrade-jnbinder]
-# only update jnbinder, not the CSS files
 depends: 'jnbinder-master/README.md'
 bash:
-  cp jnbinder-master/docs/jnbinder.py docs
-  cp jnbinder-master/docs/site_libs/jnbinder_password.html docs/site_libs
-  cp jnbinder-master/docs/js/* docs/js
+  rm -rf docs/{css,fonts,jnbinder.py,js,site_libs}
+  cp -r jnbinder-master/docs/{css,fonts,jnbinder.py,js,site_libs} docs
   if [ -f release.sos ]; then
      cp jnbinder-master/release ./release.sos
   else
