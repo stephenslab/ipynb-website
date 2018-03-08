@@ -178,6 +178,17 @@ below. (For an introduction to git, see
 + The website is built by [`jnbinder`](https://github.com/vatlab/jnbinder)
   which does not make any formal releases. This repo releases / ships with
   its latest stable version.
+  
+  To upgrade `jnbinder` to its latest, type:
+  ```
+  ./release.sos upgrade-jnbinder
+  ```
+  
+  If you are on version < 0.9.2 you need to run this command twice to upgrade:
+  ```
+   ./release.sos upgrade-jnbinder  
+   ./release.sos upgrade-jnbinder
+  ```
 
 ## Tips for adapting this framework for your project
 
