@@ -21,9 +21,18 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
-      href="site_libs/highlightjs-1.1/textmate.css"
+      href="site_libs/highlightjs/null.min.css"
       type="text/css" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<script src="site_libs/highlightjs/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
 <style type="text/css">
   div.input_prompt {display: none;}
   div.output_html {
@@ -36,13 +45,6 @@
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>
     MathJax.Hub.Config({

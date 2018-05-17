@@ -29,6 +29,7 @@ DEFAULT_CONF = {
            'long_autoindex': True,
            'reverse_autoindex': [],
            'remove_whiteline': False,
+           'auto_highlight': None,
            'password_file': None,
            'site_url': None
            }
@@ -38,16 +39,19 @@ try:
 except Exception as e:
   if 'jnbinder' in str(e):
      sos_run('setup-jnbinder')
-     status = 1
-     stop_if(status, msg = 'Installation complete. Please rerun this script.')
+     try:
+       from jnbinder import compare_versions, update_gitignore
+     except Exception as e:
+       status = 1
+       fail_if(status, msg = str(e))
   else:
      raise RuntimeError('{}. You can try `pip install` to install the missing module.'.format(e))
 if len(glob.glob('.sos/*')) and os.path.isdir(".git"):
    update_gitignore()
-if compare_versions(SOS_VERSION, '0.9.12.9') < 0:
+if compare_versions(SOS_VERSION, '0.9.14.0') < 0:
   sos_run("upgrade-sos")
   status = 1
-  stop_if(status, msg = 'Upgrade complete. Please rerun this script to load the upgrades.')
+  fail_if(status, msg = 'Cannot generate documents due to obsolete SoS software. Though we have attempted to upgrade SoS (see above) you need to rerun this script to load the updates.')
 #
 err_msg = '''
 No valid path found in ``include_dir``
@@ -64,10 +68,17 @@ for k in ['include_dir', 'hide_navbar', 'exclude_file', 'reverse_autoindex']:
 for item in conf['include_dir']:
     if os.path.basename(item) in ['css', 'fonts', 'js', 'site_libs', 'docs']:
        status = 1
-       stop_if(stats, msg = f'Folder name ``{item}`` conflicts with website library paths. Please use a different name.')
+       fail_if(stats, msg = f'Folder name ``{item}`` conflicts with website library paths. Please use a different name.')
 conf['remove_whiteline'] = 1 if conf['remove_whiteline'] else 0
 if conf['site_url'] is None:
    conf['site_url'] = f"http://{path(conf['repo']):db}.github.io/{path(conf['repo']):b}"
+if conf['auto_highlight'] is None:
+   conf['auto_highlight'] = ('pack', 'null')
+else:
+   if os.path.isfile(f'docs/site_libs/highlightjs/highlight.{conf["auto_highlight"]}.js'):
+      conf['auto_highlight'] = (conf['auto_highlight'], 'jnbinder')
+   else:
+      conf['auto_highlight'] = (pack, 'jnbinder')
 binders = [x for x in conf['include_dir'] if os.path.isdir(x)]
 # binders = [x for x in next(os.walk('./'))[1] if x not in conf['exclude_dir'] + ['docs'] and not x.startswith('.')]
 fail_if(len(binders) == 0, msg = err_msg)
@@ -82,7 +93,7 @@ if conf['password_file'] is not None and os.path.isfile(conf['password_file']):
    for key in password:
        if not os.path.isdir(key) and not os.path.isfile(key):
           status = 1
-          stop_if(status, msg = f"Cannot find ``{key}``. Please comment out or remove it from ``{conf['password_file']}``")
+          fail_if(status, msg = f"Cannot find ``{key}``. Please comment out or remove it from ``{conf['password_file']}``")
 else:
    password = None
 for item in rmd_files:
@@ -143,10 +154,10 @@ if not os.path.isfile(conf['homepage']):
     f.write(make_empty_nb(conf['name']))
 
 [update-hp (Index HTML updater)]
-depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter')
+depends: sos_step("update-tpl"), sos_step("update-index"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions')
 input: dynamic(index_files + [conf['homepage']]), group_by = 1, concurrent = True
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
-bash: expand = "${ }", stderr = None
+bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
@@ -157,13 +168,13 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
   get_sha1_files([(${_input:r}, ${_output:r})], [], ${password}, write = True)
 
 [update-nb (Notebook to HTML converter)]
-depends: sos_step("update-tpl"), executable('jupyter')
+depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions')
 stop_if(len(notebook_files) == 0)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info'], concurrent = True
 output: [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
-bash: expand = "${ }", stderr = None
+bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
   perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
@@ -178,7 +189,7 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
 stop_if(len(pipeline_files) == 0)
 input: pipeline_files, group_by = 1, concurrent = True
 output: [f"docs/{x.replace('.sos', '.pipeline.html')}" for x in pipeline_files], group_by = 1
-bash: expand = "${ }", stdout = None, stderr = None
+bash: expand = "${ }", stdout = False, stderr = False
   sos convert ${_input} ${_output} --style tango --lineno
 
 [update-toc (TOC Javascript updater)]
@@ -229,7 +240,7 @@ depends: Py_Module("ipyrmd")
 stop_if(len(rmd_files) == 0)
 input: rmd_files, group_by = 1, concurrent = True
 output: [x.replace('.Rmd', '.ipynb') for x in rmd_files], group_by = 1
-bash: expand = "${ }", stdout = None, stderr = None
+bash: expand = "${ }", stdout = False, stderr = False
   ipyrmd --to ipynb --from Rmd -y -o ${_output} ${_input}
 
 [default_3 (Build website)]
