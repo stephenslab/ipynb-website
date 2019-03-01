@@ -1,14 +1,15 @@
 #!/usr/bin/env sos-runner
 #fileformat=SOS1.0
 
+import sys, os, glob
 sys.path.append('docs')
 parameter: pip = 'pip'
 
 [default_1 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'rmd_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 depends: Py_Module('bs4'), Py_Module('date_parser')
 DEFAULT_CONF = {
-           '__version__': '0.9.5',
-           '__sos_version__': '0.9.17.1',
+           '__version__': '0.9.6',
+           '__sos_version__': '0.18.1',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
            'repo': 'http://github.com/vatlab/jnbinder',
@@ -137,12 +138,17 @@ bash: expand = True
   linkchecker {conf['site_url']}
 
 [update-tpl (Jupyter HTML template updater)]
+parameter: binders = list
+parameter: conf = dict
 input: None
 output: [f"docs/{x}.tpl" for x in binders] + ['docs/index.tpl']
 from jnbinder import make_template
 make_template(conf, binders, 'docs')
 
 [update-index (Index notebook generator)]
+parameter: binders = list
+parameter: notebook_files = list
+parameter: conf = dict
 stop_if(len(notebook_files) == 0)
 input: notebook_files
 output: [binder + '/_index.ipynb' for binder in binders]
@@ -156,8 +162,11 @@ if not os.path.isfile(conf['homepage']):
     f.write(make_empty_nb(conf['name']))
 
 [update-hp (Index HTML updater)]
+parameter: index_files = list
+parameter: conf = dict
+parameter: password = str
 depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions'), path(conf['homepage']).with_suffix('.ipynb')
-input: dynamic(index_files + [path(conf['homepage']).with_suffix('.ipynb')]), group_by = 1, concurrent = True
+input: dynamic(index_files + [path(conf['homepage']).with_suffix('.ipynb')]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
 bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
@@ -170,11 +179,15 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
   get_sha1_files([(${_input:r}, ${_output:r})], [], ${password}, write = True)
 
 [update-nb (Notebook to HTML converter)]
+parameter: notebook_files = list
+parameter: rmd_files = list
+parameter: conf = dict
+parameter: password = str
 stop_if(len(notebook_files) == 0)
 depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions'), paths(notebook_files)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x[:-5] + 'Rmd' if path(x).with_suffix(".Rmd").exists() else x, conf) for x in notebook_files]
-input: notebook_files, group_by = 1, paired_with = ['nb_info'], concurrent = True
+input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
 bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl ${"--execute" if str(_input.with_suffix(".Rmd")) in rmd_files else ""}
@@ -188,13 +201,18 @@ python: expand = "${ }", input = 'docs/jnbinder.py'
   get_sha1_files([], [(${_input:r}, ${_output:r})], ${password}, write = True)
 
 [update-wf (Pipeline to HTML converter)]
+parameter: pipeline_files = list
 stop_if(len(pipeline_files) == 0)
-input: pipeline_files, group_by = 1, concurrent = True
+input: pipeline_files, group_by = 1
 output: [f"docs/{x.replace('.sos', '.pipeline.html')}" for x in pipeline_files], group_by = 1
 bash: expand = "${ }", stdout = False, stderr = False
   sos convert ${_input} ${_output}
 
 [update-toc (TOC Javascript updater)]
+parameter: notebook_files = list
+parameter: index_files = list
+parameter: binders = list
+parameter: conf = dict
 input: dynamic(notebook_files + index_files)
 output: 'docs/js/docs.js'
 from jnbinder import get_toc
@@ -203,6 +221,8 @@ with open(_output, 'w') as f:
   f.write('\n'.join(['\n'.join(x) for x in out]))
 
 [update-search (Search Javescript updater)]
+parameter: generated_files = list
+parameter: conf = dict()
 input: generated_files
 output: 'docs/site_libs/tipuesearch/tipuesearch_content.js'
 from jnbinder import generate_tipue_content
@@ -211,6 +231,9 @@ with open('docs/search.html', 'w') as f:
   f.write(open('docs/site_libs/tipuesearch/search.html').read())
 
 [remove-obsolete (Obsolete files remover)]
+parameter: conf = dict()
+parameter: generated_files = list
+parameter: password = str
 output: 'docs/MANIFEST'
 from jnbinder import get_sha1_files
 if os.path.isfile(_output):
@@ -225,6 +248,7 @@ with open(_output, 'w') as f:
   f.write('\n'.join(sorted(generated_files + sha1_files)))
 
 [release-website (gh-pages uploader)]
+parameter: conf = dict()
 stop_if(conf['release_message'] is None)
 try:
   get_output(f'''cd docs && git add . && git commit --no-verify -m "{conf['release_message']}" && git push --no-verify''')
