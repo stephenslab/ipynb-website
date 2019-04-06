@@ -259,7 +259,11 @@ except:
 [clean]
 # remove generated files
 depends: 'docs/MANIFEST'
-get_output(f"rm -f {paths([x.strip() for x in open('docs/MANIFEST').readlines()])}")
+for item in [x.strip() for x in open('docs/MANIFEST').readlines()]:
+  try:
+    os.remove(item)
+  except OSError:
+    pass
 
 [ipyrmd (Rmarkdown to ipynb): provides = '{data}.ipynb']
 depends: Py_Module("ipyrmd", autoinstall=True), R_library('IRkernel'), R_library('IRdisplay')
@@ -285,6 +289,9 @@ sos_run('release-website', conf=conf)
 [default_4]
 # remove intermediate files
 stop_if(status)
-run: expand = True
-  rm -f {paths([binder + '/_index.ipynb' for binder in binders])}
-  rm -f {paths([x.replace('.Rmd', '.ipynb') for x in rmd_files])} {path(conf["homepage"]).with_suffix(".ipynb") if conf["homepage"].endswith(".Rmd") else ""}
+hp = [path(conf["homepage"]).with_suffix(".ipynb")] if conf["homepage"].endswith(".Rmd") else []
+for item in [binder + '/_index.ipynb' for binder in binders] + [x.replace('.Rmd', '.ipynb') for x in rmd_files] + hp:
+  try:
+    os.remove(item)
+  except OSError:
+    pass
