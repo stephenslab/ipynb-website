@@ -107,14 +107,14 @@ download: decompress = True, dest_file = 'jnbinder-master.zip'
 
 [setup-jnbinder]
 depends: 'jnbinder-master/README.md'
-bash:
+run:
   yes | cp -rf jnbinder-master/docs ./
   cp jnbinder-master/config.yml config.default.yml
   rm -rf jnbinder-master*
 
 [upgrade-jnbinder]
 depends: 'jnbinder-master/README.md'
-bash:
+run:
   mkdir -p docs
   rm -rf docs/{css,fonts,jnbinder.py,js,site_libs}
   cp -r jnbinder-master/docs/{css,fonts,jnbinder.py,js,site_libs} docs
@@ -134,7 +134,7 @@ except:
 
 [check-link (Broken link checker)]
 depends: executable('linkchecker'), sos_variable('conf')
-bash: expand = True
+run: expand = True
   linkchecker {conf['site_url']}
 
 [update-tpl (Jupyter HTML template updater)]
@@ -168,7 +168,7 @@ parameter: password = str
 depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
 input: dynamic(index_files + [path(conf['homepage']).with_suffix('.ipynb')]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
-bash: expand = "${ }", stderr = False
+run: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
@@ -189,7 +189,7 @@ from jnbinder import get_commit_info
 nb_info = [get_commit_info(x[:-5] + 'Rmd' if path(x).with_suffix(".Rmd").exists() else x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
-bash: expand = "${ }", stderr = False
+run: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl ${"--execute" if str(_input.with_suffix(".Rmd")) in rmd_files else ""}
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
   perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
@@ -205,7 +205,7 @@ parameter: pipeline_files = list
 stop_if(len(pipeline_files) == 0)
 input: pipeline_files, group_by = 1
 output: [f"docs/{x.replace('.sos', '.pipeline.html')}" for x in pipeline_files], group_by = 1
-bash: expand = "${ }", stdout = False, stderr = False
+run: expand = "${ }", stdout = False, stderr = False
   sos convert ${_input} ${_output}
 
 [update-toc (TOC Javascript updater)]
@@ -265,7 +265,7 @@ get_output(f"rm -f {paths([x.strip() for x in open('docs/MANIFEST').readlines()]
 depends: Py_Module("ipyrmd", autoinstall=True), R_library('IRkernel'), R_library('IRdisplay')
 input: f'{data}.Rmd'
 output: f'{data}.ipynb'
-bash: expand = "${ }", stdout = False, stderr = False
+run: expand = "${ }", stdout = False, stderr = False
   ipyrmd --to ipynb --from Rmd -y -o ${_output} ${_input}
 
 [default_2 (Build website)]
@@ -285,6 +285,6 @@ sos_run('release-website', conf=conf)
 [default_4]
 # remove intermediate files
 stop_if(status)
-bash: expand = True
+run: expand = True
   rm -f {paths([binder + '/_index.ipynb' for binder in binders])}
   rm -f {paths([x.replace('.Rmd', '.ipynb') for x in rmd_files])} {path(conf["homepage"]).with_suffix(".ipynb") if conf["homepage"].endswith(".Rmd") else ""}
