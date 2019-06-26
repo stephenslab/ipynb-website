@@ -8,7 +8,7 @@ parameter: pip = 'pip'
 [default_1 (Configure website): shared = ['conf', 'binders', 'notebook_files', 'rmd_files', 'index_files', 'pipeline_files', 'generated_files', 'password', 'status']]
 depends: Py_Module('bs4', autoinstall=True), Py_Module('date_parser', autoinstall=True)
 DEFAULT_CONF = {
-           '__version__': '0.9.6',
+           '__version__': '0.9.7',
            '__sos_version__': '0.19.12',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
