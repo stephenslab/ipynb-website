@@ -9,7 +9,7 @@ parameter: pip = 'pip'
 depends: Py_Module('bs4', autoinstall=True), Py_Module('date_parser', autoinstall=True)
 DEFAULT_CONF = {
            '__version__': '0.9.6',
-           '__sos_version__': '0.19.3',
+           '__sos_version__': '0.19.12',
            '__about_commit__': 'https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids',
            'name': 'A Pet Project',
            'repo': 'http://github.com/vatlab/jnbinder',
@@ -241,7 +241,11 @@ if os.path.isfile(_output):
   all_f1 = [(x, y) for x, y in zip(index_files + [conf['homepage']], [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'])]
   all_f2 = [(x, y) for x, y in zip(notebook_files,  [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files])]
   sha1_files = [f"docs/{item.rsplit('_', 1)[-1][:-5]}/{path(item.rsplit('_', 1)[0]):b}.html" if item.rsplit('_', 1)[-1][:-5] != 'docs' else f"docs/{path(item.rsplit('_', 1)[0]):b}.html" for item in get_sha1_files(all_f1, all_f2, password)]
-  get_output(f"rm -f {paths([x for x in old_files if not x in generated_files + sha1_files])}")
+  for item in [x for x in old_files if not x in generated_files + sha1_files]:
+    try:
+      os.remove(item)
+    except OSError:
+      pass
 else:
   sha1_files = []
 with open(_output, 'w') as f:
