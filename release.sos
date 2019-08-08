@@ -61,7 +61,7 @@ Please properly set ``"include_dir"`` in ``config.yml``
 '''
 import yaml
 with open('config.yml', 'r') as f:
-    conf = yaml.load(f)
+    conf = yaml.safe_load(f)
 fail_if(conf is None, msg = err_msg)
 conf.update({k:v for k,v in DEFAULT_CONF.items() if k not in conf})
 conf['jt_theme'] = conf['theme'] if os.path.isfile(f"docs/css/{conf['theme']}.css") else None
@@ -91,7 +91,7 @@ pipeline_files = sum([[y for y in glob.glob(f"{x}/*.sos") if y not in conf['excl
 generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'] + [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + [f"docs/{x}.tpl" for x in binders]
 if conf['password_file'] is not None and os.path.isfile(conf['password_file']):
    with open(conf['password_file']) as f:
-        password = {os.path.normpath(k): v for k, v in yaml.load(f).items()}
+        password = {os.path.normpath(k): v for k, v in yaml.safe_load(f).items()}
    for key in password:
        if not os.path.isdir(key) and not os.path.isfile(key):
           status = 1
