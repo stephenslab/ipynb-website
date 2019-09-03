@@ -114,7 +114,7 @@ run:
 
 [upgrade-jnbinder]
 depends: 'jnbinder-master/README.md'
-run:
+bash:
   mkdir -p docs
   rm -rf docs/{css,fonts,jnbinder.py,js,site_libs}
   cp -r jnbinder-master/docs/{css,fonts,jnbinder.py,js,site_libs} docs
@@ -165,10 +165,10 @@ if not os.path.isfile(conf['homepage']):
 parameter: index_files = list
 parameter: conf = dict
 parameter: password = str
-depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
+depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
 input: dynamic(index_files + [path(conf['homepage']).with_suffix('.ipynb')]), group_by = 1
 output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
-run: expand = "${ }", stderr = False
+bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
   if [[ ${conf['remove_whiteline']} -gt 0 ]]; then
@@ -184,12 +184,12 @@ parameter: rmd_files = list
 parameter: conf = dict
 parameter: password = str
 stop_if(len(notebook_files) == 0)
-depends: sos_step("update-tpl"), executable('jupyter'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), paths(notebook_files)
+depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), paths(notebook_files)
 from jnbinder import get_commit_info
 nb_info = [get_commit_info(x[:-5] + 'Rmd' if path(x).with_suffix(".Rmd").exists() else x, conf) for x in notebook_files]
 input: notebook_files, group_by = 1, paired_with = ['nb_info']
 output: [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files], group_by = 1
-run: expand = "${ }", stderr = False
+bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/${_input:d}.tpl ${"--execute" if str(_input.with_suffix(".Rmd")) in rmd_files else ""}
   num=`grep -n -Fx '''${conf['footer']}''' ${_output:e} | tail -1 | sed 's/\([0-9]*\).*/\1/'`
   perl -i -lpe 'print "${_nb_info[0]}" if $. == '"$num"'+1' ${_output:e}
