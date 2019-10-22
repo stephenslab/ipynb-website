@@ -25,6 +25,7 @@ DEFAULT_CONF = {
            'source_label': '<span class="fa fa-github"></span>',
            'theme': 'cosmo',
            'homepage': 'Overview.ipynb',
+           'skip_homepage': False,
            'font': "Droid Sans",
            'notebook_toc': True,
            'add_commit_info': True,
@@ -88,7 +89,7 @@ rmd_files = sum([[y for y in glob.glob(f"{x}/*.Rmd") if y not in conf['exclude_f
 notebook_files = sum([[y for y in glob.glob(f"{x}/*.ipynb") if y not in [f"{x}/index.ipynb", f"{x}/_index.ipynb", conf['homepage']] + conf['exclude_file']] for x in binders], []) + [x.replace('.Rmd', '.ipynb') for x in rmd_files]
 index_files = [f'{x}/index.ipynb' if os.path.isfile(f'{x}/index.ipynb') else f'{x}/_index.ipynb' for x in binders if x not in conf['hide_navbar']]
 pipeline_files = sum([[y for y in glob.glob(f"{x}/*.sos") if y not in conf['exclude_file']] for x in binders], [])
-generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'] + [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + [f"docs/{x}.tpl" for x in binders]
+generated_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else []) + [f"docs/{path(x):d}/index.html" if f'{path(x):db}' == f'{path(x):bn}' else f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files] + ['docs/' + x.replace('.sos', '.pipeline.html') for x in pipeline_files] + ['docs/js/docs.js', 'docs/index.tpl'] + [f"docs/{x}.tpl" for x in binders]
 if conf['password_file'] is not None and os.path.isfile(conf['password_file']):
    with open(conf['password_file']) as f:
         password = {os.path.normpath(k): v for k, v in yaml.safe_load(f).items()}
@@ -166,8 +167,10 @@ parameter: index_files = list
 parameter: conf = dict
 parameter: password = str
 depends: sos_step("update-tpl"), executable('jupyter'), executable('sed'), executable('perl'), Py_Module('jupyter_contrib_nbextensions', autoinstall=True), path(conf['homepage']).with_suffix('.ipynb')
-input: dynamic(index_files + [path(conf['homepage']).with_suffix('.ipynb')]), group_by = 1
-output: [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'], group_by = 1
+input_files = index_files + ([path(conf['homepage']).with_suffix('.ipynb')] if not conf['skip_homepage'] else [])
+output_files = [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else [])
+input: dynamic(input_files), group_by = 1
+output: output_files, group_by = 1
 bash: expand = "${ }", stderr = False
   jupyter nbconvert ${_input:e} --output ${_output:ae} --template docs/index.tpl
   # sed -i 's/<div class="prompt input_prompt">In&nbsp;\[[0-9]\]:<\/div>//g' ${_output:e}
@@ -238,10 +241,12 @@ output: 'docs/MANIFEST'
 from jnbinder import get_sha1_files
 if os.path.isfile(_output):
   old_files = [x.strip() for x in open(_output).readlines()]
-  all_f1 = [(x, y) for x, y in zip(index_files + [conf['homepage']], [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + ['docs/index.html'])]
+  all_f1 = [(x, y) for x, y in zip(index_files + [conf['homepage']], [f'docs/{x}.html' for x in binders if x not in conf['hide_navbar']] + (['docs/index.html'] if not conf['skip_homepage'] else []))]
   all_f2 = [(x, y) for x, y in zip(notebook_files,  [f"docs/{x.replace('.ipynb', '.html')}" for x in notebook_files])]
   sha1_files = [f"docs/{item.rsplit('_', 1)[-1][:-5]}/{path(item.rsplit('_', 1)[0]):b}.html" if item.rsplit('_', 1)[-1][:-5] != 'docs' else f"docs/{path(item.rsplit('_', 1)[0]):b}.html" for item in get_sha1_files(all_f1, all_f2, password)]
   for item in [x for x in old_files if not x in generated_files + sha1_files]:
+    if item == 'docs/index.html':
+      continue
     try:
       os.remove(item)
     except OSError:
