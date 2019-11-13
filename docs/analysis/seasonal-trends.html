@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -207,8 +206,7 @@ body {
   </div><!--/.container -->
 </div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Divvy-usage-over-the-year">Divvy usage over the year<a class="anchor-link" href="#Divvy-usage-over-the-year">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>In this last analysis, we use the Divvy trip data to examine biking trends in Chicago over the course of one year.</p>
@@ -228,14 +226,13 @@ body {
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>First, we read in the Divvy trip and station data from the CSV files.</p>
 
@@ -250,7 +247,7 @@ body {
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -260,7 +257,7 @@ body {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -282,8 +279,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To analyze city-wide departures for each day of the year, we create a "day of year" column.</p>
 
@@ -301,14 +297,13 @@ Converting dates and times.
                              <span class="m">1</span><span class="o">:</span><span class="m">366</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We also convert the "start week" column to a factor to make it easier to compile trip statistics for each week in the year.</p>
 
@@ -323,14 +318,13 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span>divvy<span class="o">$</span>trips <span class="o">&lt;-</span> <span class="kp">transform</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>start.week <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>start.week<span class="p">,</span><span class="m">0</span><span class="o">:</span><span class="m">52</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Plot-departures-per-day-and-per-week">Plot departures per day and per week<a class="anchor-link" href="#Plot-departures-per-day-and-per-week">&#182;</a></h2><p>Here, we create a new vector containing the number of trips taken in each day of the year, then we plot these numbers.</p>
 
@@ -354,7 +348,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -364,7 +358,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -374,7 +368,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -1366,8 +1360,7 @@ g4AyWOXnWetIFQFFQBFQBBQBRSBHCPw/F1Kp5mk9nnwAAAAASUVORK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This plot shows a sizeable increase in bike trips during summer days, but since the number of trips varies widely from one day to the next, the plot is expected to look nicer if instead the number of trips are counted <em>per week</em>.</p>
 
@@ -1390,7 +1383,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1400,7 +1393,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -1410,7 +1403,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2019,8 +2012,7 @@ RK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Indeed, the seasonal trends are less noisy in this plot; the majority of Divvy bike trips in Chicago are taken when the weather is warmer (weeks 20--40), and very few people are using the Divvy bikes in the cold winter months.</p>
 
@@ -2028,8 +2020,7 @@ RK5CYII="
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Seasonal-trends-at-the-University-of-Chicago">Seasonal trends at the University of Chicago<a class="anchor-link" href="#Seasonal-trends-at-the-University-of-Chicago">&#182;</a></h2><p>When we analyze trips taken at the University of Chicago bike station,
 the "bump" during warmer months flattens out. This is probably because
@@ -2056,7 +2047,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 	panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2066,7 +2057,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2076,7 +2067,7 @@ ggplot<span class="p">(</span><span class="kt">data.frame</span><span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2703,8 +2694,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
 
@@ -2719,7 +2709,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2729,7 +2719,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2744,8 +2734,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
 
@@ -2760,7 +2749,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2770,7 +2759,7 @@ B9i7QXdxx0kAAAAASUVORK5CYII="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 

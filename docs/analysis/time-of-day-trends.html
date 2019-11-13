@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -207,8 +206,7 @@ body {
   </div><!--/.container -->
 </div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Divvy-usage-by-time-of-day">Divvy usage by time-of-day<a class="anchor-link" href="#Divvy-usage-by-time-of-day">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>Here we use the Divvy trip data to examine biking trends over the course of a typical day in Chicago.</p>
@@ -228,14 +226,13 @@ body {
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>Following <a href="first-glance.html">our earlier steps</a>, we use function <code>read.divvy.data</code> to read the trip and station data from the CSV files.</p>
 
@@ -250,7 +247,7 @@ body {
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -260,7 +257,7 @@ body {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -282,8 +279,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To make it easier to compile statistics by time of day, we convert the "start hour" column to a factor.</p>
 
@@ -298,14 +294,13 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span>divvy<span class="o">$</span>trips <span class="o">&lt;-</span> <span class="kp">transform</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>start.hour <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>start.hour<span class="p">,</span><span class="m">0</span><span class="o">:</span><span class="m">23</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Count-departures-by-time-of-day">Count departures by time-of-day<a class="anchor-link" href="#Count-departures-by-time-of-day">&#182;</a></h2><p>Now that <code>start.hour</code> is a factor, it is easy to create a bar chart showing the total number of departures at each hour. Unsurprisingly, we see very little biking activity at night. Further, the two peaks ("modes") in the bar chart nicely recapitulate the morning and afternoon rush hours.</p>
 
@@ -325,7 +320,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -335,7 +330,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -345,7 +340,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -653,11 +648,10 @@ CGQl8L8aYSevfs50rwAAAABJRU5ErkJggg=="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>However, this bar chart is a bit muddled because it is counting trips during the week and on the weekends. Consider that the bin count $x[h]$ for hour $h$ in the histogram above is a sum of the counts for each day of the week:</p>
-<p>$$
+$$
 \begin{align}
 x[h]
 &amp; = \sum_{i\;\in\;\mathsf{DaysOfTheWeek}} x_i[h] \\
@@ -665,8 +659,7 @@ x[h]
 x_{\mathsf{Thu}}[h] + x_{\mathsf{Fri}}[h] + x_{\mathsf{Sat}}[h] +
 x_{\mathsf{Sun}}[h]
 \end{align}
-$$</p>
-<p><em>Note:</em> The math above is embedded in the webpage using <a href="https://github.com/mathjax/MathJax">MathJax</a>. See <a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">here</a> for an excellent reference on MathJax.</p>
+$$<p><em>Note:</em> The math above is embedded in the webpage using <a href="https://github.com/mathjax/MathJax">MathJax</a>. See <a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference">here</a> for an excellent reference on MathJax.</p>
 <p>Once we plot the counts separately for each the day of the week, the
 rush-hour trends become more obvious. (Also notice that the rush-hour
 weeks disappear on Saturday and Sunday.)</p>
@@ -689,7 +682,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -699,7 +692,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -709,7 +702,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -1424,8 +1417,7 @@ QAAC+UHg/wADgp95RgtA/AAAAABJRU5ErkJggg=="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Time-of-day-trends-at-University-of-Chicago">Time-of-day trends at University of Chicago<a class="anchor-link" href="#Time-of-day-trends-at-University-of-Chicago">&#182;</a></h2><p>The commuting trends are different at the University of Chicago Divvy station---there isn't much of a morning rush hour. This may be because students and staff don't regularly use the Divvy bikes for commuting.</p>
 
@@ -1448,7 +1440,7 @@ ggplot<span class="p">(</span><span class="kp">subset</span><span class="p">(</s
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1458,7 +1450,7 @@ ggplot<span class="p">(</span><span class="kp">subset</span><span class="p">(</s
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -1468,7 +1460,7 @@ ggplot<span class="p">(</span><span class="kp">subset</span><span class="p">(</s
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2194,8 +2186,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
 
@@ -2210,7 +2201,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2220,7 +2211,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2235,8 +2226,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
 
@@ -2251,7 +2241,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2261,7 +2251,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 

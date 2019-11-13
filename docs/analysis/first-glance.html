@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -207,8 +206,7 @@ body {
   </div><!--/.container -->
 </div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>Here, we will take a brief look at the data provided by Divvy.</p>
@@ -226,14 +224,13 @@ body {
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Reading-the-data">Reading the data<a class="anchor-link" href="#Reading-the-data">&#182;</a></h2><p>Function <code>read.divvy.data</code> reads in the trip and station data from the <a href="https://www.divvybikes.com/system-data">Divvy CSV files</a>. This function uses <code>fread</code> from the <code>data.table</code> package to quickly read in the data (it is much faster than <code>read.table</code>). This function also prepares the data, including the departure dates and times, so that they are easier to work with.</p>
 
@@ -248,7 +245,7 @@ body {
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -258,7 +255,7 @@ body {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -280,8 +277,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="A-first-glance-at-the-Divvy-data">A first glance at the Divvy data<a class="anchor-link" href="#A-first-glance-at-the-Divvy-data">&#182;</a></h2><p>We have data on 581 Divvy stations across the city.</p>
 
@@ -296,7 +292,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -306,7 +302,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -333,7 +329,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -343,7 +339,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -358,8 +354,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We also have information about the &gt;3 million trips taken on Divvy bikes in 2016.</p>
 
@@ -374,7 +369,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -384,7 +379,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -425,7 +420,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -435,7 +430,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -450,8 +445,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Out of all the Divvy stations in Chicago, the one on Navy Pier (near the corner of Streeter and Grand) had the most activity by far.</p>
 
@@ -467,7 +461,7 @@ Converting dates and times.
 <span class="kp">as.matrix</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span><span class="kp">sort</span><span class="p">(</span>departures<span class="p">,</span>decreasing <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -477,7 +471,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -502,8 +496,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Divvy-bikes-at-the-University-of-Chicago">Divvy bikes at the University of Chicago<a class="anchor-link" href="#Divvy-bikes-at-the-University-of-Chicago">&#182;</a></h2><p>In subsequent analyses, we will also take a close look at the trip data for the main Divvy station on the University of Chicago campus. The Divvy bikes were rented almost 8,000 times in 2016 at this location.</p>
 
@@ -518,7 +511,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">sum</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span>na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -528,7 +521,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -543,8 +536,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
 
@@ -559,7 +551,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -569,7 +561,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -584,8 +576,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
 
@@ -600,7 +591,7 @@ Converting dates and times.
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -610,7 +601,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 

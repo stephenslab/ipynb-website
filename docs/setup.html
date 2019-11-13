@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -210,8 +208,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Setup-for-Divvy-data-analysis">Setup for Divvy data analysis<a class="anchor-link" href="#Setup-for-Divvy-data-analysis">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang<br>
 <strong>date:</strong> July 13, 2017</p>
@@ -221,8 +218,7 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Setup-instructions">Setup instructions<a class="anchor-link" href="#Setup-instructions">&#182;</a></h2><ul>
 <li>Download or clone the <a href="https://github.com/stephenslab/ipynb-website">ipynb-website git repository</a> on your computer.</li>
@@ -232,8 +228,7 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Download the Divvy data files and copy the files to the "data" directory. We have provided a script <code>code/retrieve_divvy_data.sh</code> that will automatically retrieve the data files and move them to the expected location. Alternatively, you can view this script and follow the steps by hand. After completing this step, these files should be in the data directory:</li>
@@ -253,8 +248,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Install <a href="http://cran.r-project.org">R</a>.</li>
@@ -264,8 +258,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Optionally, install <a href="http://jupyter.org">Jupyter</a>. The recommended way to do this is to download and install <a href="https://www.continuum.io/anaconda-overview">Anaconda</a>. This is only needed if you would like to run the code interactively within the Jupyter notebooks.</li>
@@ -275,8 +268,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>If you are using Jupyter, download and install the <a href="https://irkernel.github.io">Jupyter R kernel</a>.</li>
@@ -286,8 +278,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Install the R packages used for the analyses:</li>
@@ -299,8 +290,7 @@ Divvy_Trips_2016_Q4.csv</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Once you have completed these steps, you are ready to run the R code. There are several ways this can be done.</p>
 <p>One simple way is to run the individual code chunks by copying and pasting into the R console. When
@@ -318,7 +308,7 @@ running the code in this way, make sure your working directory is set to the "an
 <span class="kp">getwd</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -328,7 +318,7 @@ running the code in this way, make sure your working directory is set to the "an
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -343,8 +333,7 @@ running the code in this way, make sure your working directory is set to the "an
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Alternatively, you can open the notebooks in Jupyter and run the code interactively.</p>
 
@@ -352,8 +341,7 @@ running the code in this way, make sure your working directory is set to the "an
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter that was used to generate the results from the notebooks.</p>
 
@@ -368,7 +356,7 @@ running the code in this way, make sure your working directory is set to the "an
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -378,7 +366,7 @@ running the code in this way, make sure your working directory is set to the "an
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -393,8 +381,7 @@ running the code in this way, make sure your working directory is set to the "an
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate the results from the Jupyter notebooks.</p>
 
@@ -409,7 +396,7 @@ running the code in this way, make sure your working directory is set to the "an
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -419,7 +406,7 @@ running the code in this way, make sure your working directory is set to the "an
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 

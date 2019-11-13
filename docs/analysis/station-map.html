@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -207,8 +206,7 @@ body {
   </div><!--/.container -->
 </div><!--/.navbar -->
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="A-map-of-the-Divvy-stations-in-Chicago">A map of the Divvy stations in Chicago<a class="anchor-link" href="#A-map-of-the-Divvy-stations-in-Chicago">&#182;</a></h1><p><strong>authors:</strong> Peter Carbonetto, Gao Wang</p>
 <p>In this analysis, we use the Divvy trip and station data to generate a map of Chicago.</p>
@@ -228,14 +226,13 @@ body {
 <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Read-the-data">Read the data<a class="anchor-link" href="#Read-the-data">&#182;</a></h2><p>As <a href="first-glance.html">before</a>, we use function <code>read.divvy.data</code> to read the trip and station data from the CSV files.</p>
 
@@ -250,7 +247,7 @@ body {
 <div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -260,7 +257,7 @@ body {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -282,8 +279,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Get-total-number-of-departures-by-station">Get total number of departures by station<a class="anchor-link" href="#Get-total-number-of-departures-by-station">&#182;</a></h2><p>We use the trip data to get the total number of departures by station. From these data, we create a "departures" column in the table.</p>
 
@@ -301,7 +297,7 @@ Converting dates and times.
 <span class="kp">summary</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="o">$</span>departures<span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -311,7 +307,7 @@ Converting dates and times.
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -328,8 +324,7 @@ Converting dates and times.
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Create-a-Divvy-stations-map">Create a Divvy stations map<a class="anchor-link" href="#Create-a-Divvy-stations-map">&#182;</a></h2><p>A plot of the Divvy stations by geographic location (latitude and longitude) traces the outlines of the City of Chicago and the Lake Michigan shore. Further, the location of the downtown is apparent by scaling the area of each circle by the number of trips.</p>
 <p>The University of Chicago Divvy station is highlighted in red.</p>
@@ -357,7 +352,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>stations<span class="
         panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -367,7 +362,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>stations<span class="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -377,7 +372,7 @@ ggplot<span class="p">(</span>divvy<span class="o">$</span>stations<span class="
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2054,8 +2049,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Session-information">Session information<a class="anchor-link" href="#Session-information">&#182;</a></h2><p>This is the version of Jupyter used to generate these results.</p>
 
@@ -2070,7 +2064,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 <div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2080,7 +2074,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2095,8 +2089,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the version of R and the packages that were used to generate these results.</p>
 
@@ -2111,7 +2104,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 <div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2121,7 +2114,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
