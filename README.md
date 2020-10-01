@@ -33,11 +33,11 @@ below. (For an introduction to git, see
 [here](https://swcarpentry.github.io/git-novice) or
 [here](https://doi.org/10.1371/journal.pcbi.1004668).)
 
-1. **Install Python >= 3.6 and Jupyter. The recommended way to do this
+1. Install Python >= 3.6 and Jupyter. The recommended way to do this
    is to download and install
-   [Anaconda 3](https://www.continuum.io/anaconda-overview). Note that
+   [Miniconda 3](https://docs.conda.io/en/latest/miniconda.html). Note that
    Python >= 3.6 comes with [pip](https://pip.pypa.io), so you should
-   not need to install it separately.**
+   not need to install it separately.
 
 2. **Please also note:** If you already have Jupyter installed for
    Python 2.x (e.g., Anaconda 2), or any other version of Python, then
@@ -51,11 +51,11 @@ below. (For an introduction to git, see
    # pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
    ```
 
-3. **Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
-   for Python 3.6:**
+3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
+   for Python 3.6:
 
    ```bash
-   pip install sos-essentials
+   pip install sos
    ```
 
    Note that you may need to
@@ -65,7 +65,7 @@ below. (For an introduction to git, see
    If you get a warning, "Could not find .egg-info directory in
    install record for sos...", please ignore it.
 
-4. **Install [git](https://git-scm.com/downloads). **
+4. Install [git](https://git-scm.com/downloads). 
 
 5. At this point, you should have all the software you need to build
    webpages from the Jupyter notebooks. Please double-check this. For
@@ -87,7 +87,7 @@ below. (For an introduction to git, see
    # git version 2.9.3 (Apple Git-75)
    ```
 
-6. **Make a personal copy of this repository:**
+6. Make a personal copy of this repository:
 
    + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9.3) of this repository from Github.
 
@@ -224,7 +224,7 @@ below. (For an introduction to git, see
 
 ## Credits
 
-**ipynb website** was developed by:
+`ipynb website` was developed by:
 
 Peter Carbonetto and Gao Wang<br>
 Dept. of Human Genetics<br>
