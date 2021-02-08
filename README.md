@@ -87,7 +87,10 @@ below. (For an introduction to git, see
    ```
 
    **Important note:** Building the webpages from the Jupyter
-   notebooks does not actually run the code in the notebooks. If you
+   notebooks does not actually run the code in the notebooks. In fact
+   when executed from our `docker` image the computation of your notebook
+   cannot be reproduced because the image does not have your computing environment
+   under which the notebooks are developed. If you
    would like to run the code prior to generating the webpages, this
    must be done interactively in Jupyter, or from the command line
    using `jupyter nbconvert --execute`.
