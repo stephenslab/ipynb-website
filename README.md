@@ -144,10 +144,7 @@ below. (For an introduction to git, see
   updates to all the webpages, not just the ones that have been modified.
 
 + The website is built by [`jnbinder`](https://github.com/vatlab/jnbinder),
-  distributed as docker image `gaow/jnbinder`. To automatically load the `jnbinder`
-  command prompt in your terminal, you can open `jnbinder_docker.sh` in a text editor,
-  copy its contents to your `~/.bashrc` file and save it. Command `jnbinder` will be available
-  the next time you open up a terminal prompt.
+  distributed as docker image `gaow/jnbinder`. 
  
 + `jnbinder` does not make any formal releases. This repo releases / ships with
   its latest stable version.
