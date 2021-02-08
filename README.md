@@ -33,61 +33,22 @@ below. (For an introduction to git, see
 [here](https://swcarpentry.github.io/git-novice) or
 [here](https://doi.org/10.1371/journal.pcbi.1004668).)
 
-1. Install Python >= 3.6 and Jupyter. The recommended way to do this
-   is to download and install
-   [Miniconda 3](https://docs.conda.io/en/latest/miniconda.html). Note that
-   Python >= 3.6 comes with [pip](https://pip.pypa.io), so you should
-   not need to install it separately.
-
-2. **Please also note:** If you already have Jupyter installed for
-   Python 2.x (e.g., Anaconda 2), or any other version of Python, then
-   in the next step you will need to be careful that you install SoS
-   for the same Python >= 3.6. In other words, you need Jupyter and
-   SoS to be installed with the same Python >= 3.6. Run `pip
-   --version` to make sure.)
-   
-   ```bash
-   pip --version
-   # pip 9.0.1 from /Users/pcarbo/anaconda3/lib/python3.6/site-packages (python 3.6)
-   ```
-
-3. Install [SoS](https://github.com/vatlab/SOS) ("Script of Scripts")
-   for Python 3.6:
+1. Install [`docker`](https://docs.docker.com/get-docker/). Double-check
+   after installation that `docker` is properly installed, by typing:
 
    ```bash
-   pip install sos
+   docker run hello-world
+   # Hello from Docker.
+   # This message shows that your installation appears to be working correctly.
    ```
 
-   Note that you may need to
-   include the `--user` flag if you do not have administrative
-   privileges on the computer.
-
-   If you get a warning, "Could not find .egg-info directory in
-   install record for sos...", please ignore it.
-
-4. Install [git](https://git-scm.com/downloads). 
-
-5. At this point, you should have all the software you need to build
-   webpages from the Jupyter notebooks. Please double-check this. For
-   example, this is the setup on my MacBook Air with macOS 10.12.5:
+2. Pull the docker image that contains dependency software to generate the website:
 
    ```bash
-   which python; python --version
-   # /Users/pcarbo/anaconda3/bin/python
-   # Python 3.6.1 :: Anaconda 4.4.0 (x86_64)
-   which jupyter; jupyter --version
-   # /Users/pcarbo/anaconda3/bin/jupyter
-   # 4.3.0
-   which sos; sos --version
-   # /Users/pcarbo/anaconda3/bin/sos
-   # sos 0.9.10.16 for Python 3.6.1
-   which git; git --version
-   $ which git; git --version
-   # /usr/bin/git
-   # git version 2.9.3 (Apple Git-75)
+   docker pull gaow/jnbinder
    ```
 
-6. Make a personal copy of this repository:
+3. Make a personal copy of this repository:
 
    + Download the [latest release](https://github.com/stephenslab/ipynb-website/releases/tag/v0.9.3) of this repository from Github.
 
@@ -105,21 +66,25 @@ below. (For an introduction to git, see
    + Alternatively, if you are not using git, create a new folder
      (`mkdir ...`) and add copy the files to this new folder.
 
-7. Inside your new project directory, clean up and then re-generate
+4. Load the docker command to generate web-pages:
+
+     ```bash
+     source jnbinder_docker.sh
+     ```
+   After this, command prompt `jnbinder` should be available from your terminal.
+   To verify, the following command should display the command interface:
+
+    ```bash
+    jnbinder -h
+    ```
+
+5. Inside your new project directory, clean up and then re-generate
    all the webpages using the SoS release script:
 
    ```bash
-   sos run release.sos clean
-   sos run release.sos -s force
+   jnbinder clean
+   jnbinder -s force
    ```
-
-   Or, simply:
-
-   ```bash
-   ./release.sos clean
-   ./release.sos -s force
-   ```
-   if `release.sos` is granted executable permission.
 
    **Important note:** Building the webpages from the Jupyter
    notebooks does not actually run the code in the notebooks. If you
@@ -133,10 +98,10 @@ below. (For an introduction to git, see
    [Github Pages](https://help.github.com/categories/github-pages-basics)
    can be configured to publish the webpages from the "docs" folder.
 
-8. View the newly generated home page `docs/index.html` in your
+6. View the newly generated home page `docs/index.html` in your
    favorite Web browser.
 
-9. If you would like to upload your new git repository to a git
+7. If you would like to upload your new git repository to a git
    hosting website, do the following:
 
    + Create a new empty repository on tour favorite git hosting
@@ -153,7 +118,7 @@ below. (For an introduction to git, see
    + Configure the repository settings to publish the webpages; e.g.,
      using [Github Pages](https://help.github.com/categories/github-pages-basics)).
 
-10. You are now ready to adapt the Jupyter-notebook-based website for
+8. You are now ready to adapt the Jupyter-notebook-based website for
    your own project:
 
    + Modify the website settings by editing `config.yml`. See the
@@ -175,21 +140,15 @@ below. (For an introduction to git, see
   the Boostrap theme in `config.yml`), use the `-s force` option to force
   updates to all the webpages, not just the ones that have been modified.
 
-+ The website is built by [`jnbinder`](https://github.com/vatlab/jnbinder)
-  which does not make any formal releases. This repo releases / ships with
++ The website is built by [`jnbinder`](https://github.com/vatlab/jnbinder),
+  distributed as docker image `gaow/jnbinder`. To automatically load the `jnbinder`
+  command prompt in your terminal, you can open `jnbinder_docker.sh` in a text editor,
+  copy its contents to your `~/.bashrc` file and save it. Command `jnbinder` will be available
+  the next time you open up a terminal prompt.
+ 
++ `jnbinder` does not make any formal releases. This repo releases / ships with
   its latest stable version.
   
-  To upgrade `jnbinder` to its latest, type:
-  ```
-  ./release.sos upgrade-jnbinder
-  ```
-  
-  If you are on version < 0.9.2 you need to run this command twice to upgrade:
-  ```
-   ./release.sos upgrade-jnbinder  
-   ./release.sos upgrade-jnbinder
-  ```
-
 ## Tips for adapting this framework for your project
 
 + You can add option `-j` to the command if you want to control the 

@@ -220,10 +220,10 @@ body {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>repr<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>data.table<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">repr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -244,7 +244,7 @@ body {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">divvy</span> <span class="o">&lt;-</span> <span class="nf">read.divvy.data</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -291,7 +291,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>divvy<span class="o">$</span>trips <span class="o">&lt;-</span> <span class="kp">transform</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>start.hour <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>start.hour<span class="p">,</span><span class="m">0</span><span class="o">:</span><span class="m">23</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span> <span class="o">&lt;-</span> <span class="nf">transform</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">,</span><span class="n">start.hour</span> <span class="o">=</span> <span class="nf">factor</span><span class="p">(</span><span class="n">start.hour</span><span class="p">,</span><span class="m">0</span><span class="o">:</span><span class="m">23</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -312,12 +312,12 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">4.75</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">2.25</span><span class="p">)</span>
-ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>aes<span class="p">(</span>start.hour<span class="p">))</span> <span class="o">+</span>
-  geom_bar<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>width <span class="o">=</span> <span class="m">0.6</span><span class="p">)</span> <span class="o">+</span>
-  theme_minimal<span class="p">()</span> <span class="o">+</span>
-  theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
-        panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span> <span class="o">=</span> <span class="m">4.75</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">2.25</span><span class="p">)</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">start.hour</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_bar</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="m">0.6</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span><span class="n">panel.grid.major</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+        <span class="n">panel.grid.minor</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -672,14 +672,14 @@ weeks disappear on Saturday and Sunday.)</p>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">5</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
-ggplot<span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>aes<span class="p">(</span>start.hour<span class="p">))</span> <span class="o">+</span>
-  geom_bar<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>width <span class="o">=</span> <span class="m">0.75</span><span class="p">)</span> <span class="o">+</span>
-  facet_wrap<span class="p">(</span><span class="o">~</span>start.day<span class="p">,</span>ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
-  scale_x_discrete<span class="p">(</span>breaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="o">+</span>
-  theme_minimal<span class="p">()</span> <span class="o">+</span>
-  theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
-        panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">start.hour</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_bar</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="m">0.75</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">start.day</span><span class="p">,</span><span class="n">ncol</span> <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span><span class="n">panel.grid.major</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+        <span class="n">panel.grid.minor</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -1429,15 +1429,15 @@ QAAC+UHg/wADgp95RgtA/AAAAABJRU5ErkJggg=="
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">5</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
-ggplot<span class="p">(</span><span class="kp">subset</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">,</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">),</span>
-       aes<span class="p">(</span>start.hour<span class="p">))</span> <span class="o">+</span>
-  geom_bar<span class="p">(</span>fill <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span>width <span class="o">=</span> <span class="m">0.75</span><span class="p">)</span> <span class="o">+</span>
-  facet_wrap<span class="p">(</span><span class="o">~</span>start.day<span class="p">,</span>ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
-  scale_x_discrete<span class="p">(</span>breaks <span class="o">=</span> <span class="kp">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="o">+</span>
-  theme_minimal<span class="p">()</span> <span class="o">+</span>
-  theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
-        panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">,</span><span class="n">from_station_name</span> <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">),</span>
+       <span class="nf">aes</span><span class="p">(</span><span class="n">start.hour</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_bar</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="m">0.75</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">start.day</span><span class="p">,</span><span class="n">ncol</span> <span class="o">=</span> <span class="m">2</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">scale_x_discrete</span><span class="p">(</span><span class="n">breaks</span> <span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">2</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span><span class="n">panel.grid.major</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+        <span class="n">panel.grid.minor</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -2198,7 +2198,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span><span class="n">intern</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2238,7 +2238,7 @@ IAGnEKCA5ZSV4jhJgARIgARIgAQcQ+C//KjmoMHObcoAAAAASUVORK5CYII="
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sessionInfo</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2287,7 +2287,7 @@ loaded via a namespace (and not attached):
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang
-<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/a9926b198183de0ebd9537116a6dd2e0f0632242/analysis/time-of-day-trends.ipynb"><code>analysis/time-of-day-trends.ipynb</code></a> committed by Peter Carbonetto on Mon Jul 24 22:57:31 2017 <a href="http://github.com/stephenslab/ipynb-website/commit/a9926b198183de0ebd9537116a6dd2e0f0632242">revision 7, a9926b1</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/a9926b198183de0ebd9537116a6dd2e0f0632242/analysis/time-of-day-trends.ipynb"><code>analysis/time-of-day-trends.ipynb</code></a> committed by Peter Carbonetto on Tue Jul 25 03:57:31 2017 <a href="http://github.com/stephenslab/ipynb-website/commit/a9926b198183de0ebd9537116a6dd2e0f0632242">revision 7, a9926b1</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

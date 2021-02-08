@@ -74,6 +74,14 @@ def get_commit_link(repo, cid):
     else:
         return repo
 
+def get_base_link(x, outext = 'html'):
+    name, ext = os.path.splitext(x)
+    binder = x.split(os.path.sep)[0]
+    if binder == os.path.basename(name) and ext == '.ipynb':
+        return f'{binder}/index.html'
+    else:
+        return f'{binder}/{os.path.basename(name)}.{outext}'
+
 def get_notebook_link(repo, cid, fn):
     bits = os.path.split(repo)
     if "github.com" or "gitlab.com" in bits:
@@ -955,11 +963,11 @@ def update_gitignore():
     flag = True
     if os.path.isfile('.gitignore'):
       lines = [x.strip() for x in open('.gitignore').readlines()]
-      if '**/.sos' in lines:
+      if '**/.ipynb_checkpoints' in lines:
         flag = False
     if flag:
       with open('.gitignore', 'a') as f:
-        f.write('\n**/.sos\n**/.ipynb_checkpoints\n**/__pycache__')
+        f.write('\n**/.ipynb_checkpoints\n**/.sos\n**/__pycache__')
 
 def make_template(conf, dirs, outdir):
     with open('{}/index.tpl'.format(outdir), 'w') as f:
@@ -971,7 +979,7 @@ def make_template(conf, dirs, outdir):
 def get_notebook_toc(path, exclude):
     map1 = dict()
     map2 = dict()
-    for fn in sorted(glob.glob(os.path.join(path, "*.ipynb"))):
+    for fn in sorted(glob.glob(os.path.join(path, "**/*.ipynb"), recursive=True)):
         if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] or fn in exclude:
             continue
         name = os.path.basename(fn[:-6]).strip()
@@ -1031,7 +1039,8 @@ def get_toc(path, exclude):
     return [get_index_toc(path) + '\n' + get_notebook_toc(path, exclude)]
 
 def make_index_nb(path, exclude, long_description = False, reverse_alphabet = False):
-    sos_files = [x for x in sorted(glob.glob(os.path.join(path, "*.sos")), reverse = reverse_alphabet) if not x in exclude]
+    sos_files = [x for x in glob.glob(os.path.join(path, "**/*.sos"), recursive=True) if not x in exclude]
+    sos_files.sort(key=lambda x: os.path.basename(x),  reverse = reverse_alphabet)
     out = '''
 {
  "cells": [
@@ -1053,7 +1062,9 @@ def make_index_nb(path, exclude, long_description = False, reverse_alphabet = Fa
   },'''
     date_section = None
     add_date_section = False
-    for fn in sorted(glob.glob(os.path.join(path, "*.ipynb")), reverse = reverse_alphabet):
+    files = glob.glob(os.path.join(path, "**/*.ipynb"), recursive=True)
+    files.sort(key=lambda x: os.path.basename(x),  reverse = reverse_alphabet)
+    for fn in files:
         if os.path.basename(fn) in ['_index.ipynb', 'index.ipynb'] or fn in exclude:
             continue
         name = os.path.splitext(os.path.basename(fn))[0].replace('_', ' ')
@@ -1066,10 +1077,10 @@ def make_index_nb(path, exclude, long_description = False, reverse_alphabet = Fa
         try:
             source = [x.strip() for x in data["cells"][0]["source"] if x.strip()]
             if long_description and source[0].startswith('#') and len(source) >= 2 and not source[1].startswith('#'):
-                title = source[0].lstrip('#').strip()
+                title = source[0].lstrip('#').strip().replace('"','\\"')
                 description = source[1].lstrip('#').strip()
             else:
-                title = name.strip()
+                title = name.strip().replace('"','\\"')
                 description = source[0].lstrip('#').strip()
         except IndexError:
             continue
@@ -1083,7 +1094,9 @@ def make_index_nb(path, exclude, long_description = False, reverse_alphabet = Fa
     "### %s\\n"
    ]
   },''' % date_section
-        html_link = (os.path.splitext(os.path.basename(fn))[0] + '.html') if os.path.splitext(os.path.basename(fn))[0] != os.path.basename(os.path.dirname(fn)) else 'index.html'
+        #base_link = os.path.splitext(os.path.sep.join(fn.split(os.path.sep)[1:]))[0]
+        base_link = os.path.splitext(os.path.basename(fn))[0]
+        html_link = (base_link + '.html') if base_link != fn.split(os.path.sep)[0] else 'index.html'
         if title != description:
             out += '''
   {
@@ -1114,6 +1127,7 @@ def make_index_nb(path, exclude, long_description = False, reverse_alphabet = Fa
   },'''
     for fn in sos_files:
         name = os.path.splitext(os.path.basename(fn))[0].replace('_', ' ')
+        base_link = os.path.splitext(os.path.basename(fn))[0]
         out += '''
   {
    "cell_type": "markdown",
@@ -1121,7 +1135,7 @@ def make_index_nb(path, exclude, long_description = False, reverse_alphabet = Fa
    "source": [
     "[%s](%s/%s)"
    ]
-  },''' % (name, path, os.path.splitext(os.path.basename(fn))[0] + '.pipeline.html')
+  },''' % (name, path, base_link + '.pipeline.html')
     out = out.strip(',') + '''
  ],
  "metadata": {

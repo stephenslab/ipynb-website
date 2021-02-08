@@ -220,10 +220,10 @@ body {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>repr<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>data.table<span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">repr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -244,7 +244,7 @@ body {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">divvy</span> <span class="o">&lt;-</span> <span class="nf">read.divvy.data</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -291,10 +291,10 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>divvy<span class="o">$</span>stations <span class="o">&lt;-</span>
-  <span class="kp">cbind</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">,</span>
-    <span class="kt">data.frame</span><span class="p">(</span>departures <span class="o">=</span> <span class="kp">as.vector</span><span class="p">(</span><span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_id<span class="p">))))</span>
-<span class="kp">summary</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="o">$</span>departures<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span> <span class="o">&lt;-</span>
+  <span class="nf">cbind</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="p">,</span>
+    <span class="nf">data.frame</span><span class="p">(</span><span class="n">departures</span> <span class="o">=</span> <span class="nf">as.vector</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="o">$</span><span class="n">from_station_id</span><span class="p">))))</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="o">$</span><span class="n">departures</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -337,19 +337,19 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">options</span><span class="p">(</span>repr.plot.width <span class="o">=</span> <span class="m">4.5</span><span class="p">,</span> repr.plot.height <span class="o">=</span> <span class="m">4.5</span><span class="p">)</span>
-divvy<span class="o">$</span>stations <span class="o">&lt;-</span>
-  <span class="kp">transform</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">,</span>
-            at.uchicago <span class="o">=</span> <span class="p">(</span>name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">))</span>
-ggplot<span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">,</span>aes<span class="p">(</span>x    <span class="o">=</span> longitude<span class="p">,</span>
-                          y    <span class="o">=</span> latitude<span class="p">,</span>
-                          fill <span class="o">=</span> at.uchicago<span class="p">,</span>
-                          size <span class="o">=</span> <span class="kp">sqrt</span><span class="p">(</span>departures<span class="p">)))</span> <span class="o">+</span>
-  geom_point<span class="p">(</span>shape <span class="o">=</span> <span class="m">21</span><span class="p">,</span>color <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">)</span> <span class="o">+</span>
-  scale_fill_manual<span class="p">(</span>values <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;darkblue&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">))</span> <span class="o">+</span>
-  theme_minimal<span class="p">()</span> <span class="o">+</span>
-  theme<span class="p">(</span>panel.grid.major <span class="o">=</span> element_blank<span class="p">(),</span>
-        panel.grid.minor <span class="o">=</span> element_blank<span class="p">())</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span> <span class="o">=</span> <span class="m">4.5</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">4.5</span><span class="p">)</span>
+<span class="n">divvy</span><span class="o">$</span><span class="n">stations</span> <span class="o">&lt;-</span>
+  <span class="nf">transform</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="p">,</span>
+            <span class="n">at.uchicago</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">))</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="p">,</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span>    <span class="o">=</span> <span class="n">longitude</span><span class="p">,</span>
+                          <span class="n">y</span>    <span class="o">=</span> <span class="n">latitude</span><span class="p">,</span>
+                          <span class="n">fill</span> <span class="o">=</span> <span class="n">at.uchicago</span><span class="p">,</span>
+                          <span class="n">size</span> <span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">departures</span><span class="p">)))</span> <span class="o">+</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="m">21</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">scale_fill_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;darkblue&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span><span class="n">panel.grid.major</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+        <span class="n">panel.grid.minor</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -2061,7 +2061,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span><span class="n">intern</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2101,7 +2101,7 @@ nkUcIBEgAkSACBCB5CNAgSP5POQMiAARIAJEgAjkPQIUOPKeRRwgESACRIAIEIHkI0CBI/k8
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sessionInfo</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2150,7 +2150,7 @@ loaded via a namespace (and not attached):
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang
-<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4/analysis/station-map.ipynb"><code>analysis/station-map.ipynb</code></a> committed by Peter Carbonetto on Tue Mar 6 21:16:30 2018 <a href="http://github.com/stephenslab/ipynb-website/commit/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4">revision 8, c2d196c</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4/analysis/station-map.ipynb"><code>analysis/station-map.ipynb</code></a> committed by Peter Carbonetto on Wed Mar 7 03:16:30 2018 <a href="http://github.com/stephenslab/ipynb-website/commit/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4">revision 8, c2d196c</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>

@@ -220,8 +220,8 @@ body {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kn">library</span><span class="p">(</span>data.table<span class="p">)</span>
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span>
+<span class="nf">source</span><span class="p">(</span><span class="s">&quot;../code/functions.R&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -242,7 +242,7 @@ body {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>divvy <span class="o">&lt;-</span> read.divvy.data<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">divvy</span> <span class="o">&lt;-</span> <span class="nf">read.divvy.data</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -289,7 +289,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="p">),</span><span class="n">row.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -326,7 +326,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>stations<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">nrow</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">stations</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -366,7 +366,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">print</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">),</span>row.names <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">),</span><span class="n">row.names</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -417,7 +417,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">nrow</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">nrow</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -457,8 +457,8 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>departures <span class="o">&lt;-</span> <span class="kp">table</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name<span class="p">)</span>
-<span class="kp">as.matrix</span><span class="p">(</span><span class="kp">head</span><span class="p">(</span><span class="kp">sort</span><span class="p">(</span>departures<span class="p">,</span>decreasing <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">departures</span> <span class="o">&lt;-</span> <span class="nf">table</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="o">$</span><span class="n">from_station_name</span><span class="p">)</span>
+<span class="nf">as.matrix</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="nf">sort</span><span class="p">(</span><span class="n">departures</span><span class="p">,</span><span class="n">decreasing</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -508,7 +508,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">sum</span><span class="p">(</span>divvy<span class="o">$</span>trips<span class="o">$</span>from_station_name <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span>na.rm <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sum</span><span class="p">(</span><span class="n">divvy</span><span class="o">$</span><span class="n">trips</span><span class="o">$</span><span class="n">from_station_name</span> <span class="o">==</span> <span class="s">&quot;University Ave &amp; 57th St&quot;</span><span class="p">,</span><span class="n">na.rm</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -548,7 +548,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="kp">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span>intern <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">system</span><span class="p">(</span><span class="s">&quot;jupyter --version&quot;</span><span class="p">,</span><span class="n">intern</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -588,7 +588,7 @@ Converting dates and times.
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>sessionInfo<span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">sessionInfo</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -635,7 +635,7 @@ loaded via a namespace (and not attached):
 </div>
 <hr>
 &copy; 2017 Peter Carbonetto &amp; Gao Wang
-<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4/analysis/first-glance.ipynb"><code>analysis/first-glance.ipynb</code></a> committed by Peter Carbonetto on Tue Mar 6 21:16:30 2018 <a href="http://github.com/stephenslab/ipynb-website/commit/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4">revision 11, c2d196c</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
+<p><small>Exported from <a href="http://github.com/stephenslab/ipynb-website/blob/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4/analysis/first-glance.ipynb"><code>analysis/first-glance.ipynb</code></a> committed by Peter Carbonetto on Wed Mar 7 03:16:30 2018 <a href="http://github.com/stephenslab/ipynb-website/commit/c2d196cb683e9f5bb94c400f29a8ab00a31eb5e4">revision 11, c2d196c</a> <a href="https://stephenslab.github.io/ipynb-website/notes.html#Note-about-commit-ids"><span class="fa fa-question-circle"></span></a></small></p>
 </div>
 </div>
 </body>
